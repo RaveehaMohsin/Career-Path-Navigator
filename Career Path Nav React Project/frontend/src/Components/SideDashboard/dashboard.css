@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hidden by default */
+    width: 250px;
+    height: 100%;
+    background-color: #303972; /* Sidebar background color */
+    color: white;
+    transition: left 0.3s ease;
+    padding-top: 60px;
+    z-index: 1000; /* Ensure the sidebar is above the main content */
+}
+
+.sidebar.open {
+    left: 0; /* Show sidebar */
+}
+
+.hamburger {
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001; /* Ensure the hamburger icon is above the sidebar */
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav a {
+    padding: 15px 20px;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s;
+}
+
+.nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Hover effect */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block; /* Show hamburger on smaller screens */
+    }
+
+    .sidebar {
+        left: -100%; /* Fully hide sidebar on smaller screens */
+    }
+
+    .sidebar.open {
+        left: 0; /* Show sidebar */
+    }
+
+    .main-content {
+        margin-left: 0; /* Full width for main content when sidebar is hidden */
+    }
+}
+
+@media (min-width: 768px) {
+    .hamburger {
+        display: none; /* Hide hamburger on larger screens */
+    }
+
+    .sidebar {
+        left: 0; /* Always show sidebar */
+    }
+}

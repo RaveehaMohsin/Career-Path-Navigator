@@ -27,7 +27,7 @@ const Dashboard = () => {
                 </Link>
                 {openSubmenu === 'profile' && (
                     <div className="submenu">
-                        <Link to="/profile/studentadd" ><FaFileAlt /> Add Personal Details</Link>
+                        <Link to="/studentprofile/studentadd" ><FaFileAlt /> Add Personal Details</Link>
                         <Link to="/profile/interestsadd" ><FaFileArchive /> Add Interests</Link>
                         <Link ><FaEye /> View Profile</Link>
                     </div>

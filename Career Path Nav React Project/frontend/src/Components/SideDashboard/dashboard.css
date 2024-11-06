@@ -37,7 +37,7 @@ body {
     font-size: 24px;
     background: none;
     border: none;
-    color: white;
+    color: rgb(106, 2, 2);
     cursor: pointer;
     position: fixed;
     top: 70px; /* Start below navbar on smaller screens */
@@ -63,7 +63,7 @@ body {
 }
 
 /* Responsive styles */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
     .hamburger {
         display: block;
     }
@@ -77,7 +77,7 @@ body {
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1100px) {
     .hamburger {
         display: none;
     }

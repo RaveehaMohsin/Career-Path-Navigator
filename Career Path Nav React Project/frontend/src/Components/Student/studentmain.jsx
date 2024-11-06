@@ -15,7 +15,7 @@ export default function StudentMain() {
         <Dashboard />
         <div className="main-content">
           <Switch>
-            <Route exact path='/profile/studentadd' component={Studentadd} />
+            <Route exact path='/studentprofile/studentadd' component={Studentadd} />
             <Route exact path='/studentinterestadd' component={StudentInterestAdd} />
           </Switch>
         </div>

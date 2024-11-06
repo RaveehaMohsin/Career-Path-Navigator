@@ -5,7 +5,7 @@ import Dashboard from "../../SideDashboard/dashboard";
 export default function studentadd() {
   return (
     <div>
-      <Navbar1 />
+      {/* <Navbar1 /> */}
       <div style={{marginTop:"4%"}}>
       <Dashboard />
       <div className="main-content" style={{ padding: "20px" }}>

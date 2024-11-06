@@ -1,43 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import './dashboard.css'; // Ensure this file is created and styled as before
+import React, { useState } from 'react';
+import './dashboard.css';
+import { Link } from 'react-router-dom';
+import { FaUser, FaTachometerAlt, FaFileAlt, FaHandshake, FaComments, FaSignOutAlt, FaCalendarCheck, FaEye , FaFileArchive , FaGraduationCap , FaBook , FaBriefcase , FaCertificate, FaStar, FaUserShield, FaChalkboardTeacher, FaCalendarAlt, FaBell  } from 'react-icons/fa'; 
 
 const Dashboard = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [openSubmenu, setOpenSubmenu] = useState(null); 
 
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
     };
 
-    const handleResize = () => {
-        // Automatically close the sidebar if the screen width is less than 768px
-        if (window.innerWidth < 768) {
-            setIsOpen(false);
-        } else {
-            setIsOpen(true); // Optionally keep it open on larger screens
-        }
+    const handleSubmenuClick = (menu) => {
+        setOpenSubmenu(openSubmenu === menu ? null : menu); 
     };
-
-    useEffect(() => {
-        // Add event listener for window resize
-        window.addEventListener('resize', handleResize);
-
-        // Call the handler right away so the sidebar state is correct on mount
-        handleResize();
-
-        // Cleanup the event listener on component unmount
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
     return (
         <div className={`sidebar ${isOpen ? 'open' : ''}`}>
             <button className="hamburger" onClick={toggleSidebar}>
-                &#9776; {/* Hamburger icon */}
+                &#9776;
             </button>
             <nav className="nav">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#services">Services</a>
-                <a href="#contact">Contact</a>
+                <Link to='/dashboard'><FaTachometerAlt /> Dashboard</Link> 
+                <Link onClick={() => handleSubmenuClick('profile')}>
+                    <FaUser /> Profile
+                </Link>
+                {openSubmenu === 'profile' && (
+                    <div className="submenu">
+                        <Link to="/profile/studentadd" ><FaFileAlt /> Add Personal Details</Link>
+                        <Link to="/profile/interestsadd" ><FaFileArchive /> Add Interests</Link>
+                        <Link ><FaEye /> View Profile</Link>
+                    </div>
+                )}
+                <Link onClick={() => handleSubmenuClick('careerrecommendation')}>
+                    <FaHandshake /> Career Recommendations
+                </Link>
+                {openSubmenu === 'careerrecommendation' && (
+                    <div className="submenu">
+                        <Link><FaGraduationCap /> Degrees</Link>
+                        <Link><FaBriefcase /> Courses</Link>
+                        <Link><FaBook /> Job Listings & Internships</Link>
+                        <Link><FaCertificate /> Certificates</Link>
+                    </div>
+                )}
+                <Link><FaFileAlt /> Resume Builder</Link>
+                <Link><FaComments /> Chatbot</Link>
+                <Link onClick={() => handleSubmenuClick('review')}>
+                    <FaStar /> Reviews
+                </Link>
+                {openSubmenu === 'review' && (
+                    <div className="submenu">
+                        <Link><FaUserShield /> To System</Link>
+                        <Link><FaChalkboardTeacher />To Counsellors</Link>
+                    </div>
+                )}
+                <Link onClick={() => handleSubmenuClick('meeting')}>
+                    <FaCalendarCheck /> Meet with Counsellor
+                </Link>
+                {openSubmenu === 'meeting' && (
+                    <div className="submenu">
+                        <Link><FaCalendarAlt /> Appointment</Link>
+                        <Link><FaBell /> Notifications</Link>
+                    </div>
+                )}
+                <Link><FaSignOutAlt /> Logout</Link>
             </nav>
         </div>
     );

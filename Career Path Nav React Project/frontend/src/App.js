@@ -1,17 +1,14 @@
 import './App.css';
 import { Switch , Route } from 'react-router-dom';
-
-import studentadd from './Components/Student Profile/Student Add/studentadd';
-
+import studentmain from './Components/Student/studentmain';
 
 function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path='/studentadd' component={studentadd} />
+        <Route exact path='/profile/studentadd' component={studentmain} />
+        <Route exact path='/studentinterestadd' component={studentmain} />
       </Switch>
-
-
     </div>
   );
 }

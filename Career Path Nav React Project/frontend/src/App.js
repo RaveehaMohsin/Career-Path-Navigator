@@ -11,8 +11,17 @@ function App() {
     <div className="App">
       <KeyboardScroll /> 
       <Switch>
+        {/* Auth Route */}
+       <Route exact path="/auth" component={auth} />
+
+         {/* Student Role Route */}
         <Route exact path="/studentprofile/studentadd" component={StudentMain} />
-        <Route exact path="/auth" component={auth} />
+        <Route exact path="/studentprofile/interestsadd" component={StudentMain} />
+
+        {/* Counsellor Route */}
+
+        {/* Admin Route */}
+        
       </Switch>
     </div>
   );

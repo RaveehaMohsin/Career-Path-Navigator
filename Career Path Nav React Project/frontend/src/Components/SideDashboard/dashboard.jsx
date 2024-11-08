@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './dashboard.css';
 import { Link } from 'react-router-dom';
-import { FaUser, FaTachometerAlt, FaFileAlt, FaHandshake, FaComments, FaSignOutAlt, FaCalendarCheck, FaEye , FaFileArchive , FaGraduationCap , FaBook , FaBriefcase , FaCertificate, FaStar, FaUserShield, FaChalkboardTeacher, FaCalendarAlt, FaBell  } from 'react-icons/fa'; 
+import { FaUser, FaTachometerAlt, FaFileAlt, FaHandshake, FaComments, FaSignOutAlt, FaCalendarCheck, FaEye , FaFileArchive , FaGraduationCap , FaBook , FaBriefcase , FaCertificate, FaStar, FaUserShield, FaChalkboardTeacher, FaCalendarAlt, FaBell, FaChartArea  } from 'react-icons/fa'; 
 
 const Dashboard = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,21 +21,24 @@ const Dashboard = () => {
                 &#9776;
             </button>
             <nav className="nav">
-                <Link to='/dashboard'><FaTachometerAlt /> Dashboard</Link> 
+                <Link to='/dashboard'><FaChartArea /> Dashboard</Link> 
                 <Link onClick={() => handleSubmenuClick('profile')}>
                     <FaUser /> Profile
                 </Link>
                 {openSubmenu === 'profile' && (
                     <div className="submenu">
                         <Link to="/studentprofile/studentadd" ><FaFileAlt /> Add Personal Details</Link>
-                        <Link to="/profile/interestsadd" ><FaFileArchive /> Add Interests</Link>
+                        <Link to="/studentprofile/interestsadd" ><FaFileArchive /> Add Interests</Link>
                         <Link ><FaEye /> View Profile</Link>
                     </div>
                 )}
-                <Link onClick={() => handleSubmenuClick('careerrecommendation')}>
+                <Link>
                     <FaHandshake /> Career Recommendations
                 </Link>
-                {openSubmenu === 'careerrecommendation' && (
+                <Link onClick={() => handleSubmenuClick('progresstracker')}>
+                    <FaTachometerAlt /> Progress Tracker
+                </Link>
+                {openSubmenu === 'progresstracker' && (
                     <div className="submenu">
                         <Link><FaGraduationCap /> Degrees</Link>
                         <Link><FaBriefcase /> Courses</Link>

@@ -3,7 +3,7 @@ import Navbar1 from '../Navbar/navbar';
 import Dashboard from '../SideDashboard/dashboard';
 import Studentadd from './Student Add/studentadd';
 import { Route, Switch } from 'react-router-dom';
-import StudentInterestAdd from './Student Interest Dtails/StudentInterestAdd';
+import StudentInterestAdd from './Student Interest Details/StudentInterestAdd';
 
 export default function StudentMain() {
   return (
@@ -16,7 +16,7 @@ export default function StudentMain() {
         <div className="main-content">
           <Switch>
             <Route exact path='/studentprofile/studentadd' component={Studentadd} />
-            <Route exact path='/studentinterestadd' component={StudentInterestAdd} />
+            <Route exact path='/studentprofile/interestsadd' component={StudentInterestAdd} />
           </Switch>
         </div>
       </div>

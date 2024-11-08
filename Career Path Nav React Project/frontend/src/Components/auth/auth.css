@@ -1,25 +1,13 @@
 :root {
-    --primary-color: #4EA685;
-    --secondary-color: #57B894;
+    --primary-color: #00273a;
+    --secondary-color: #082635;
     --black: #000000;
     --white: #ffffff;
-    --gray: #efefef;
+    --gray: #e8e3e3;
     --gray-2: #757575;
-
-    --facebook-color: #4267B2;
-    --google-color: #DB4437;
-    --twitter-color: #1DA1F2;
-    --insta-color: #E1306C;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
-
-* {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 
 .container {
@@ -46,6 +34,7 @@
 }
 
 .form-wrapper {
+    position: relative;
     width: 100%;
     max-width: 28rem;
 }
@@ -62,18 +51,37 @@
 }
 
 .input-group {
-    position: relative;
+    position: absolut;
     width: 100%;
     margin: 1rem 0;
 }
 
 .input-group i {
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 1rem;
     transform: translateY(-50%);
     font-size: 1.4rem;
     color: var(--gray-2);
+}
+.icon {
+    position: absolute;
+    left: 15px; /* Position icon inside the field */
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center the icon */
+    font-size: 20px;
+    color: var(--primary-color);
+  }
+
+  .signIn-Icon {
+    position: absolute;             /* Position the icon above the form */
+    font-size: 8rem;               /* Icon size */
+    color: var(--primary-color);    /* Icon color */
+    top: 0;                         /* Position it at the top */
+    left: 50%;                      /* Center horizontally */
+    transform: translateX(-50%) translateY(-76%); /* Move it up */
+    z-index: 10;    
+    backdrop-filter: blur(7px);                 /* Ensure the icon stays above the blurred form */
 }
 
 .input-group input {
@@ -86,11 +94,14 @@
     outline: none;
 }
 
+
 .input-group input:focus {
     border: 0.125rem solid var(--primary-color);
 }
 
-.form button {
+.sign-up-btn,
+.sign-in-btn
+ {
     cursor: pointer;
     width: 100%;
     padding: .6rem 0;
@@ -158,24 +169,12 @@
     transform: scale(1.5);
 }
 
-.facebook-bg {
-    background-color: var(--facebook-color);
-}
-
-.google-bg {
-    background-color: var(--google-color);
-}
-
-.twitter-bg {
-    background-color: var(--twitter-color);
-}
-
-.insta-bg {
-    background-color: var(--insta-color);
-}
-
 .pointer {
     cursor: pointer;
+}
+
+.container.sign-up .form.sign-up{
+    margin: 10px;
 }
 
 .container.sign-in .form.sign-in,
@@ -186,6 +185,10 @@
 .container.sign-up .social-list.sign-up>div {
     transform: scale(1);
 }
+
+
+
+
 
 .content-row {
     position: absolute;
@@ -251,7 +254,7 @@
     height: 100vh;
     width: 300vw;
     transform: translate(35%, 0);
-    background-image: linear-gradient(-45deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background-image: linear-gradient(-45deg, var(--primary-color) 50%, var(--secondary-color) 50%);
     transition: 1s ease-in-out;
     z-index: 6;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -273,6 +276,73 @@
     margin-right: none;
 }
 
+
+
+.role-group select.role-dropdown {
+    width: 100%;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    background-color: var(--gray);
+    border-radius: 0.5rem;
+    border: 0.125rem solid var(--white);
+    outline: none;
+    appearance: none;
+    color: var(--gray-2);
+}
+
+/* Custom arrow for only the role dropdown */
+.role-group::after {
+    content: "▼";
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: var(--primary-color);
+    pointer-events: none;
+}
+
+
+/* Custom hover effect for options */
+.role-group select.role-dropdown option {
+    background-color: var(--gray); /* default background */
+  }
+  
+  .role-group select.role-dropdown option::shadow {
+    background-color: var(--primary-color); /* Primary color on hover */
+    color: var(--white); /* Contrast text color */
+  }
+
+
+/* Add this to your existing CSS */
+
+/* Button Normal State */
+.form button {
+    cursor: pointer;
+    width: 100%;
+    padding: .6rem 0;
+    border-radius: .5rem;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 1.2rem;
+    outline: none;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Button Active State - Fade effect when clicked */
+.sign-in-btn:active,
+.sign-in-btn:active
+{
+    background-color: var(--primary-color); /* Slightly darker background */
+    opacity: 0.6; /* Slight fade */
+}
+
+.error-input {
+    border: 2px solid red !important;  /* Add !important to ensure it overrides other styles */
+    background-color: #ffe6e6; /* Optional: To highlight the input field */
+  }
+  
 /* RESPONSIVE */
 
 @media only screen and (max-width: 425px) {

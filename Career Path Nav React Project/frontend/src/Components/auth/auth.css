@@ -64,7 +64,7 @@
     font-size: 1.4rem;
     color: var(--gray-2);
 }
-.icon {
+.iconauth {
     position: absolute;
     left: 15px; /* Position icon inside the field */
     top: 50%;
@@ -83,6 +83,7 @@
     z-index: 10;    
     backdrop-filter: blur(7px);                 /* Ensure the icon stays above the blurred form */
 }
+
 
 .input-group input {
     width: 100%;

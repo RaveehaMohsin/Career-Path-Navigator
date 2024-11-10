@@ -95,7 +95,7 @@ const Auth = () => {
             <div className="form sign-up">
               <div className="input-group">
                 <i className="bx bxs-user"></i>
-                <MdDriveFileRenameOutline  className="icon"/>
+                <MdDriveFileRenameOutline  className="iconauth"/>
                 <input
                   type="text"
                   name="firstName"
@@ -108,7 +108,7 @@ const Auth = () => {
               </div>
               <div className="input-group">
                 <i className="bx bx-mail-send"></i>
-                <MdDriveFileRenameOutline  className="icon"/>
+                <MdDriveFileRenameOutline  className="iconauth"/>
                 <input
                   type="text"
                   name="lastName"
@@ -120,7 +120,7 @@ const Auth = () => {
               </div>
               <div className="input-group">
                 <i className="bx bx-mail-send"></i>
-                <IoMailSharp  className="icon"/>
+                <IoMailSharp  className="iconauth"/>
                 <input
                   type="email"
                   name="email"
@@ -133,7 +133,7 @@ const Auth = () => {
               </div>
               <div className="input-group role-group">
                 <i className="bx bx-mail-send"></i>
-                <FaUser  className="icon" />
+                <FaUser  className="iconauth" />
                 <select 
                   className={`role-dropdown ${errorMessages.role ? "error-input" : ""}`}
                   name="role"
@@ -151,7 +151,7 @@ const Auth = () => {
               </div>
               <div className="input-group">
                 <i className="bx bxs-lock-alt"></i>
-                <PiPasswordBold  className="icon" />
+                <PiPasswordBold  className="iconauth" />
                 <input
                   type="password"
                   name="password"
@@ -164,7 +164,7 @@ const Auth = () => {
               </div>
               <div className="input-group">
                 <i className="bx bxs-lock-alt"></i>
-                <PiPasswordBold  className="icon" />
+                <PiPasswordBold  className="iconauth" />
                 <input
                   type="password"
                   name="confirmPassword"
@@ -193,7 +193,7 @@ const Auth = () => {
              <CgProfile className="signIn-Icon"/>
               <div className="input-group">
                 <i className="bx bxs-user"></i>
-                <IoMailSharp className="icon" />
+                <IoMailSharp className="iconauth" />
                 <input
                   type="email"
                   name="email"
@@ -206,7 +206,7 @@ const Auth = () => {
               </div>
               <div className="input-group">
                 <i className="bx bxs-lock-alt"></i>
-                <PiPasswordBold  className="icon"/>
+                <PiPasswordBold  className="iconauth"/>
                 <input
                   type="password"
                   name="password"

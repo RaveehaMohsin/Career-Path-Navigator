@@ -77,7 +77,7 @@ const AddBackground = ({ isOpen, onCancel }) => {
             <button className="buttonmodalclass" type="button" onClick={onCancel}>
               Cancel
             </button>
-            <button className="buttonmodalclass" type="submit">Add Interest</button>
+            <button className="buttonmodalclass" type="submit">Add Details</button>
           </p>
         </form>
       </dialog>

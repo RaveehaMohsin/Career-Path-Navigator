@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './dashboard.css';
-import { Link } from 'react-router-dom';
+import { Link , NavLink } from 'react-router-dom';
 import { FaUser, FaTachometerAlt, FaFileAlt, FaHandshake, FaComments, FaSignOutAlt, FaCalendarCheck, FaEye , FaFileArchive , FaGraduationCap , FaBook , FaBriefcase , FaCertificate, FaStar, FaUserShield, FaChalkboardTeacher, FaCalendarAlt, FaBell, FaChartArea  } from 'react-icons/fa'; 
 
 const Dashboard = () => {
@@ -27,14 +27,14 @@ const Dashboard = () => {
                 </Link>
                 {openSubmenu === 'profile' && (
                     <div className="submenu">
-                        <Link to="/studentprofile/studentadd" ><FaFileAlt /> Add Personal Details</Link>
-                        <Link to="/studentprofile/interestsadd" ><FaFileArchive /> Add Interests</Link>
+                        <NavLink to="/studentprofile/studentadd" activeClassName="active-link" ><FaFileAlt /> Add Personal Details</NavLink>
+                        <NavLink to="/studentprofile/interestsadd" activeClassName="active-link"><FaFileArchive /> Add Interests</NavLink>
                         <Link ><FaEye /> View Profile</Link>
                     </div>
                 )}
-                <Link>
+                <NavLink to="/student/careerrecommendation" activeClassName="active-link" >
                     <FaHandshake /> Career Recommendations
-                </Link>
+                </NavLink>
                 <Link onClick={() => handleSubmenuClick('progresstracker')}>
                     <FaTachometerAlt /> Progress Tracker
                 </Link>

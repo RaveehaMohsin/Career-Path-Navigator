@@ -26,7 +26,7 @@ dialog {
     background:rgb(252, 234, 234); /* Gradient for header text */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-   color: #edf94c;
+     color: #edf94c;
 }
   
 .labelclass {

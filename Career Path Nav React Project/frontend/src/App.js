@@ -17,6 +17,7 @@ function App() {
          {/* Student Role Route */}
         <Route exact path="/studentprofile/studentadd" component={StudentMain} />
         <Route exact path="/studentprofile/interestsadd" component={StudentMain} />
+        <Route exact path="/student/careerrecommendation" component={StudentMain} />
 
         {/* Counsellor Route */}
 

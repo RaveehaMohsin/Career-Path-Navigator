@@ -11,15 +11,6 @@ function App() {
     <div className="App">
       <KeyboardScroll /> 
       <Switch>
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-        <Route exact path="/auth" component={auth} />
-        <Route exact path="/studentprofile/studentadd" component={StudentMain} />
-        <Route exact path="/studentprofile/studentinterestadd" component={StudentMain} />
-        <Route exact path="/studentprofile/studentview" component={StudentMain} />
-=======
->>>>>>> Stashed changes
         {/* Auth Route */}
        <Route exact path="/auth" component={auth} />
 
@@ -27,14 +18,11 @@ function App() {
         <Route exact path="/studentprofile/studentadd" component={StudentMain} />
         <Route exact path="/studentprofile/interestsadd" component={StudentMain} />
         <Route exact path="/student/careerrecommendation" component={StudentMain} />
+        <Route exact path="/studentprofile/studentview" component={StudentMain} />
 
         {/* Counsellor Route */}
 
         {/* Admin Route */}
-<<<<<<< Updated upstream
-=======
->>>>>>> 50a7a6ef08c19ab69c42c85317bbb2502fe9b97c
->>>>>>> Stashed changes
         
       </Switch>
     </div>

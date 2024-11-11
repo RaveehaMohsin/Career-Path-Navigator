@@ -27,18 +27,10 @@ const Dashboard = () => {
                 </Link>
                 {openSubmenu === 'profile' && (
                     <div className="submenu">
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-                        <Link to="/studentprofile/studentadd" ><FaFileAlt /> Add Personal Details</Link>
-                        <Link to="/studentprofile/studentinterestadd" ><FaFileArchive /> Add Interests</Link>
-                        <Link to="/studentprofile/studentview"  ><FaEye /> View Profile</Link>
-=======
->>>>>>> Stashed changes
                         <NavLink to="/studentprofile/studentadd" activeClassName="active-link" ><FaFileAlt /> Add Personal Details</NavLink>
                         <NavLink to="/studentprofile/interestsadd" activeClassName="active-link"><FaFileArchive /> Add Interests</NavLink>
-                        <Link ><FaEye /> View Profile</Link>
->>>>>>> 50a7a6ef08c19ab69c42c85317bbb2502fe9b97c
+                        <NavLink to="/studentprofile/studentview" activeClassName="active-link" ><FaEye /> View Profile</NavLink>
+
                     </div>
                 )}
                 <NavLink to="/student/careerrecommendation" activeClassName="active-link" >

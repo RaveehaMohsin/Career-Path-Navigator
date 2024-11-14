@@ -13,7 +13,7 @@ import { MdOutlineSpeakerNotes } from "react-icons/md";
 import { FaRegAddressCard } from "react-icons/fa";
 
 
-const studentView = () => {
+const StudentView = () => {
   const data = [
     {
       institute: "Institute 1",
@@ -238,4 +238,4 @@ const studentView = () => {
   );
 };
 
-export default studentView;
+export default StudentView;

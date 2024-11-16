@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './dashboard.css';
 import { Link , NavLink } from 'react-router-dom';
-import { FaUser, FaTachometerAlt, FaFileAlt, FaHandshake, FaComments, FaSignOutAlt, FaCalendarCheck, FaEye , FaFileArchive , FaGraduationCap , FaBook , FaBriefcase , FaCertificate, FaStar, FaUserShield, FaChalkboardTeacher, FaCalendarAlt, FaBell, FaChartArea  } from 'react-icons/fa'; 
+import { FaUser, FaTachometerAlt, FaFileAlt, FaHandshake, FaComments, FaSignOutAlt, FaCalendarCheck, FaEye , FaFileArchive , FaGraduationCap , FaBook , FaBriefcase , FaStar, FaUserShield, FaChalkboardTeacher, FaCalendarAlt, FaBell, FaChartArea  } from 'react-icons/fa'; 
 
 const Dashboard = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -43,8 +43,7 @@ const Dashboard = () => {
                     <div className="submenu">
                         <Link><FaGraduationCap /> Degrees</Link>
                         <Link><FaBriefcase /> Courses</Link>
-                        <Link><FaBook /> Job Listings & Internships</Link>
-                        <Link><FaCertificate /> Certificates</Link>
+                        <NavLink to="/progresstracker/jobs" activeClassName="active-link"  ><FaBook /> Job Listings & Internships</NavLink>
                     </div>
                 )}
                 <Link><FaFileAlt /> Resume Builder</Link>

@@ -18,7 +18,7 @@ export default function CareerRecommendation() {
     setIsLoading(true);
   
     try {
-      const prompt = `Provide 5 structured recommendations for jobs,
+      const prompt = `Provide 10 structured recommendations for jobs,
        degrees, and courses based on the following inputs: Interest: ${interest},Education Level: ${education}, Country: ${country}. 
        Return a JSON object with the following attributes: 
        Jobs (Job Title, Company, Location, Brief Job Description, Salary Range, Employment Type, Education Level Required, Required Skills), 
@@ -44,9 +44,9 @@ export default function CareerRecommendation() {
         }),
       });
   
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! Status: ${response.status}`);
+      // }
   
       const data = await response.json();
   
@@ -159,8 +159,8 @@ export default function CareerRecommendation() {
 
         {/* Results Tables */}
         {showResults && (
-          <div className="results-tables table-responsive-lg">
-            <table className="recommendation-table table-responsive-lg">
+          <div className="results-tables table-responsive-xl">
+            <table className="recommendation-table" style={{width:"1250px"}}>
               <caption style={{ captionSide: "top" }}>Degree Recommendations</caption>
               <thead>
                 <tr>
@@ -192,7 +192,7 @@ export default function CareerRecommendation() {
               </tbody>
             </table>
 
-            <table className="recommendation-table table-responsive-lg" >
+            <table className="recommendation-table" style={{width:"1250px"}} >
               <caption style={{ captionSide: "top" }}>Job Recommendations</caption>
               <thead>
                 <tr>
@@ -224,7 +224,7 @@ export default function CareerRecommendation() {
               </tbody>
             </table>
 
-            <table className="recommendation-table table-responsive-lg">
+            <table className="recommendation-table" style={{width:"1250px"}}>
               <caption style={{ captionSide: "top" }}>Course Recommendations</caption>
               <thead>
                 <tr>

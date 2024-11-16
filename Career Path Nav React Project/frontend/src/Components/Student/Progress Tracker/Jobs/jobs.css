@@ -1,0 +1,180 @@
+/* Container for the jobs section with left margin for the sidebar */
+.jobs-container {
+  max-width: calc(100% - 250px); /* Adjust for sidebar */
+  margin: 0 auto;
+  padding: 2rem;
+  transition: max-width 0.3s ease;
+}
+
+/* Job card grid layout */
+.job-listings {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+/* Experience input section */
+.experience-input {
+  background: linear-gradient(135deg, #f7f9fc, #046693);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.experience-input button {
+  background: #0288d1;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.experience-input button:hover {
+  background: #01579b;
+}
+
+.experience-input h2 {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Job card */
+.job-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.job-card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.job-card-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.job-card-header p {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.job-card-body {
+  padding: 1.5rem;
+}
+
+.job-card-body p {
+  margin-bottom: 0.75rem;
+}
+
+.job-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.job-details span {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.job-footer {
+  padding: 1rem 1.5rem;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.job-footer p {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+/* Status badge */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-offered { background-color: #10b981; color: white; }
+.status-rejected { background-color: #ef4444; color: white; }
+.status-interviewed { background-color: #f59e0b; color: white; }
+.status-current-job { background-color: #3b82f6; color: white; }
+.status-wishlist { background-color: #6b7280; color: white; }
+
+@media (min-width: 640px) {
+  .job-listings {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .job-listings {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1250px) {
+  .jobs-container {
+    max-width: 100%; /* Remove left margin when sidebar is hidden */
+  }
+  .job-listings {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .job-listings {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Job card hover effect */
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

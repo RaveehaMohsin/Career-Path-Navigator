@@ -7,6 +7,7 @@ import Studentadd from './Student Add/studentadd';
 import StudentInterestAdd from './Student Interest Details/StudentInterestAdd';
 import Careerrecommendation from './Career Recommendation/careerrecommendation';
 import StudentView from './Student View/studentView'
+import Jobs from './Progress Tracker/Jobs/jobs';
 
 
 export default function StudentMain() {
@@ -23,6 +24,7 @@ export default function StudentMain() {
             <Route exact path='/studentprofile/interestsadd' component={StudentInterestAdd} />
             <Route exact path='/student/careerrecommendation' component={Careerrecommendation} />
             <Route exact path='/studentprofile/studentview' component={StudentView} />
+            <Route exact path="/progresstracker/jobs" component={Jobs} />
           </Switch>
         </div>
       </div>

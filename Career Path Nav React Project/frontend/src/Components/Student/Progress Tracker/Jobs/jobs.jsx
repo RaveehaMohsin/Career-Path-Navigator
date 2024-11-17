@@ -51,13 +51,13 @@ export default function Jobs() {
   };
 
   return (
-    <div className="jobs-container p-6 space-y-6">
+    <div>
       <Upperheader title="Job Progress Tracker" />
-      
+      <div className="jobs-container">
       {/* Experience input section */}
       <div className="experience-input">
         <h2>
-          <FaUserCircle /> Any additional experience other than jobs?
+          <FaUserCircle /> Any additional experience of your jobs?
         </h2>
         <button>
           <FaPlus /> Add
@@ -69,6 +69,7 @@ export default function Jobs() {
         {jobs.map(job => (
           <JobCard key={job.id} job={job} onStatusChange={handleStatusChange} />
         ))}
+      </div>
       </div>
     </div>
   );

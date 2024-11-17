@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './job-card.css'
+import './jobs.css'
 
 function JobCard({ job, onStatusChange }) {
   const [status, setStatus] = useState(job?.status || 'Unknown');
@@ -62,7 +62,6 @@ function JobCard({ job, onStatusChange }) {
         <span className={`job-status-badge ${getStatusClass(status)}`}>{status}</span>
         <select onChange={handleStatusChange} value={status}>
           <option value="Wishlist">Wishlist</option>
-          <option value="Applied">Applied</option>
           <option value="Interviewed">Interviewed</option>
           <option value="Offered">Offered</option>
           <option value="Rejected">Rejected</option>

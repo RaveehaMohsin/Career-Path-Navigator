@@ -10,6 +10,7 @@ import StudentView from './Student View/studentView'
 import Jobs from './Progress Tracker/Jobs/jobs';
 import Degrees from './Progress Tracker/Degree/degrees';
 import Courses from './Progress Tracker/Courses/courses';
+import Chatbot from './Chatbot/chatbot';
 
 
 export default function StudentMain() {
@@ -29,6 +30,7 @@ export default function StudentMain() {
             <Route exact path="/progresstracker/jobs" component={Jobs} />
             <Route exact path="/progresstracker/courses" component={Courses} />
             <Route exact path="/progresstracker/degrees" component={Degrees} />
+            <Route exact path="/student/chatbot" component={Chatbot} />
           </Switch>
         </div>
       </div>

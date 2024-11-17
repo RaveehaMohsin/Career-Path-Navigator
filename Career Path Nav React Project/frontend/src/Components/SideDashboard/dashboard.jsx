@@ -47,7 +47,7 @@ const Dashboard = () => {
                     </div>
                 )}
                 <Link><FaFileAlt /> Resume Builder</Link>
-                <Link><FaComments /> Chatbot</Link>
+                <NavLink to="/student/chatbot" activeClassName="active-link"><FaComments /> Chatbot</NavLink>
                 <Link onClick={() => handleSubmenuClick('review')}>
                     <FaStar /> Reviews
                 </Link>

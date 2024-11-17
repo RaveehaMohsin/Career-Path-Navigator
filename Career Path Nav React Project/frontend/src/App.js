@@ -22,6 +22,7 @@ function App() {
         <Route exact path="/progresstracker/jobs" component={StudentMain} />
         <Route exact path="/progresstracker/courses" component={StudentMain} />
         <Route exact path="/progresstracker/degrees" component={StudentMain} />
+        <Route exact path="/student/chatbot" component={StudentMain} />
 
         {/* Counsellor Route */}
 

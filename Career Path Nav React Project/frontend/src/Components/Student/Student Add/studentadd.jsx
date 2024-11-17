@@ -23,16 +23,16 @@ export default function Studentadd() {
             {/* Center Column - First Set of Fields */}
             <div className="form-column">
               <label>First Name</label>
-              <input type="text" className="form-control" required />
+              <input type="text" className="form-control" required placeholder="James" />
 
               <label>Date of Birth</label>
-              <input type="date" className="form-control" required />
+              <input type="date" className="form-control" required  />
 
               <label>City</label>
               <input type="text" className="form-control" required />
 
               <label>Country</label>
-              <input type="text" className="form-control" required />
+              <input type="text" className="form-control" required placeholder="USA" />
 
               <label>Home Address</label>
               <input type="text" className="form-control" required />
@@ -41,7 +41,7 @@ export default function Studentadd() {
             {/* Right Column - Second Set of Fields */}
             <div className="form-column">
               <label>Last Name</label>
-              <input type="text" className="form-control" required />
+              <input type="text" className="form-control" required placeholder="Wally" />
 
               <label>Gender</label>
               <select className="form-control" required>
@@ -51,10 +51,10 @@ export default function Studentadd() {
               </select>
 
               <label>Email</label>
-              <input type="email" className="form-control" required />
+              <input type="email" className="form-control" required placeholder="hello@example.com" />
 
               <label>Phone Number</label>
-              <input type="tel" className="form-control" required />
+              <input type="tel" className="form-control" required placeholder="+12345678" />
 
               <label>CNIC</label>
               <input type="text" className="form-control" required />

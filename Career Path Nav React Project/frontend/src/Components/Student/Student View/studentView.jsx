@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./studentView.css";
-import { FaSignOutAlt, FaBell } from "react-icons/fa";
+
 import profilePic from "../../../Assets/studentProfilePic.jpg";
 import studentHeader from "../../../Assets/studentheader.png";
 import { MdOutlineMailOutline } from "react-icons/md";
@@ -11,6 +11,7 @@ import { FaCity } from "react-icons/fa";
 import { MdAccountBalance } from "react-icons/md";
 import { MdOutlineSpeakerNotes } from "react-icons/md";
 import { FaRegAddressCard } from "react-icons/fa";
+import Upperheader from "../../UpperHeader/upperheader";
 
 
 const StudentView = () => {
@@ -64,24 +65,9 @@ const StudentView = () => {
   };
   return (
     <div>
-      <div className="upperheader">
-        <div className="left-section">
-          <div className="section-title">Student Details</div>
-        </div>
-        <div className="right-section">
-          <div className="user-name">Raveeha Mohsin</div>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/5850/5850276.png"
-            alt="Profile"
-          />
-          <button className="icon-btn">
-            <FaSignOutAlt />
-          </button>
-          <button className="icon-btn">
-            <FaBell />
-          </button>
-        </div>
-      </div>
+
+      <Upperheader title="Student Profile"/>
+
 
       {/* Main container with two columns */}
       <div className="main-container">

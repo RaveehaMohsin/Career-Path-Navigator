@@ -3,6 +3,7 @@ import JobCard from './job-card';
 import './jobs.css';
 import Upperheader from '../../../UpperHeader/upperheader';
 import { FaPlus, FaUserCircle } from 'react-icons/fa';
+import AddJob from './jobaddmodal';
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([
@@ -50,6 +51,16 @@ export default function Jobs() {
     ));
   };
 
+  const [isAddingJob , setIsAddingJob] = useState(false)
+
+  const handleaddclick = () => {
+    setIsAddingJob(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsAddingJob(false);
+  };
+
   return (
     <div>
       <Upperheader title="Job Progress Tracker" />
@@ -59,10 +70,17 @@ export default function Jobs() {
         <h2>
           <FaUserCircle /> Any additional experience of your jobs?
         </h2>
-        <button>
+        <button type='button' onClick={()=>handleaddclick()}>
           <FaPlus /> Add
         </button>
       </div>
+
+      {isAddingJob && (
+        <AddJob
+          isOpen={isAddingJob}
+          onCancel={handleCloseDialog}
+        />
+      )}
 
       {/* Job listings grid */}
       <div className="job-listings">

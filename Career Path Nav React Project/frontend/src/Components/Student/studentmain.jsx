@@ -8,6 +8,8 @@ import StudentInterestAdd from './Student Interest Details/StudentInterestAdd';
 import Careerrecommendation from './Career Recommendation/careerrecommendation';
 import StudentView from './Student View/studentView'
 import Jobs from './Progress Tracker/Jobs/jobs';
+import Degrees from './Progress Tracker/Degree/degrees';
+import Courses from './Progress Tracker/Courses/courses';
 
 
 export default function StudentMain() {
@@ -25,6 +27,8 @@ export default function StudentMain() {
             <Route exact path='/student/careerrecommendation' component={Careerrecommendation} />
             <Route exact path='/studentprofile/studentview' component={StudentView} />
             <Route exact path="/progresstracker/jobs" component={Jobs} />
+            <Route exact path="/progresstracker/courses" component={Courses} />
+            <Route exact path="/progresstracker/degrees" component={Degrees} />
           </Switch>
         </div>
       </div>

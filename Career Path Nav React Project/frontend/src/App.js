@@ -20,6 +20,8 @@ function App() {
         <Route exact path="/student/careerrecommendation" component={StudentMain} />
         <Route exact path="/studentprofile/studentview" component={StudentMain} />
         <Route exact path="/progresstracker/jobs" component={StudentMain} />
+        <Route exact path="/progresstracker/courses" component={StudentMain} />
+        <Route exact path="/progresstracker/degrees" component={StudentMain} />
 
         {/* Counsellor Route */}
 

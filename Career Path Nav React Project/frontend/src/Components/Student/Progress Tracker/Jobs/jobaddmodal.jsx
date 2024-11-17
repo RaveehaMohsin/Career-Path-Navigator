@@ -1,6 +1,6 @@
 import React from "react";
-import "./modal.css";
-import { FaGraduationCap } from "react-icons/fa";
+import "../../Student Interest Details/modal.css";
+import { FaUserTie } from "react-icons/fa";
 
 const AddJob = ({ isOpen, onCancel }) => {
  
@@ -13,34 +13,13 @@ const AddJob = ({ isOpen, onCancel }) => {
 
       <dialog open className={"room-dialog sidebar-closed"}>
         <h2 className="h2class">
-          Job Details <FaGraduationCap className="icon" />
+          Job Details <FaUserTie className="icon" />
         </h2>
         <form>
           
 
-          <p>
-            <label className="labelclass">Degree Title</label>
-            <select
-              className="selectclass"
-              id="degreetitle"
-              name="degreetitle"
-              required
-            >
-              <option value="Matriculation">Matriculation</option>
-              <option value="O Levels">O Levels</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="A Levels">A Levels</option>
-              <option value="Associate Degree">Associate Degree</option>
-              <option value="Bachelor's degree">Bachelor's degree</option>
-              <option value="Master's degree">Master's degree</option>
-              <option value="M.Phil">M.Phil</option>
-              <option value="ph.D.">ph.D.</option>
-            </select>
-            
-          </p>
-
            <p>
-            <label className="labelclass">Job Title</label>
+            <label className="labelclass">Job Title *</label>
             <input
               className="inputclass"
               type="text"
@@ -51,7 +30,24 @@ const AddJob = ({ isOpen, onCancel }) => {
           </p>
 
           <p>
-            <label className="labelclass">Company</label>
+            <label className="labelclass">Current Status of Job *</label>
+            <select
+              className="selectclass"
+              id="jobstatus"
+              name="jobstatus"
+              required
+            >
+              <option value="Wishlist">Wishlist</option>
+              <option value="Interviewed">Interviewed</option>
+              <option value="Offered">Offered</option>
+              <option value="Currentemployee">Current Employee</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+            
+          </p>
+
+          <p>
+            <label className="labelclass">Company *</label>
             <input
               className="inputclass"
               type="text"
@@ -62,7 +58,7 @@ const AddJob = ({ isOpen, onCancel }) => {
           </p>
 
           <p>
-            <label className="labelclass">Location</label>
+            <label className="labelclass">Location *</label>
             <input
               className="inputclass"
               type="text"
@@ -79,42 +75,57 @@ const AddJob = ({ isOpen, onCancel }) => {
               type="number"
               id="jobsalary"
               name="jobsalary"
-              required
+              
             />
           </p>
 
           
           <p>
-            <label className="labelclass">Employment Type</label>
+            <label className="labelclass">Employment Type *</label>
             <select
               className="selectclass"
-              id="degreetitle"
-              name="degreetitle"
+              id="jobemploymenttype"
+              name="jobemploymenttype"
               required
             >
-              <option value="Matriculation">Matriculation</option>
-              <option value="O Levels">O Levels</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="A Levels">A Levels</option>
-              <option value="Associate Degree">Associate Degree</option>
-              <option value="Bachelor's degree">Bachelor's degree</option>
-              <option value="Master's degree">Master's degree</option>
-              <option value="M.Phil">M.Phil</option>
-              <option value="ph.D.">ph.D.</option>
+              <option value="Full-time">Full-time</option>
+              <option value="Part-time">Part-time</option>
+              <option value="Internship">Internship</option>
+              <option value="Contract">Contract Employment</option>
+              <option value="Freelance">Freelance</option>
             </select>
             
           </p>
 
-
+          <p>
+            <label className="labelclass">Job Description</label>
+            <textarea
+              className="inputclass"
+              id="jobdesc"
+              name="jobdesc"
+              required
+            />
+          </p>
 
           <p>
-            <label className="labelclass">Obtained Marks</label>
+            <label className="labelclass">Education Required</label>
             <input
               className="inputclass"
-              type="number"
-              id="obtainedmarks"
-              name="obtainedmarks"
-              required
+              type="text"
+              id="jobeducationreq"
+              name="jobeducationreq"
+              
+            />
+          </p>
+
+          <p>
+            <label className="labelclass">Skills Required</label>
+            <input
+              className="inputclass"
+              type="text"
+              id="jobskillsreq"
+              name="jobskillsreq"
+              
             />
           </p>
 

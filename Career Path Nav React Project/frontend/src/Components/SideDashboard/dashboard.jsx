@@ -41,8 +41,8 @@ const Dashboard = () => {
                 </Link>
                 {openSubmenu === 'progresstracker' && (
                     <div className="submenu">
-                        <Link><FaGraduationCap /> Degrees</Link>
-                        <Link><FaBriefcase /> Courses</Link>
+                        <NavLink to="/progresstracker/degrees" activeClassName="active-link" ><FaGraduationCap /> Degrees</NavLink>
+                        <NavLink to="/progresstracker/courses" activeClassName="active-link" ><FaBriefcase /> Courses</NavLink>
                         <NavLink to="/progresstracker/jobs" activeClassName="active-link"  ><FaBook /> Job Listings & Internships</NavLink>
                     </div>
                 )}

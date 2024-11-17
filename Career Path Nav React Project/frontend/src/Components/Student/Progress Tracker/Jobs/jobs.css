@@ -147,22 +147,23 @@
   text-transform: uppercase;
 }
 
-.status-offered {
+.status-offered , .status-completed  {
   background-color: #10b981;
   color: white;
 }
 
-.status-rejected {
+.status-rejected , .status-not-interested , .status-not-eligible {
   background-color: #f43f5e;
   color: white;
 }
 
-.status-interviewed {
+
+.status-interviewed , .status-in-progress  , .status-enrolled{
   background-color: #f97316;
   color: white;
 }
 
-.status-current-job {
+.status-current-job , .status-applied {
   background-color: #3b82f6;
   color: white;
 }

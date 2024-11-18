@@ -24,7 +24,6 @@ export default function CareerRecommendation() {
        Degrees (Degree Title, Institution, Location, Duration, Mode of Study, Curriculum Overview, Career Opportunities, Salary Prospects),
        and Courses (Course Title, Provider, Duration, Brief Course Description, Course Level, Prerequisites, Skills Covered, Course Fees, Certification).`;
 
-      // Call the backend API with the prompt included in the request
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.REACT_APP_API_KEY}`, {
         method: 'POST',
         headers: {
@@ -148,7 +147,6 @@ export default function CareerRecommendation() {
           ))}
         </select>
 
-        {/* Generate Responses Button */}
         <button className="generate-button" onClick={handleGenerateResponses}>
           Generate Responses
         </button>
@@ -156,7 +154,6 @@ export default function CareerRecommendation() {
         {/* Loading Spinner */}
         {isLoading && <div className="spinner">Loading...</div>}
 
-        {/* Results Tables */}
         {showResults && (
           <div className="results-tables table-responsive-xl">
             <table className="recommendation-table" style={{width:"1250px"}}>

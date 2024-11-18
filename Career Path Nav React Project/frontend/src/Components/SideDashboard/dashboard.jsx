@@ -33,7 +33,7 @@ const Dashboard = () => {
 
                     </div>
                 )}
-                <NavLink to="/student/careerrecommendation" activeClassName="active-link" >
+                <NavLink to="/student/careerrecommendation" activeClassName="active-link"  onClick={() => handleSubmenuClick('careerrecommendation')}>
                     <FaHandshake /> Career Recommendations
                 </NavLink>
                 <Link onClick={() => handleSubmenuClick('progresstracker')}>
@@ -47,7 +47,7 @@ const Dashboard = () => {
                     </div>
                 )}
                 <Link><FaFileAlt /> Resume Builder</Link>
-                <NavLink to="/student/chatbot" activeClassName="active-link"><FaComments /> Chatbot</NavLink>
+                <NavLink to="/student/chatbot" activeClassName="active-link" onClick={() => handleSubmenuClick('chatbot')}><FaComments /> Chatbot</NavLink>
                 <Link onClick={() => handleSubmenuClick('review')}>
                     <FaStar /> Reviews
                 </Link>

@@ -18,8 +18,7 @@ export default function CareerRecommendation() {
     setIsLoading(true);
   
     try {
-      const prompt = `Provide 10 structured recommendations for jobs,
-       degrees, and courses based on the following inputs: Interest: ${interest},Education Level: ${education}, Country: ${country}. 
+      const prompt = `Provide 6 structured recommendations for jobs,6 structured recommendations for degrees, and 6 structured recommendations for courses based on the following inputs: Interest: ${interest},Education Level: ${education}, Country: ${country}. 
        Return a JSON object with the following attributes: 
        Jobs (Job Title, Company, Location, Brief Job Description, Salary Range, Employment Type, Education Level Required, Required Skills), 
        Degrees (Degree Title, Institution, Location, Duration, Mode of Study, Curriculum Overview, Career Opportunities, Salary Prospects),

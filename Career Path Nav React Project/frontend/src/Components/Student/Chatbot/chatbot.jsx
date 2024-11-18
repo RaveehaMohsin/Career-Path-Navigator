@@ -4,24 +4,24 @@ import {
   MainContainer,
   ChatContainer,
   MessageList,
-  Message,
   MessageInput,
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
+import Upperheader from "../../UpperHeader/upperheader";
+import "./Chatbot.css";
 
 function Chatbot() {
   const [messages, setMessages] = useState([
     {
-      message: "Hello, I'm Chatbot! Ask me anything!",
+      message: "Hello, I'm Chatbot! Ask me anything about your Interest!",
       sentTime: "just now",
       sender: "Chatbot",
     },
   ]);
   const [isTyping, setIsTyping] = useState(false);
 
-  const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY; 
+  const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
   const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GOOGLE_API_KEY}`;
-
 
   const handleSend = async (message) => {
     const newMessage = {
@@ -93,21 +93,44 @@ function Chatbot() {
   }
 
   return (
-    <div className="App">
-      <div style={{ position: "relative", height: "800px", width: "700px" }}>
-        <MainContainer>
-          <ChatContainer>
+    <div className="chatbot-wrapper">
+      <Upperheader title="ChatBot" />
+      <div className="chatbot-container">
+        <MainContainer className="MainContainer">
+          <ChatContainer className="ChatContainer">
             <MessageList
+              className="MessageList"
               scrollBehavior="smooth"
               typingIndicator={
-                isTyping ? <TypingIndicator content="Chatbot is typing..." /> : null
+                isTyping ? (
+                  <TypingIndicator
+                    className="TypingIndicator"
+                    content="Chatbot is typing..."
+                  />
+                ) : null
               }
             >
               {messages.map((message, i) => (
-                <Message key={i} model={message} />
+                <div
+                  key={i}
+                  className={`Message ${
+                    message.sender === "user" ? "user" : "chatbot"
+                  }`}
+                >
+                  <div
+                    className={`avatar ${
+                      message.sender === "user" ? "user-avatar" : "chatbot-avatar"
+                    }`}
+                  ></div>
+                  <div className="message-content">{message.message}</div>
+                </div>
               ))}
             </MessageList>
-            <MessageInput placeholder="Type message here" onSend={handleSend} />
+            <MessageInput
+              className="MessageInput"
+              placeholder="Type message here"
+              onSend={handleSend}
+            />
           </ChatContainer>
         </MainContainer>
       </div>

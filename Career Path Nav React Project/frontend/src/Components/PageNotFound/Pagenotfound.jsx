@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './pagenotfound.css'; // Assuming the CSS is saved in this file
 
 const PageNotFound = () => {
+    useEffect(() => {
+
+        document.body.classList.add("page-background");
+        return () => {
+          document.body.classList.remove("page-background");
+        };
+      }, []);
     return (
         <div className="page-not-found-container">
             <header className="top-header"></header>

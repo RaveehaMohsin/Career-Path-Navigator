@@ -1,3 +1,6 @@
+.page-background {
+    background-color: #1e1e38;
+}
 .top-header:before {
     background-image: url(https://1.bp.blogspot.com/-gxsOcYWghHA/Xp_izTh4sFI/AAAAAAAAU8s/y637Fwg99qAuzW9na_NT_uApny8Vce95gCEwYBhgL/s1600/header-footer-gradient-bg.png);
 }
@@ -290,13 +293,13 @@
 
 @keyframes move {
   0% {
-    transform: rotate(40deg);
+    transform: rotate(50deg);
   }
   50% {
-    transform: rotate(-40deg);
+    transform: rotate(-50deg);
   }
   100% {
-    transform: rotate(40deg);
+    transform: rotate(50deg);
   }
 }
 

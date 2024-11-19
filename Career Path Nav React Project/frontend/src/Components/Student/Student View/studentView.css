@@ -377,26 +377,142 @@ text-align: center;
 }
 }
 
+
+
 @media (max-width: 1050px) {
-.main-container {
-  flex-direction: column;
-}
-.profile-container,
-.background-info-container {
-  width: 100%;
-  margin-bottom: 20px;
-}
-.additional-info-container{
-  width: 100%;
+  .main-container {
+    flex-direction: column; /* Stack the profile and background info on smaller screens */
+    padding: 10px; /* Reduce padding on smaller screens */
+  }
+
+  .profile-container,
+  .background-info-container {
+    width: 100%;
+    margin-bottom: 20px; /* Add margin between sections */
+  }
+
+  .additional-info-container {
+    width: 100%;
+  }
+
+  .profile-header {
+    height: 180px; /* Adjust header height for smaller screens */
+  }
+
+  .profile-picture-container {
+    left: 10px; /* Adjust positioning of profile picture */
+    transform: translateY(-30%); /* Ensure it's properly positioned */
+  }
+
+  .student-name h2 {
+    font-size: 20px; /* Adjust font size for smaller screens */
+  }
 }
 
-}
 
+/* Tablet screens */
 @media (max-width: 800px) {
-.heading-text,
-.info-text
-{
-  max-width: 10ch;
+  .student-name h2 {
+    font-size: 18px; /* Adjust font size for tablets */
+  }
+
+  .profile-picture {
+    width: 100px; /* Resize profile picture */
+    height: 100px;
+  }
+
+  .profile-header {
+    height: 200px; /* Adjust header height */
+  }
+
+  .info-column {
+    width: 100%; /* Stack personal info in a single column */
+    margin-bottom: 20px; /* Add space between columns */
+  }
+
+  .personal-info {
+    flex-direction: column; /* Stack personal info vertically */
+    gap: 20px; /* Adjust gap for vertical layout */
+  }
+
+  .card {
+    flex-direction: column; /* Stack the card's content for mobile view */
+    padding: 10px; /* Reduce padding */
+  }
+
+  .pagination-buttons {
+    text-align: center; /* Center pagination buttons */
+  }
+
+  .additional-info-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .background-heading {
+    font-size: 16px; /* Adjust heading font size */
+    padding: 15px; /* Adjust padding */
+  }
 }
 
+/* Mobile screens */
+@media (max-width: 600px) {
+  .main-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .profile-container {
+    width: 100%;
+    padding: 10px; /* Reduce padding */
+  }
+
+  .profile-header {
+    height: 180px; /* Adjust header height for mobile */
+  }
+
+  .profile-picture-container {
+    left: 15px; /* Adjust position for mobile screens */
+    transform: translateY(-30%);
+  }
+
+  .student-name h2 {
+    font-size: 16px; /* Adjust font size for mobile */
+  }
+
+  .info-column {
+    width: 100%;
+    margin-bottom: 20px; /* Stack info columns */
+  }
+
+  .personal-info {
+    flex-direction: column; /* Stack personal info vertically */
+    gap: 20px; /* Adjust gap */
+  }
+
+  .card {
+    flex-direction: column;
+    padding: 8px; /* Adjust padding */
+  }
+
+  .card-content h3{
+    margin-left: 2%;
+  }
+
+  .pagination-buttons {
+    text-align: center;
+  }
+
+  .background-heading {
+    font-size: 14px; /* Adjust heading font size for mobile */
+  }
+
+  .profile-picture {
+    width: 100px;
+    height: 100px; /* Adjust profile picture size */
+  }
+
+  .info-text {
+    font-size: 14px; /* Adjust font size of info text */
+  }
 }

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./studentView.css";
 import UpperHeader from "../../UpperHeader/upperheader"
-import { FaSignOutAlt, FaBell } from "react-icons/fa";
 import profilePic from "../../../Assets/studentProfilePic.jpg";
 import studentHeader from "../../../Assets/studentheader.png";
 import { MdOutlineMailOutline } from "react-icons/md";

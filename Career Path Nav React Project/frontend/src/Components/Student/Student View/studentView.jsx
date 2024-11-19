@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import "./studentView.css";
+<<<<<<< Updated upstream
 
+=======
+import UpperHeader from "../../UpperHeader/upperheader"
+import { FaSignOutAlt, FaBell } from "react-icons/fa";
+>>>>>>> Stashed changes
 import profilePic from "../../../Assets/studentProfilePic.jpg";
 import studentHeader from "../../../Assets/studentheader.png";
 import { MdOutlineMailOutline } from "react-icons/md";
@@ -11,8 +16,14 @@ import { FaCity } from "react-icons/fa";
 import { MdAccountBalance } from "react-icons/md";
 import { MdOutlineSpeakerNotes } from "react-icons/md";
 import { FaRegAddressCard } from "react-icons/fa";
+<<<<<<< Updated upstream
 import Upperheader from "../../UpperHeader/upperheader";
 
+=======
+import { IoSchoolOutline } from "react-icons/io5";
+import { CiLocationOn } from "react-icons/ci";
+import { IoIosTimer } from "react-icons/io";
+>>>>>>> Stashed changes
 
 const StudentView = () => {
   const data = [
@@ -65,10 +76,15 @@ const StudentView = () => {
   };
   return (
     <div>
+<<<<<<< Updated upstream
 
       <Upperheader title="Student Profile"/>
 
 
+=======
+      
+      <UpperHeader title="Student View"/>
+>>>>>>> Stashed changes
       {/* Main container with two columns */}
       <div className="main-container">
         <div className="profile-background-container">
@@ -198,25 +214,84 @@ const StudentView = () => {
 
         {/* Additional parallel info section */}
         <div className="additional-info-container">
-
-
-
           <div className="info-box">
             <h3>All Interests</h3>
             <p>Last Updated</p>
           </div>
 
-
-
           <div className="info-detail-box">
-            <h3>Row 2 Title</h3>
-            <p>Content for row 2</p>
-          </div>
+            <div className="card">
+              <div className="line01"></div>
+              <div className="card-content">
+                <h3>Jobs</h3>
+                <div className="progress-bar">
+                  <div className="progress01">
+                    <div className="shine"></div>
+                  </div>
+                </div>
+                <div className="info-content">
+                <p> <IoSchoolOutline className="info-content-icon01"/> Bachelors of CS</p>
+                <p> <CiLocationOn className="info-content-icon02"/> Islamabad, Pakistan</p>
+                <p> <IoIosTimer className="info-content-icon03"/> Full Time</p>
+                </div>
+              </div>
+            </div>
 
-          
-          <div className="info-detail-box">
-            <h3>Row 3 Title</h3>
-            <p>Content for row 3</p>
+            <div className="card">
+              <div className="line02"></div>
+              <div className="card-content">
+                <h3>Degrees</h3>
+                <div className="progress-bar">
+                  <div className="progress02">
+                    <div className="shine"></div>
+                  </div>
+                </div>
+                <div className="info-content">
+                <p> <IoSchoolOutline className="info-content-icon01"/> Bachelors of CS</p>
+                <p> <CiLocationOn className="info-content-icon02"/> Islamabad, Pakistan</p>
+                <p> <IoIosTimer className="info-content-icon03"/> Full Time</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="card">
+              <div className="line03"></div>
+              <div className="card-content">
+                <h3>Courses</h3>
+                <div className="progress-bar">
+                  <div className="progress03">
+                    <div className="shine"></div>
+                  </div>
+                </div>
+                <div className="info-content">
+                <p> <IoSchoolOutline className="info-content-icon01"/> Bachelors of CS</p>
+                <p> <CiLocationOn className="info-content-icon02"/> Islamabad, Pakistan</p>
+                <p> <IoIosTimer className="info-content-icon03"/> Full Time</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="card">
+              <div className="line04"></div>
+              <div className="card-content">
+                <h3>Certificates</h3>
+                <div className="progress-bar">
+                  <div className="progress04">
+                    <div className="shine"></div>
+                  </div>
+                </div>
+                <div className="info-content">
+                <p> <IoSchoolOutline className="info-content-icon01"/> Bachelors of CS</p>
+                <p> <CiLocationOn className="info-content-icon02"/> Islamabad, Pakistan</p>
+                <p> <IoIosTimer className="info-content-icon03"/> Full Time</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="for-button">
+              <button className="detail-button"> View More </button>
+            </div>
+
           </div>
         </div>
       </div>

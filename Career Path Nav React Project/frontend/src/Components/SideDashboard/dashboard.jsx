@@ -66,7 +66,7 @@ const Dashboard = () => {
                         <Link><FaBell /> Notifications</Link>
                     </div>
                 )}
-                <Link><FaSignOutAlt /> Logout</Link>
+                <Link to="/auth"><FaSignOutAlt /> Logout</Link>
             </nav>
         </div>
     );

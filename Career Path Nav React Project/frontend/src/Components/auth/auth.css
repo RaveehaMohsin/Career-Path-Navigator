@@ -413,3 +413,29 @@
         font-size: 2rem;
     }
 }
+
+
+.message-box {
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    color: #fff;
+}
+
+.message-box.success {
+    background-color: #4CAF50; /* Green for success */
+    border: 1px solid #3E8E41;
+}
+
+.message-box.error {
+    background-color: #F44336; /* Red for errors */
+    border: 1px solid #D32F2F;
+}
+
+.hidden {
+    display: none;
+}

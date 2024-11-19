@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import DegreeCard from './degree-card'; 
 import '../Jobs/jobs.css';
 import Upperheader from '../../../UpperHeader/upperheader';
@@ -6,6 +6,7 @@ import { FaPlus, FaUserCircle } from 'react-icons/fa';
 import AddDegree from './degreemodal'; 
 
 export default function Degrees() {
+
   const [degrees, setDegrees] = useState([
     {
       id: 1,

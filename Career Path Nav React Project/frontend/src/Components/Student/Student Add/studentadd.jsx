@@ -3,6 +3,7 @@ import Upperheader from "../../UpperHeader/upperheader";
 import {  FaUserCircle } from "react-icons/fa";
 import './studentadd.css';
 
+
 export default function Studentadd() {
   return (
     <div>

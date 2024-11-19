@@ -1,32 +1,38 @@
 import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Navbar1 from '../Navbar/navbar';
 import Dashboard from '../SideDashboard/dashboard';
-import { Route, Switch } from 'react-router-dom';
 
 import Studentadd from './Student Add/studentadd';
 import StudentInterestAdd from './Student Interest Details/StudentInterestAdd';
 import Careerrecommendation from './Career Recommendation/careerrecommendation';
-import StudentView from './Student View/studentView'
+import StudentView from './Student View/studentView';
 import Jobs from './Progress Tracker/Jobs/jobs';
 import Degrees from './Progress Tracker/Degree/degrees';
 import Courses from './Progress Tracker/Courses/courses';
 import Chatbot from './Chatbot/chatbot';
 
-
 export default function StudentMain() {
+  const userData = JSON.parse(localStorage.getItem('CareerPathNavigatorUsers'));
+  const userRole = userData?.user?.role;
+
+  if (!userData || userRole !== 'Student') {
+    return <Redirect to="/page-not-found" />;
+  }
+
   return (
     <div>
       <div className="navbar">
         <Navbar1 />
       </div>
-      <div style={{ display: "flex" }}> 
+      <div style={{ display: 'flex' }}>
         <Dashboard />
         <div className="main-content">
           <Switch>
-            <Route exact path='/studentprofile/studentadd' component={Studentadd} />
-            <Route exact path='/studentprofile/interestsadd' component={StudentInterestAdd} />
-            <Route exact path='/student/careerrecommendation' component={Careerrecommendation} />
-            <Route exact path='/studentprofile/studentview' component={StudentView} />
+            <Route exact path="/studentprofile/studentadd" component={Studentadd} />
+            <Route exact path="/studentprofile/interestsadd" component={StudentInterestAdd} />
+            <Route exact path="/student/careerrecommendation" component={Careerrecommendation} />
+            <Route exact path="/studentprofile/studentview" component={StudentView} />
             <Route exact path="/progresstracker/jobs" component={Jobs} />
             <Route exact path="/progresstracker/courses" component={Courses} />
             <Route exact path="/progresstracker/degrees" component={Degrees} />

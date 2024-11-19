@@ -5,6 +5,8 @@ import AddInterest from './interestaddmodal'
 
 export default function StudentInterestAdd() {
 
+  
+
   const [isAddingInterest , setIsAddingInterest] = useState(false)
 
   const handleInterestClick = () => {

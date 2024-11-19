@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import CourseCard from './course-card';
 import '../Jobs/jobs.css';
 import Upperheader from '../../../UpperHeader/upperheader';
@@ -6,6 +6,7 @@ import { FaPlus, FaUserCircle } from 'react-icons/fa';
 import AddCourse from './coursemodal';
 
 export default function Courses() {
+
   const [courses, setCourses] = useState([
     {
       id: 1,

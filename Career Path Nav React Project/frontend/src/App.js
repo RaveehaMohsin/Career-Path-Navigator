@@ -1,20 +1,25 @@
-import './App.css'
+import './App.css';
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom'; // Import Redirect
 import auth from './Components/auth/auth';
 import StudentMain from './Components/Student/studentmain';
 import KeyboardScroll from './Components/keyboardscroll'; // Import the new component
-
+import PageNotFound from './Components/PageNotFound/Pagenotfound';
 
 function App() {
   return (
     <div className="App">
-      <KeyboardScroll /> 
+      <KeyboardScroll />
       <Switch>
-        {/* Auth Route */}
-       <Route exact path="/auth" component={auth} />
+        {/* Redirect to /auth when the base URL is accessed */}
+        <Route exact path="/">
+          <Redirect to="/auth" />
+        </Route>
 
-         {/* Student Role Route */}
+        {/* Auth Route */}
+        <Route exact path="/auth" component={auth} />
+
+        {/* Student Role Routes */}
         <Route exact path="/studentprofile/studentadd" component={StudentMain} />
         <Route exact path="/studentprofile/interestsadd" component={StudentMain} />
         <Route exact path="/student/careerrecommendation" component={StudentMain} />
@@ -27,7 +32,10 @@ function App() {
         {/* Counsellor Route */}
 
         {/* Admin Route */}
-        
+
+        {/* Default */}
+        {/* Catch-All Route for Undefined Paths */}
+        <Route component={PageNotFound} />
       </Switch>
     </div>
   );

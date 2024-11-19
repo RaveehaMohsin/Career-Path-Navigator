@@ -16,7 +16,9 @@ import { IoSchoolOutline } from "react-icons/io5";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosTimer } from "react-icons/io";
 
-const studentView = () => {
+
+const StudentView = () => {
+
   const data = [
     {
       institute: "Institute 1",
@@ -283,4 +285,4 @@ const studentView = () => {
   );
 };
 
-export default studentView;
+export default StudentView;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./auth.css";
 import { FaUser} from 'react-icons/fa'; 
 import { PiPasswordBold } from "react-icons/pi";
@@ -6,10 +6,19 @@ import { IoMailSharp } from "react-icons/io5";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { PiSignInBold } from "react-icons/pi";
 import { CgProfile } from "react-icons/cg";
+import { useHistory } from "react-router-dom";
+
 
 
 const Auth = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    localStorage.setItem("CareerPathNavigatorUsers", JSON.stringify(null));
+}, []);
+
 
   // States for form inputs and error messages
   const [formData, setFormData] = useState({
@@ -28,24 +37,22 @@ const Auth = () => {
     role: "",
   });
 
+  const [message, setMessage] = useState({ text: "", type: "" });
+
+
   const toggle = () => {
-    // Reset form data and error messages when toggling
     setIsSignIn(!isSignIn);
     setFormData({
-      firstName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      role: "",
+        firstName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        role: "",
     });
-    setErrorMessages({
-      firstName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      role: "",
-    });
-  };
+    setErrorMessages({});
+    setMessage({ text: "", type: "" }); // Clear message
+};
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -74,13 +81,131 @@ const Auth = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (validateForm()) {
-      // Proceed with form submission (e.g., call API or other logic)
-      console.log("Form is valid!");
+        try {
+            const response = await fetch("http://localhost:4000/addauthuser", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    role: formData.role,
+                    password: formData.password,
+                }),
+            });
+
+            if (response.ok) {
+                setMessage({ text: "User registered successfully!", type: "success" });
+                setTimeout(() => {
+                    setMessage({ text: "", type: "" });
+                    setFormData({
+                        firstName: "",
+                        lastName: "",
+                        email: "",
+                        password: "",
+                        confirmPassword: "",
+                        role: "",
+                    });
+                }, 3000); 
+            } else {
+                const error = await response.json();
+                setMessage({ text: error.error || "Failed to sign up.", type: "error" });
+                setTimeout(() => {
+                  setMessage({ text: "", type: "" });
+                  setFormData({
+                      firstName: "",
+                      lastName: "",
+                      email: "",
+                      password: "",
+                      confirmPassword: "",
+                      role: "",
+                  });
+              }, 3000);
+            }
+        } catch (err) {
+            setMessage({ text: "An error occurred. Please try again later.", type: "error" });
+            setTimeout(() => {
+              setMessage({ text: "", type: "" });
+              setFormData({
+                  firstName: "",
+                  lastName: "",
+                  email: "",
+                  password: "",
+                  confirmPassword: "",
+                  role: "",
+              });
+          }, 3000);
+        }
     }
-  };
+};
+
+
+const validateSignIn = () => {
+  const errors = {};
+  if (!formData.email) errors.email = "Email is required";
+  if (!formData.password) errors.password = "Password is required";
+  setErrorMessages(errors);
+  return Object.keys(errors).length === 0;
+};
+
+const handleSignIn = async (e) => {
+  e.preventDefault();
+  if (validateSignIn()) {
+    try {
+      const response = await fetch("http://localhost:4000/getauthuser", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      if (response.ok) {
+        const user = await response.json();
+        localStorage.setItem("CareerPathNavigatorUsers", JSON.stringify(user));
+
+        setMessage({ text: "Login successful!", type: "success" });
+        setTimeout(() => {
+          setMessage({ text: "", type: "" });
+          setFormData({
+              email: "",
+              password: "",
+          });
+  
+          // Navigate based on user role after a delay
+          if (user.user.role === "Student") {
+              history.push("/studentprofile/studentadd");
+          } else {
+              history.push("/");
+          }
+      }, 2000); 
+      
+      
+      } else {
+        const error = await response.json();
+        setMessage({ text: error.message || "Invalid credentials", type: "error" });
+                setTimeout(() => {
+                    setMessage({ text: "", type: "" });
+                    setFormData({
+                        email: "",
+                        password: "",
+                    });
+        }, 2000); 
+      }
+    } catch (err) {
+      setMessage({ text: "An error occurred. Please try again later.", type: "error" });
+    }
+  }
+};
+
+
 
   return (
     <div
@@ -116,6 +241,7 @@ const Auth = () => {
                   onChange={handleInputChange}
                   placeholder={errorMessages.lastName || "Lastname"}
                   className={errorMessages.lastName ? "error-input" : ""}
+                  required
                 />
               </div>
               <div className="input-group">
@@ -144,9 +270,8 @@ const Auth = () => {
                   <option value="" disabled>
                     {errorMessages.role || "Select Role"}
                   </option>
-                  <option value="student">Student</option>
-                  <option value="admin">Admin</option>
-                  <option value="counsellor">Counsellor</option>
+                  <option value="Student">Student</option>
+                  <option value="Counsellor">Counsellor</option>
                 </select>
               </div>
               <div className="input-group">
@@ -176,6 +301,10 @@ const Auth = () => {
                 />
               </div>
               <button onClick={handleSubmit}>Sign up   <PiSignInBold /></button>
+              <div className={`message-box ${message.type} ${message.text ? "" : "hidden"}`}>
+                {message.text}
+            </div>
+
               <p>
                 <span>Already have an account?</span>
                 <b onClick={toggle} className="pointer">
@@ -217,7 +346,10 @@ const Auth = () => {
                   required
                 />
               </div>
-              <button onClick={handleSubmit}>Sign in   <PiSignInBold /></button>
+              <button onClick={handleSignIn}>Sign in   <PiSignInBold /></button>
+              <div className={`message-box ${message.type} ${message.text ? "" : "hidden"}`}>
+                {message.text}
+            </div>
               <p>
                 <b>Forgot password?</b>
               </p>

@@ -6,6 +6,7 @@ import { FaPlus, FaUserCircle } from 'react-icons/fa';
 import AddJob from './jobaddmodal';
 
 export default function Jobs() {
+
   const [jobs, setJobs] = useState([
     {
       id: 1,

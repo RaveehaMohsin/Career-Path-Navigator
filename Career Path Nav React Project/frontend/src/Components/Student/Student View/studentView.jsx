@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import "./studentView.css";
-<<<<<<< Updated upstream
-
-=======
 import UpperHeader from "../../UpperHeader/upperheader"
 import { FaSignOutAlt, FaBell } from "react-icons/fa";
->>>>>>> Stashed changes
 import profilePic from "../../../Assets/studentProfilePic.jpg";
 import studentHeader from "../../../Assets/studentheader.png";
 import { MdOutlineMailOutline } from "react-icons/md";
@@ -16,16 +12,11 @@ import { FaCity } from "react-icons/fa";
 import { MdAccountBalance } from "react-icons/md";
 import { MdOutlineSpeakerNotes } from "react-icons/md";
 import { FaRegAddressCard } from "react-icons/fa";
-<<<<<<< Updated upstream
-import Upperheader from "../../UpperHeader/upperheader";
-
-=======
 import { IoSchoolOutline } from "react-icons/io5";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosTimer } from "react-icons/io";
->>>>>>> Stashed changes
 
-const StudentView = () => {
+const studentView = () => {
   const data = [
     {
       institute: "Institute 1",
@@ -76,15 +67,8 @@ const StudentView = () => {
   };
   return (
     <div>
-<<<<<<< Updated upstream
-
-      <Upperheader title="Student Profile"/>
-
-
-=======
       
       <UpperHeader title="Student View"/>
->>>>>>> Stashed changes
       {/* Main container with two columns */}
       <div className="main-container">
         <div className="profile-background-container">
@@ -299,4 +283,4 @@ const StudentView = () => {
   );
 };
 
-export default StudentView;
+export default studentView;

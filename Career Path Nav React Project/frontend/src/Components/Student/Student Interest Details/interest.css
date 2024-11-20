@@ -46,8 +46,8 @@
   }
   
   .interest-image {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
   }
   
@@ -112,3 +112,22 @@
     }
   }
   
+
+/* Styling for the Reload button in the table caption */
+.btntable {
+  background-color: #224372; /* Green background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 5px 10px; /* Padding */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 14px; /* Font size */
+  margin-left: 10px; /* Add space from the caption text */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  justify-content: left;
+}
+
+.btntable:hover {
+  background-color: #081e3c; /* Slightly darker green on hover */
+}
+

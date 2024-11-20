@@ -16,6 +16,8 @@ var getauthuser = require('./routes/Authentication/getuser')
 //student routers
 var addperson = require('./routes/addperson')
 var getperson = require('./routes/getperson')
+var addinterest = require('./routes/Student , Interest , Background/addinterest')
+var getinterest = require('./routes/Student , Interest , Background/getinterest')
 
 var app = express();
 
@@ -53,7 +55,9 @@ app.use('/getauthuser' , getauthuser);
 
 //router for student
 app.use('/addperson' , addperson);
-app.use('/getperson' , getperson)
+app.use('/getperson' , getperson);
+app.use('/addinterest',addinterest);
+app.use('/getinterest', getinterest);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

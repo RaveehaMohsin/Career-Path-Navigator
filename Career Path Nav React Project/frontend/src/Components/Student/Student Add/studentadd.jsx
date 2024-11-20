@@ -54,7 +54,7 @@ export default function Studentadd() {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  }, []);
+  }, );
 
   const removeImage = () => {
     setSelectedImage(null);

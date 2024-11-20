@@ -1,95 +1,62 @@
 import React, { useEffect, useState } from "react";
 import "./modal.css";
 import { FaLightbulb } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const AddInterest = ({ isOpen, onCancel }) => {
-  const [currentDate, setCurrentDate] = useState("");
   const [currentDateTime, setCurrentDateTime] = useState("");
+
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
+  const currentuser = userData.user;
 
   useEffect(() => {
     const now = new Date();
-    const formattedDate = now.toISOString().slice(0, 10);
-    const formattedDateTime = now.toISOString().slice(0, 16); // YYYY-MM-DDTHH:MM format
-    setCurrentDate(formattedDate)
+    const formattedDateTime = now.toISOString().slice(0, 10);
     setCurrentDateTime(formattedDateTime);
   }, []);
-  //   const { id } = useParams(); // Get the id from the URL if it exists
-  //   const location = useLocation(); // Get the current location object
-  //   const [isUpdateMode, setIsUpdateMode] = useState(false);
-  //   const [enteredRoomType, setenteredRoomType] = useState('Single');
-  //   const [enteredRoompriceperday, setenteredRoompriceperday] = useState('');
-  //   const [enteredDescription, setenteredDescription] = useState('');
-  //   const [enteredroomImage, setenteredroomImage] = useState('');
-  //   const [enteredservantName, setenteredservantName] = useState('');
-  //   const [enteredservantContact, setenteredservantContact] = useState('');
-  //   const [alertMessage, setAlertMessage] = useState('');
-  //   const [isSuccess, setIsSuccess] = useState(false);
 
-  //   useEffect(() => {
-  //     if (location.pathname.includes('/update/') && id) {
-  //       setIsUpdateMode(true);
-  //       // Fetch room details and set the form fields for update
-  //       fetchRoomDetails(id);
-  //     } else {
-  //       setIsUpdateMode(false);
+  const [interestcategory, setinterestcategory] = useState("");
 
-  //     }
-  //   }, [location, id]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  //   const fetchRoomDetails = async (roomId) => {
-  //     try {
-  //       const response = await fetch(`https://lavender-iron-azimuth.glitch.me/room/${roomId}`);
-  //       const roomData = await response.json();
-  //       setenteredRoomType(roomData.roomType);
-  //       setenteredRoompriceperday(roomData.roomPricePerDay.$numberDecimal);
-  //       setenteredDescription(roomData.roomDescription);
-  //       setenteredroomImage(roomData.roomImage);
-  //       setenteredservantName(roomData.roomServantName);
-  //       setenteredservantContact(roomData.servantContact);
-  //     } catch (error) {
-  //       console.error('Error fetching room details:', error);
-  //     }
-  //   };
+    const interestData = {
+      studentid: currentuser.userId,
+      interesttype: interestcategory,
+      interestcreation: currentDateTime,
+    };
 
-  //   const handleSubmit = async (e) => {
-  //     e.preventDefault();
+    const url = `http://localhost:4000/addinterest`;
+    const method = "POST";
 
-  //     const roomData = {
-  //       roomtype: enteredRoomType,
-  //       roompriceperday: enteredRoompriceperday,
-  //       roomdescription: enteredDescription,
-  //       roomimage: enteredroomImage,
-  //       servantname: enteredservantName,
-  //       servantcontact: enteredservantContact,
-  //     };
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(interestData),
+      });
 
-  //     const url = isUpdateMode
-  //       ? `https://lavender-iron-azimuth.glitch.me/room/update/${id}`
-  //       : 'https://lavender-iron-azimuth.glitch.me/roomadd';
-  //     const method = isUpdateMode ? 'PUT' : 'POST';
+      const data = await response.json(); // Await the response before using `data`
 
-  //     try {
-  //       const response = await fetch(url, {
-  //         method: method,
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(roomData),
-  //       });
-
-  //       if (response.status === 201 || response.status === 200) {
-  //         setAlertMessage(`Room ${isUpdateMode ? 'Updated' : 'Added'} Successfully!`);
-  //         setIsSuccess(true);
-  //       } else {
-  //         setAlertMessage(`Failed to ${isUpdateMode ? 'update' : 'add'} room. Please try again.`);
-  //         setIsSuccess(false);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error:', error);
-  //       setAlertMessage('An error occurred while saving the room.');
-  //       setIsSuccess(false);
-  //     }
-  //   };
+      if (data.message) {
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: data.message,
+          confirmButtonText: "OK",
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An unexpected error occurred.",
+      });
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -101,23 +68,18 @@ const AddInterest = ({ isOpen, onCancel }) => {
         <h2 className="h2class">
           Add Interest <FaLightbulb className="icon" />
         </h2>
-        {/* {alertMessage && (
-          <div className={`alert ${isSuccess ? 'alert-success' : 'alert-danger'}`} role="alert">
-            {alertMessage}
-          </div>
-        )} */}
-        <form>
+        <form onSubmit={handleSubmit}>
           <p>
             <label className="labelclass">Interest Type</label>
             <input
-             className="inputclass"
+              className="inputclass"
               id="interesttype"
               name="interesttype"
               type="text"
               placeholder="e.g Cooking , Coding , Fashion Designing"
-              //   value={enteredRoompriceperday}
+              value={interestcategory} 
               required
-              //   onChange={(e) => setenteredRoompriceperday(e.target.value)}
+              onChange={(e) => setinterestcategory(e.target.value)}
             />
           </p>
 
@@ -126,32 +88,20 @@ const AddInterest = ({ isOpen, onCancel }) => {
             <input
               id="interestcreation"
               name="interestcreation"
-              type="date"
+              type="text" // Changed to text to match the date-time value format
               readOnly
-              value={currentDate}
+              value={currentDateTime}
               className="inputclass"
-              //   value={enteredRoompriceperday}
             />
           </p>
-
-          {/* <p>
-            <label htmlFor="roomimage">Room Image</label>
-            <input
-              type="text"
-              id="roomimage"
-              name="roomimage"
-              required
-              value={enteredroomImage}
-              onChange={(e) => setenteredroomImage(e.target.value)}
-            />
-          </p>
-          <img src={enteredroomImage} alt="RoomPic" width="100%" height="160px" /> */}
 
           <p className="actions">
             <button className="buttonmodalclass" type="button" onClick={onCancel}>
               Cancel
             </button>
-            <button className="buttonmodalclass" type="submit">Add Interest</button>
+            <button className="buttonmodalclass" type="submit">
+              Add Interest
+            </button>
           </p>
         </form>
       </dialog>

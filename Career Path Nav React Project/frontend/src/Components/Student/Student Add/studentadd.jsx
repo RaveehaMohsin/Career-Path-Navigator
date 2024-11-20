@@ -1,71 +1,286 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Upperheader from "../../UpperHeader/upperheader";
-import {  FaUserCircle } from "react-icons/fa";
-import './studentadd.css';
-
+import { FaUserCircle } from "react-icons/fa";
+import Swal from "sweetalert2";
+import "./studentadd.css";
 
 export default function Studentadd() {
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
+  const currentuser = userData.user;
+  const username = currentuser.firstName + " " + currentuser.lastName;
+
+  const [city, setCity] = useState("");
+  const [dob, setdob] = useState("");
+  const [country, setcountry] = useState("");
+  const [homeaddress, sethomeaddress] = useState("");
+  const [gender, setgender] = useState("");
+  const [phoneno, setphoneno] = useState("");
+  const [cnic, setcnic] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+
+  useEffect(() => {
+    const userId = currentuser.userId;
+
+    // Fetch user details from the server
+    fetch(`http://localhost:4000/getperson/${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          setCity(data.City || "");
+          setdob(data.DOB ? formatDate(data.DOB) : "");
+          setcountry(data.Country || "");
+          sethomeaddress(data.Address || "");
+          setgender(data.Gender || "");
+          setphoneno(data.PhoneNo || "");
+          setcnic(data.CNIC || "");
+          // If the profile image exists, set the selected image
+          if (data.Img) {
+            setSelectedImage('http://localhost:4000'+ data.Img);  // Assuming the server returns the image URL
+          }
+        } else {
+          // If no data is found, fields will remain empty
+          console.log("No person data found.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, []);
+
+  const removeImage = () => {
+    setSelectedImage(null);
+  };
+
+  const handleClear = () => {
+    setCity("");
+    setdob("");
+    setcountry("");
+    sethomeaddress("");
+    setgender("");
+    setphoneno("");
+    setcnic("");
+    setSelectedImage(null);
+  };
+  
+  
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("userId", currentuser.userId);
+    formData.append("gender", gender);
+    formData.append("phoneNo", phoneno);
+    formData.append("cnic", cnic);
+    formData.append("dob", dob);
+    formData.append("address", homeaddress);
+    formData.append("city", city);
+    formData.append("country", country);
+
+    if (selectedImage) {
+      formData.append("profileImage", selectedImage); // Append the image file here
+    }
+
+    fetch("http://localhost:4000/addperson", {
+      method: "POST",
+      body: formData,  // Use FormData as body
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: data.message,
+            confirmButtonText: "OK",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.error || "An unexpected error occurred.",
+          });
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "An unexpected error occurred.",
+        });
+      });
+  };
+
   return (
     <div>
-      <Upperheader title="Add Personal Details" />
+      <Upperheader title="Add Personal Details" name={username} />
       {/* Student Add Form */}
       <div className="student-form">
-        <form>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form-row">
             {/* Left Column - Profile Picture */}
             <div className="form-column profile-column">
-              <FaUserCircle className="profile-icon" />
+              {selectedImage ? (
+                <img
+                src={typeof selectedImage === 'string' ? selectedImage : URL.createObjectURL(selectedImage)}
+                  alt="Selected"
+                  className="profile-image"
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                  }}
+                />
+              ) : (
+                <FaUserCircle
+                  className="profile-icon"
+                  style={{ fontSize: "150px" }}
+                />
+              )}
               <div className="image-buttons">
-                <button className="image-btn" type="button">Choose File</button>
-                <button className="image-btn remove-btn" type="button">Remove</button>
+                <label style={{ color: "white" }} className="image-btn">
+                  Choose File
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    name="profileImage"
+                    onChange={(e) => setSelectedImage(e.target.files[0])}
+                  />
+                </label>
+                <button
+                  className="image-btn remove-btn"
+                  type="button"
+                  onClick={removeImage}
+                  disabled={!selectedImage}
+                >
+                  Remove
+                </button>
               </div>
             </div>
 
             {/* Center Column - First Set of Fields */}
             <div className="form-column">
               <label>First Name</label>
-              <input type="text" className="form-control" required placeholder="James" />
+              <input
+                type="text"
+                className="form-control"
+                readOnly
+                value={currentuser.firstName}
+              />
 
               <label>Date of Birth</label>
-              <input type="date" className="form-control" required  />
+              <input
+                type="date"
+                className="form-control"
+                name="dob"
+                required
+                value={dob}
+                onChange={(e) => setdob(e.target.value)}
+              />
 
               <label>City</label>
-              <input type="text" className="form-control" required />
+              <input
+                type="text"
+                className="form-control"
+                name="city"
+                required
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
 
               <label>Country</label>
-              <input type="text" className="form-control" required placeholder="USA" />
+              <input
+                type="text"
+                className="form-control"
+                name="country"
+                required
+                placeholder="USA"
+                value={country}
+                onChange={(e) => setcountry(e.target.value)}
+              />
 
               <label>Home Address</label>
-              <input type="text" className="form-control" required />
+              <input
+                type="text"
+                className="form-control"
+                name="homeaddress"
+                value={homeaddress}
+                onChange={(e) => sethomeaddress(e.target.value)}
+              />
             </div>
 
             {/* Right Column - Second Set of Fields */}
             <div className="form-column">
               <label>Last Name</label>
-              <input type="text" className="form-control" required placeholder="Wally" />
+              <input
+                type="text"
+                className="form-control"
+                readOnly
+                value={currentuser.lastName}
+              />
 
               <label>Gender</label>
-              <select className="form-control" required>
+              <select
+                className="form-control"
+                name="gender"
+                required
+                value={gender}
+                onChange={(e) => setgender(e.target.value)}
+              >
                 <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
               </select>
 
               <label>Email</label>
-              <input type="email" className="form-control" required placeholder="hello@example.com" />
+              <input
+                type="email"
+                className="form-control"
+                readOnly
+                value={currentuser.email}
+              />
 
               <label>Phone Number</label>
-              <input type="tel" className="form-control" required placeholder="+12345678" />
+              <input
+                type="tel"
+                className="form-control"
+                required
+                placeholder="+12345678"
+                name="phoneno"
+                value={phoneno}
+                onChange={(e) => setphoneno(e.target.value)}
+              />
 
               <label>CNIC</label>
-              <input type="text" className="form-control" required />
+              <input
+                type="text"
+                className="form-control"
+                name="cnic"
+                value={cnic}
+                onChange={(e) => setcnic(e.target.value)}
+              />
             </div>
           </div>
 
           {/* Save and Clear Buttons */}
           <div className="form-buttons">
-            <button type="submit" className="action-btn save-btn">Save Changes</button>
-            <button type="reset" className="action-btn clear-btn">Clear</button>
+            <button type="submit" className="action-btn save-btn">
+              Save Changes
+            </button>
+            <button type="button" className="action-btn clear-btn" onClick={handleClear}>
+              Clear
+            </button>
           </div>
         </form>
       </div>

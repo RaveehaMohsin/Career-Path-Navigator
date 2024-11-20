@@ -138,6 +138,8 @@
   margin-bottom: 15px;
 }
 
+
+
 .image-buttons {
   display: flex;
   gap: 10px;
@@ -153,6 +155,12 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
+.error-text {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
 
 .image-btn:hover {
   background-color: #005e8d;

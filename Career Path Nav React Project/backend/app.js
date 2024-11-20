@@ -13,6 +13,10 @@ var usersRouter = require('./routes/users');
 var addauthuser = require('./routes/Authentication/adduser')
 var getauthuser = require('./routes/Authentication/getuser')
 
+//student routers
+var addperson = require('./routes/addperson')
+var getperson = require('./routes/getperson')
+
 var app = express();
 
 const cors = require("cors");
@@ -35,7 +39,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/public", express.static(path.join(__dirname, "public")));
+app.use('/personImages', express.static(path.join(__dirname, 'personImages')));
+app.use('/personImages', express.static(path.join(__dirname, 'public', 'personImages')));
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -43,6 +50,10 @@ app.use('/users', usersRouter);
 //routes for authentication
 app.use('/addauthuser' , addauthuser);
 app.use('/getauthuser' , getauthuser);
+
+//router for student
+app.use('/addperson' , addperson);
+app.use('/getperson' , getperson)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

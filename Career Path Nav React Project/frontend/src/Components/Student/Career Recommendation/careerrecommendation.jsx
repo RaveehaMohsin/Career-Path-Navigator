@@ -3,7 +3,7 @@ import Upperheader from "../../UpperHeader/upperheader";
 import "./careerrecommendation.css";
 import Sitnspin from "../../Loading Spinners/SitnSpin/sitnspin";
 import Swal from "sweetalert2";
-import image from "../../../Assets/DALL·E 2024-11-22 23.45.37 - A professional and engaging image for career advice, featuring a diverse group of people in an office setting, discussing career options. One person i.webp";
+import image from "../../../Assets/career.jpg";
 
 export default function CareerRecommendation() {
   const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));

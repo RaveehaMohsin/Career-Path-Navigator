@@ -454,6 +454,9 @@ text-align: center;
     padding: 15px; /* Adjust padding */
   }
 }
+.interest-item {
+  margin-bottom: 20px; /* Adds space after each interest item */
+}
 
 /* Mobile screens */
 @media (max-width: 600px) {

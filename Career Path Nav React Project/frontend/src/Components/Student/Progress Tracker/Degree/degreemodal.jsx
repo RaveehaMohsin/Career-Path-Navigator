@@ -9,7 +9,7 @@ const AddDegree = ({ isOpen, onCancel }) => {
 
   const [formData, setFormData] = useState({
     degreetitle: "",
-    degreestatus: "",
+    degreestatus: "Wishlist",
     degreeinstitute: "",
     degreeduration: "",
     curriculum: "",

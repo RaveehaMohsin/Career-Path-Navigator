@@ -78,7 +78,7 @@ router.put("/update-status-degree/:degreeId", async (req, res) => {
 
     // Update the status of the degree entry
     const updateQuery = `
-      UPDATE Degrees
+      UPDATE Degree
       SET status = @status
       WHERE degreeId = @degreeId
     `;

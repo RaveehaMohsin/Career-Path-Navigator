@@ -8,7 +8,7 @@ function DegreeCard({ degree }) {
     return <div className="job-card p-4">No degree data available</div>;
   }
 
-  const degreeId = degree.id;
+  const degreeId = degree.degreeId;
 
   // Function to handle status change
   const handleStatusChange = async (event) => {
@@ -60,13 +60,13 @@ function DegreeCard({ degree }) {
   return (
     <div className="job-card">
       <div className="job-card-header">
-        <h3 className="job-card-title">{degree.title}</h3>
-        <p className="job-card-company">{degree.institution}</p>
+        <h3 className="job-card-title">{degree.degreeTitle}</h3>
+        <p className="job-card-company">{degree.instituition}</p>
       </div>
       <div className="job-card-content">
         <div className="job-card-detail">
           <span className="job-card-icon">📍</span>
-          <span>{getFieldValue(degree.location, 'No location provided')}</span>
+          <span>{getFieldValue(degree.locationInstitute, 'No location provided')}</span>
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">⏱</span>
@@ -74,7 +74,7 @@ function DegreeCard({ degree }) {
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">📚</span>
-          <span>Mode of Study: {getFieldValue(degree.modeOfStudy, 'No mode of study specified')}</span>
+          <span>Mode of Study: {getFieldValue(degree.modeofStudy, 'No mode of study specified')}</span>
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">📖</span>

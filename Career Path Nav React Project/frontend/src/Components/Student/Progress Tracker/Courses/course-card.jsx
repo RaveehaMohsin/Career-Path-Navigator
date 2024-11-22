@@ -49,6 +49,7 @@ function CourseCard({ course }) {
     }
   };
 
+
   return (
     <div className="job-card">
       <div className="job-card-header">
@@ -70,7 +71,7 @@ function CourseCard({ course }) {
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">💡</span>
-          <span>Skills : {course.skillsCovered}</span>
+          <span>Skills : {course.skillsCovered || 'Not defined'}</span>
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">💵</span>
@@ -78,7 +79,7 @@ function CourseCard({ course }) {
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">🏆</span>
-          <span>{course.certification ? 'Certification Available' : 'No Certification'}</span>
+          <span>{String(course.certification).toLowerCase() === 'yes' ? 'Certification Available' : 'No Certification'}</span>
         </div>
       </div>
       <div className="job-card-footer">

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./studentView.css";
-import UpperHeader from "../../UpperHeader/upperheader"
-import profilePic from "../../../Assets/studentProfilePic.jpg";
+import UpperHeader from "../../UpperHeader/upperheader";
 import studentHeader from "../../../Assets/studentheader.png";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { PiGenderFemaleBold } from "react-icons/pi";
@@ -14,9 +13,66 @@ import { FaRegAddressCard } from "react-icons/fa";
 import { IoSchoolOutline } from "react-icons/io5";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosTimer } from "react-icons/io";
-
+import { FaTag, FaClock } from "react-icons/fa";
 
 const StudentView = () => {
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
+  const username = userData.user.firstName + " " + userData.user.lastName;
+  const [personData, setpersonData] = useState();
+  const [personimage, setSelectedImage] = useState();
+  const [interests, setInterests] = useState();
+  const userId = userData.user.userId;
+
+  useEffect(() => {
+    // Calling both functions inside useEffect
+    fetchPersonProfile();
+    fetchInterests();
+  }, []); // Empty dependency array ensures this runs once on mount
+
+  const fetchPersonProfile = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/getperson/${userId}`);
+      const data = await response.json();
+
+      if (data) {
+        setpersonData(data);
+        // If there's an image, set it
+        if (data.Img) {
+          setSelectedImage("http://localhost:4000" + data.Img);
+        }
+      } else {
+        console.log("No person data found.");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const fetchInterests = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/getinterest/${userId}`
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setInterests(data);
+      } else {
+        setInterests([]);
+      }
+    } catch (error) {
+      console.error("Error fetching interests:", error);
+      setInterests([]);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
   const data = [
     {
@@ -68,8 +124,7 @@ const StudentView = () => {
   };
   return (
     <div>
-      
-      <UpperHeader title="Student View"/>
+      <UpperHeader title="Student View" name={username} />
       {/* Main container with two columns */}
       <div className="main-container">
         <div className="profile-background-container">
@@ -83,7 +138,7 @@ const StudentView = () => {
               />
               <div className="profile-picture-container">
                 <img
-                  src={profilePic}
+                  src={personimage}
                   alt="Profile"
                   className="profile-picture"
                 />
@@ -91,8 +146,8 @@ const StudentView = () => {
             </div>
 
             <div className="student-name">
-              <h2>Tayyaba Afzal</h2>
-              <p>Student</p>
+              <h2>{username}</h2>
+              <p>{userData.user.role}</p>
             </div>
 
             <div className="personal-info">
@@ -102,7 +157,7 @@ const StudentView = () => {
                     <MdOutlineMailOutline className="icon-view" />
                   </div>
                   <p className="heading-text"> Email:</p>
-                  <p className="info-text">tayyabaafzal957@gmail.com</p>
+                  <p className="info-text">{userData.user.email}</p>
                 </div>
 
                 <div className="cell">
@@ -110,14 +165,14 @@ const StudentView = () => {
                     <PiGenderFemaleBold className="icon-view" />
                   </div>
                   <p className="heading-text">Gender:</p>
-                  <p className="info-text">Female</p>
+                  <p className="info-text">{personData?.Gender || "Not set"}</p>
                 </div>
                 <div className="cell">
                   <div className="icon-container">
                     <FaRegAddressCard className="icon-view" />
                   </div>
                   <p className="heading-text">CNIC:</p>
-                  <p className="info-text">35202-6480145-8</p>
+                  <p className="info-text">{personData?.CNIC || "---"}</p>
                 </div>
                 <div className="cell">
                   <div className="icon-container">
@@ -125,7 +180,7 @@ const StudentView = () => {
                   </div>
                   <p className="heading-text">Address:</p>
                   <p className="info-text">
-                    Plot-785, Phase 2, Block L, Johar Town, Lahore
+                    {personData?.Address || "Unavailable"}
                   </p>
                 </div>
               </div>
@@ -136,28 +191,32 @@ const StudentView = () => {
                     <ImProfile className="icon-view" />
                   </div>
                   <p className="heading-text">LinkedIn Profile:</p>
-                  <p className="info-text">tayyaba957</p>
+                  <p className="info-text">{personData?.email || "---"}</p>
                 </div>
                 <div className="cell">
                   <div className="icon-container">
                     <LiaBirthdayCakeSolid className="icon-view" />
                   </div>
                   <p className="heading-text">DOB:</p>
-                  <p className="info-text">14/02/2004</p>
+                  <p className="info-text">
+                    {personData?.DOB ? formatDate(personData?.DOB) : "Not set"}
+                  </p>
                 </div>
                 <div className="cell">
                   <div className="icon-container">
                     <FaCity className="icon-view" />
                   </div>
                   <p className="heading-text">City:</p>
-                  <p className="info-text">Lahore</p>
+                  <p className="info-text">{personData?.City || "Not set"}</p>
                 </div>
                 <div className="cell">
                   <div className="icon-container">
                     <MdAccountBalance className="icon-view" />
                   </div>
                   <p className="heading-text">Country:</p>
-                  <p className="info-text">Pakistan</p>
+                  <p className="info-text">
+                    {personData?.Country || "Not set"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -201,7 +260,27 @@ const StudentView = () => {
         <div className="additional-info-container">
           <div className="info-box">
             <h3>All Interests</h3>
-            <p>Last Updated</p>
+            <p>
+              {interests?.map((interest, index) => (
+                <div key={index} className="interest-item">
+                  <FaTag style={{ marginRight: "8px" }} />{" "}
+                  {/* Displaying the icon */}
+                  <span>{interest.category}</span>{" "}
+                  {/* Displaying the category */}
+                  <div
+                    style={{
+                      marginLeft: "auto",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FaClock style={{ marginRight: "5px" }} /> {/* Time icon */}
+                    <span>{new Date(interest.created_at).toLocaleDateString()}</span> {/* Formatted date */}
+                    <br />                   
+                  </div>
+                </div>
+              ))}
+            </p>
           </div>
 
           <div className="info-detail-box">
@@ -215,9 +294,20 @@ const StudentView = () => {
                   </div>
                 </div>
                 <div className="info-content">
-                <p> <IoSchoolOutline className="info-content-icon01"/> Bachelors of CS</p>
-                <p> <CiLocationOn className="info-content-icon02"/> Islamabad, Pakistan</p>
-                <p> <IoIosTimer className="info-content-icon03"/> Full Time</p>
+                  <p>
+                    {" "}
+                    <IoSchoolOutline className="info-content-icon01" />{" "}
+                    Bachelors of CS
+                  </p>
+                  <p>
+                    {" "}
+                    <CiLocationOn className="info-content-icon02" /> Islamabad,
+                    Pakistan
+                  </p>
+                  <p>
+                    {" "}
+                    <IoIosTimer className="info-content-icon03" /> Full Time
+                  </p>
                 </div>
               </div>
             </div>
@@ -232,9 +322,20 @@ const StudentView = () => {
                   </div>
                 </div>
                 <div className="info-content">
-                <p> <IoSchoolOutline className="info-content-icon01"/> Bachelors of CS</p>
-                <p> <CiLocationOn className="info-content-icon02"/> Islamabad, Pakistan</p>
-                <p> <IoIosTimer className="info-content-icon03"/> Full Time</p>
+                  <p>
+                    {" "}
+                    <IoSchoolOutline className="info-content-icon01" />{" "}
+                    Bachelors of CS
+                  </p>
+                  <p>
+                    {" "}
+                    <CiLocationOn className="info-content-icon02" /> Islamabad,
+                    Pakistan
+                  </p>
+                  <p>
+                    {" "}
+                    <IoIosTimer className="info-content-icon03" /> Full Time
+                  </p>
                 </div>
               </div>
             </div>
@@ -249,9 +350,20 @@ const StudentView = () => {
                   </div>
                 </div>
                 <div className="info-content">
-                <p> <IoSchoolOutline className="info-content-icon01"/> Bachelors of CS</p>
-                <p> <CiLocationOn className="info-content-icon02"/> Islamabad, Pakistan</p>
-                <p> <IoIosTimer className="info-content-icon03"/> Full Time</p>
+                  <p>
+                    {" "}
+                    <IoSchoolOutline className="info-content-icon01" />{" "}
+                    Bachelors of CS
+                  </p>
+                  <p>
+                    {" "}
+                    <CiLocationOn className="info-content-icon02" /> Islamabad,
+                    Pakistan
+                  </p>
+                  <p>
+                    {" "}
+                    <IoIosTimer className="info-content-icon03" /> Full Time
+                  </p>
                 </div>
               </div>
             </div>
@@ -266,9 +378,20 @@ const StudentView = () => {
                   </div>
                 </div>
                 <div className="info-content">
-                <p> <IoSchoolOutline className="info-content-icon01"/> Bachelors of CS</p>
-                <p> <CiLocationOn className="info-content-icon02"/> Islamabad, Pakistan</p>
-                <p> <IoIosTimer className="info-content-icon03"/> Full Time</p>
+                  <p>
+                    {" "}
+                    <IoSchoolOutline className="info-content-icon01" />{" "}
+                    Bachelors of CS
+                  </p>
+                  <p>
+                    {" "}
+                    <CiLocationOn className="info-content-icon02" /> Islamabad,
+                    Pakistan
+                  </p>
+                  <p>
+                    {" "}
+                    <IoIosTimer className="info-content-icon03" /> Full Time
+                  </p>
                 </div>
               </div>
             </div>
@@ -276,7 +399,6 @@ const StudentView = () => {
             <div className="for-button">
               <button className="detail-button"> View More </button>
             </div>
-
           </div>
         </div>
       </div>

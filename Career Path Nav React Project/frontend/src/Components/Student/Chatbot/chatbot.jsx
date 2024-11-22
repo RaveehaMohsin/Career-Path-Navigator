@@ -12,6 +12,9 @@ import "./Chatbot.css";
 
 function Chatbot() {
 
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
+  const username = userData.user.firstName + " " + userData.user.lastName;
+
   const [messages, setMessages] = useState([
     {
       message: "Hello, I'm Chatbot! Ask me anything about your Interest!",
@@ -95,7 +98,7 @@ function Chatbot() {
 
   return (
     <div className="chatbot-wrapper">
-      <Upperheader title="ChatBot" />
+      <Upperheader title="ChatBot" name={username} />
       <div className="chatbot-container">
         <MainContainer className="MainContainer">
           <ChatContainer className="ChatContainer">

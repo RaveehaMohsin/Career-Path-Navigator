@@ -66,7 +66,7 @@ function JobCard({ job }) {
       <div className="job-card-content">
         <div className="job-card-detail">
           <span className="job-card-icon">📍</span>
-          <span>{getFieldValue(job.location, 'No location provided')}</span>
+          <span>{getFieldValue(job.locationJob, 'No location provided')}</span>
         </div>
         <p>{getFieldValue(job.jobDescription, 'No job description available')}</p>
         <div className="job-card-detail">
@@ -79,11 +79,21 @@ function JobCard({ job }) {
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">🎓</span>
-          <span>{getFieldValue(job.educationLevel, 'No education level specified')}</span>
+          <span>
+          {job.educationLevelRequired 
+            ? `Education Required: ${job.educationLevelRequired}` 
+            : 'No education level specified'}
+        </span>
+
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">💻</span>
-          <span>{getFieldValue(job.requiredSkills, 'No skills specified')}</span>
+          <span>
+          {job.requiredSkills 
+            ? `Skills: ${job.requiredSkills}` 
+            : 'No skills specified'}
+        </span>
+
         </div>
       </div>
       <div className="job-card-footer">

@@ -12,9 +12,9 @@ const AddCourse = ({ isOpen, onCancel }) => {
     coursestatus: "Wishlist",
     courseprovider: "",
     courseduration: "",
-    courselevel: "",
+    courselevel: "Beginner",
     courseskills: "",
-    coursecertificate: "",
+    coursecertificate: "Yes",
     coursefees: "",
     courseprereq: "",
   });

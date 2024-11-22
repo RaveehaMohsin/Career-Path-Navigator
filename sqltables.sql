@@ -35,7 +35,62 @@ CREATE TABLE Background (
     studentId INT NOT NULL,
     instituteName VARCHAR(100) NOT NULL,
     degreeTitle VARCHAR(100) NOT NULL,
+	degreeLevel  VARCHAR(100) NOT NULL,
     TotalMarks FlOAT NOT NULL,
     ObtainedMarks FLOAT NOT NULL,
+    FOREIGN KEY (studentId) REFERENCES Users(userId)
+);
+
+-- Create the Degree table (Weak Entity)
+CREATE TABLE Degree (
+    degreeId INT IDENTITY(1,1) PRIMARY KEY,
+    studentId INT NOT NULL,
+
+	degreeTitle VARCHAR (Max) NOT NULL,
+	instituition VARCHAR (Max) NOT NULL,
+	locationInstitute VARCHAR (Max) NOT NULL,
+	duration VARCHAR (Max) NOT NULL,
+	modeofStudy VARCHAR (Max),
+	curriculumOverview VARCHAR (Max) ,
+	careerOpportunities VARCHAR (Max),
+	salaryProspects VARCHAR (Max),
+
+	status VARCHAR (Max) NOT NULL,
+    FOREIGN KEY (studentId) REFERENCES Users(userId)
+);
+
+-- Create the Course table (Weak Entity)
+CREATE TABLE Course (
+    courseId INT IDENTITY(1,1) PRIMARY KEY,
+    studentId INT NOT NULL,
+
+	courseTitle VARCHAR (Max) NOT NULL,
+	providerSource VARCHAR (Max) NOT NULL,
+	durationCourse VARCHAR (Max),
+	courseLevel VARCHAR (Max) NOT NULL,
+	prerequisites VARCHAR (Max),
+	skillsCovered VARCHAR (Max) NOT NULL,
+	courseFees VARCHAR (Max),
+	certification VARCHAR (Max) NOT NULL,
+
+	status VARCHAR (Max) NOT NULL,
+    FOREIGN KEY (studentId) REFERENCES Users(userId) 
+);
+
+-- Create the Jobs table (Weak Entity)
+CREATE TABLE Jobs (
+    jobId INT IDENTITY(1,1) PRIMARY KEY,
+    studentId INT NOT NULL,
+
+	jobTitle VARCHAR (Max) NOT NULL,
+	company VARCHAR (Max) NOT NULL,
+	locationJob VARCHAR (Max) NOT NULL,
+	salaryrange VARCHAR (Max),
+	employmentType VARCHAR (Max) NOT NULL,
+	jobDescription VARCHAR (Max),
+	educationLevelRequired VARCHAR (Max),
+	requiredSkills VARCHAR (Max),
+
+	status VARCHAR (Max) NOT NULL,
     FOREIGN KEY (studentId) REFERENCES Users(userId)
 );

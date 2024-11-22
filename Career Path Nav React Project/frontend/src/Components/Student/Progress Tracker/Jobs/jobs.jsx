@@ -10,6 +10,21 @@ export default function Jobs() {
   const [isAddingJob, setIsAddingJob] = useState(false);
   const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
   const studentId = userData.user.userId;
+  const username = userData.user.firstName + " " + userData.user.lastName;
+
+  const [showNoJobsMessage, setShowNoJobsMessage] = useState(false);
+
+  useEffect(() => {
+    if (jobs.length === 0) {
+      const timer = setTimeout(() => {
+        setShowNoJobsMessage(true);
+      }, 1000); 
+
+      return () => clearTimeout(timer);
+    } else {
+      setShowNoJobsMessage(false); 
+    }
+  }, [jobs]);
 
   // Fetch jobs from the backend when the component mounts
   const fetchJobs = async () => {
@@ -51,7 +66,7 @@ export default function Jobs() {
 
   return (
     <div>
-      <Upperheader title="Job Progress Tracker" />
+      <Upperheader title="Job Progress Tracker" name={username} />
       <div className="jobs-container">
         {/* Experience input section */}
         <div className="experience-input">
@@ -72,14 +87,14 @@ export default function Jobs() {
 
         {/* Job listings grid */}
         <div className="job-listings">
-          {jobs.length === 0 ? (
-            <p>No jobs found for this student.</p>
-          ) : (
-            jobs.map(job => (
-              <JobCard key={job.jobId} job={job} onStatusChange={handleStatusChange} />
-            ))
-          )}
-        </div>
+        {jobs.length === 0 && showNoJobsMessage ? (
+          <p>No jobs found for this student.</p>
+        ) : (
+          jobs.map((job) => (
+            <JobCard key={job.jobId} job={job} onStatusChange={handleStatusChange} />
+          ))
+        )}
+      </div>
       </div>
     </div>
   );

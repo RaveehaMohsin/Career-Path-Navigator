@@ -10,6 +10,21 @@ export default function Degrees() {
   const [isAddingDegree, setIsAddingDegree] = useState(false);
   const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
   const studentId = userData.user.userId;
+  const username = userData.user.firstName + " " + userData.user.lastName;
+
+  const [showNoJobsMessage, setShowNoJobsMessage] = useState(false);
+
+  useEffect(() => {
+    if (degrees.length === 0) {
+      const timer = setTimeout(() => {
+        setShowNoJobsMessage(true);
+      }, 1000); 
+
+      return () => clearTimeout(timer);
+    } else {
+      setShowNoJobsMessage(false); 
+    }
+  }, [degrees]);
 
   // Fetch degrees from the backend when the component mounts
   const fetchDegrees = async () => {
@@ -46,12 +61,12 @@ export default function Degrees() {
 
   const handleCloseDialog = () => {
     setIsAddingDegree(false);
-    fetchDegrees(); // Refresh the degrees list after adding a new degree
+    fetchDegrees(); 
   };
 
   return (
     <div>
-      <Upperheader title="Degrees Progress Tracker" />
+      <Upperheader title="Degrees Progress Tracker" name={username} />
       <div className="jobs-container">
         {/* Add Degree Section */}
         <div className="experience-input">
@@ -72,7 +87,7 @@ export default function Degrees() {
 
         {/* Degree Listings Grid */}
         <div className="job-listings">
-          {degrees.length === 0 ? (
+          {degrees.length === 0 && showNoJobsMessage  ? (
             <p>No degrees found for this student.</p>
           ) : (
             degrees.map(degree => (

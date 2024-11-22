@@ -10,6 +10,21 @@ export default function Courses() {
   const [isAddingCourse, setIsAddingCourse] = useState(false);
   const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
   const studentId = userData.user.userId;
+  const username = userData.user.firstName + " " + userData.user.lastName;
+
+  const [showNoJobsMessage, setShowNoJobsMessage] = useState(false);
+
+  useEffect(() => {
+    if (courses.length === 0) {
+      const timer = setTimeout(() => {
+        setShowNoJobsMessage(true);
+      }, 1000); 
+
+      return () => clearTimeout(timer);
+    } else {
+      setShowNoJobsMessage(false); 
+    }
+  }, [courses]);
 
   // Fetch courses from the backend when the component mounts
   const fetchCourses = async () => {
@@ -50,7 +65,7 @@ export default function Courses() {
 
   return (
     <div>
-      <Upperheader title="Courses Progress Tracker" />
+      <Upperheader title="Courses Progress Tracker" name={username} />
       <div className="jobs-container">
         {/* Add Course Section */}
         <div className="experience-input">
@@ -71,8 +86,8 @@ export default function Courses() {
 
         {/* Course Listings Grid */}
         <div className="job-listings">
-          {courses.length === 0 ? (
-            <p>No courses found for this student.</p>
+          {courses.length === 0 && showNoJobsMessage  ? (
+            <p>No courses available for this student.</p>
           ) : (
             courses.map(course => (
               <CourseCard

@@ -131,3 +131,42 @@
   background-color: #081e3c; /* Slightly darker green on hover */
 }
 
+
+.action-buttons {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+
+}
+
+.action-btn1 {
+  border: none;
+  background-color: transparent;
+  color: #555;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.action-btn1:hover {
+  color: #007bff; /* Highlight color on hover */
+  transform: scale(1.1); /* Slight zoom effect */
+}
+
+.update-btn {
+  color: #28a745; /* Green for update */
+}
+
+.update-btn:hover {
+  color: #218838; /* Darker green on hover */
+}
+
+.delete-btn {
+  color: #dc3545; /* Red for delete */
+}
+
+.delete-btn:hover {
+  color: #c82333; /* Darker red on hover */
+}
+
+
+

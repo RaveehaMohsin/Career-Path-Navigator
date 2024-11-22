@@ -54,7 +54,7 @@ export default function Studentadd() {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  }, );
+  },[]);
 
   const removeImage = () => {
     setSelectedImage(null);
@@ -73,9 +73,9 @@ export default function Studentadd() {
   
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const formData = new FormData();
     formData.append("userId", currentuser.userId);
     formData.append("gender", gender);
@@ -85,14 +85,34 @@ export default function Studentadd() {
     formData.append("address", homeaddress);
     formData.append("city", city);
     formData.append("country", country);
-
+  
+    // Check if selectedImage is a URL or a File
     if (selectedImage) {
-      formData.append("profileImage", selectedImage); // Append the image file here
+      if (typeof selectedImage === "string") {
+        try {
+          const response = await fetch(selectedImage);
+          const blob = await response.blob();
+          const file = new File([blob], "profileImage.jpg", { type: blob.type });
+          formData.append("profileImage", file);
+          console.log("Converted URL to File and appended:", file);
+        } catch (error) {
+          console.error("Error fetching the image:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Failed to process the image. Please try again.",
+          });
+          return; // Stop form submission
+        }
+      } else {
+        formData.append("profileImage", selectedImage);
+      }
     }
-
+  
+    // Submit the form data to the server
     fetch("http://localhost:4000/addperson", {
       method: "POST",
-      body: formData,  // Use FormData as body
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -119,6 +139,7 @@ export default function Studentadd() {
         });
       });
   };
+  
 
   return (
     <div>

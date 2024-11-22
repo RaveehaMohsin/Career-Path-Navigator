@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import './interest.css';
 import BackgroundTable from './backgroundtable';
 import AddBackground from './backgroundaddmodal';
-import { FaUpload } from 'react-icons/fa';
 
 export default function InterestTable({ setisbtnclick }) {
   const [isAddingInterest, setIsAddingInterest] = useState(false);
-  const [interests, setInterests] = useState([]); // To hold interests fetched from the backend
-  const [isLoading, setIsLoading] = useState(true); // To show loading state
+  const [interests, setInterests] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   const randomImages = [
-    "https://cdn-icons-png.flaticon.com/512/3745/3745452.png",  
+    "https://cdn-icons-png.flaticon.com/512/3745/3745452.png",
   ];
 
-  // Fetch interests from the backend
   const fetchInterests = async () => {
     try {
       setIsLoading(true);
@@ -28,23 +28,22 @@ export default function InterestTable({ setisbtnclick }) {
         }));
         setInterests(interestsWithImages);
       } else {
-        setInterests([]); 
+        setInterests([]);
       }
     } catch (error) {
       console.error("Error fetching interests:", error);
-      setInterests([]); 
+      setInterests([]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Fetch data when the component loads
   useEffect(() => {
     fetchInterests();
   }, []);
 
   const handleReload = () => {
-    fetchInterests(); // Reload interests from the backend
+    fetchInterests(); 
   };
 
   const handleInterestClick = () => {
@@ -53,6 +52,8 @@ export default function InterestTable({ setisbtnclick }) {
 
   const handleCloseDialog = () => {
     setIsAddingInterest(false);
+    setSelectedRecord(null); 
+    setIsEditing(false); 
   };
 
   const handleInterestAdd = () => {
@@ -64,7 +65,7 @@ export default function InterestTable({ setisbtnclick }) {
       <div className="interest-table-container">
         <table className="interest-table">
           <caption>
-            Your Interests 
+            Your Interests
             <button className="btntable" onClick={handleReload}>Reload</button>
           </caption>
           <thead>
@@ -99,11 +100,17 @@ export default function InterestTable({ setisbtnclick }) {
       </div>
       <br />
       <br />
-      <BackgroundTable setisbtnclick1={handleInterestClick} />
+      <BackgroundTable 
+        setisbtnclick1={handleInterestClick}        
+        setSelectedRecord={setSelectedRecord}
+        setIsEditing={setIsEditing} 
+      />
       {isAddingInterest && (
         <AddBackground
           isOpen={isAddingInterest}
           onCancel={handleCloseDialog}
+          selectedRecord={selectedRecord}
+          isEditing={isEditing}
         />
       )}
     </div>

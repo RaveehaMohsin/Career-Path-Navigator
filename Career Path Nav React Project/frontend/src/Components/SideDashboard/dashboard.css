@@ -37,7 +37,7 @@ body {
     font-size: 24px;
     background: none;
     border: none;
-    color: rgb(106, 2, 2);
+    color: #f78f16;
     cursor: pointer;
     position: fixed;
     top: 70px; /* Start below navbar on smaller screens */

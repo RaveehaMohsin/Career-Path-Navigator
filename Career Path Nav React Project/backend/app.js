@@ -18,6 +18,8 @@ var addperson = require('./routes/addperson')
 var getperson = require('./routes/getperson')
 var addinterest = require('./routes/Student , Interest , Background/addinterest')
 var getinterest = require('./routes/Student , Interest , Background/getinterest')
+var addbackground = require('./routes/Student , Interest , Background/addbackground');
+var getbackground = require('./routes/Student , Interest , Background/getbackground');
 
 var app = express();
 
@@ -58,6 +60,8 @@ app.use('/addperson' , addperson);
 app.use('/getperson' , getperson);
 app.use('/addinterest',addinterest);
 app.use('/getinterest', getinterest);
+app.use('/addbackground' , addbackground);
+app.use('/getbackground' , getbackground);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

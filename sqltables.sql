@@ -28,3 +28,14 @@ CREATE TABLE Interest (
     created_at DATE NOT NULL,
     FOREIGN KEY (studentId) REFERENCES Users(userId)
 );
+
+-- Create the Background table (Weak Entity)
+CREATE TABLE Background (
+    backgroundId INT IDENTITY(1,1) PRIMARY KEY,
+    studentId INT NOT NULL,
+    instituteName VARCHAR(100) NOT NULL,
+    degreeTitle VARCHAR(100) NOT NULL,
+    TotalMarks FlOAT NOT NULL,
+    ObtainedMarks FLOAT NOT NULL,
+    FOREIGN KEY (studentId) REFERENCES Users(userId)
+);

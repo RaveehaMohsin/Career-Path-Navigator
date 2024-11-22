@@ -59,16 +59,44 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { studentid , institutename, degreetitle, totalmarks, obtainedmarks } = req.body;
+    const { studentid, institutename, degreetitle, degreelevel, totalmarks, obtainedmarks } = req.body;
 
     try {
         const pool = await sql.connect();
+
+        // First, check for duplicate entry (excluding the current record being updated)
+        const checkQuery = `
+            SELECT COUNT(*) AS count
+            FROM Background
+            WHERE studentId = @studentId
+            AND instituteName = @instituteName
+            AND degreeTitle = @degreeTitle
+            AND degreeLevel = @degreeLevel
+            AND backgroundId != @id
+        `;
+        
+        const checkResult = await pool
+            .request()
+            .input("studentId", sql.Int, studentid)
+            .input("instituteName", sql.VarChar(100), institutename)
+            .input("degreeTitle", sql.VarChar(100), degreetitle)
+            .input("degreeLevel", sql.VarChar(100), degreelevel)
+            .input("id", sql.Int, id)
+            .query(checkQuery);
+
+        // If a duplicate record is found, return an error
+        if (checkResult.recordset[0].count > 0) {
+            return res.status(400).json({ error: "This degree entry already exists for the student." });
+        }
+
+        // Update the background record if no duplicate is found
         const query = `
             UPDATE Background
             SET 
                 studentId = @studentId,
-                instituteName = @institutename,
-                degreeTitle = @degreetitle,
+                instituteName = @instituteName,
+                degreeTitle = @degreeTitle,
+                degreeLevel = @degreeLevel,
                 TotalMarks = @totalmarks,
                 ObtainedMarks = @obtainedmarks
             WHERE backgroundId = @id
@@ -80,6 +108,7 @@ router.put('/:id', async (req, res) => {
             .input("studentId", sql.Int, studentid)
             .input("instituteName", sql.VarChar(100), institutename)
             .input("degreeTitle", sql.VarChar(100), degreetitle)
+            .input("degreeLevel", sql.VarChar(100), degreelevel)
             .input("totalMarks", sql.Float, totalmarks)
             .input("obtainedMarks", sql.Float, obtainedmarks)
             .query(query);

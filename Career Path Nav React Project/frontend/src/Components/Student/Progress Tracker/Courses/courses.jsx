@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CourseCard from './course-card';
 import '../Jobs/jobs.css';
 import Upperheader from '../../../UpperHeader/upperheader';
@@ -6,55 +6,38 @@ import { FaPlus, FaUserCircle } from 'react-icons/fa';
 import AddCourse from './coursemodal';
 
 export default function Courses() {
+  const [courses, setCourses] = useState([]);
+  const [isAddingCourse, setIsAddingCourse] = useState(false);
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
+  const studentId = userData.user.userId;
 
-  const [courses, setCourses] = useState([
-    {
-      id: 1,
-      title: 'Full-Stack Web Development',
-      provider: 'Coursera',
-      duration: '6 months',
-      courseLevel: 'Beginner to Advanced',
-      prerequisites: 'Basic understanding of programming',
-      skillsCovered: 'HTML, CSS, JavaScript, React, Node.js, MongoDB',
-      fees: '$499',
-      certification: true,
-      status: 'Wishlist',
-    },
-    {
-      id: 2,
-      title: 'Data Science Specialization',
-      provider: 'edX',
-      duration: '4 months',
-      courseLevel: 'Intermediate',
-      prerequisites: 'Knowledge of Python and statistics',
-      skillsCovered: 'Python, Pandas, NumPy, Machine Learning',
-      fees: '$299',
-      certification: true,
-      status: 'In Progress',
-    },
-    {
-      id: 3,
-      title: 'UI/UX Design Essentials',
-      provider: 'Udemy',
-      duration: '3 months',
-      courseLevel: 'Beginner',
-      prerequisites: 'None',
-      skillsCovered: 'Figma, Sketch, Prototyping, Wireframing',
-      fees: '$99',
-      certification: true,
-      status: 'Completed',
-    },
-  ]);
+  // Fetch courses from the backend when the component mounts
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/getProgresses/getcourses/${studentId}`);
+      const data = await response.json();
 
-  const handleStatusChange = (id, newStatus) => {
-    setCourses(
-      courses.map((course) =>
-        course.id === id ? { ...course, status: newStatus } : course
-      )
-    );
+      if (response.ok) {
+        setCourses(data.courses);
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
   };
 
-  const [isAddingCourse, setIsAddingCourse] = useState(false);
+  useEffect(() => {
+    if (studentId) {
+      fetchCourses();
+    }
+  }, [studentId]);
+
+  const handleStatusChange = (id, newStatus) => {
+    setCourses(courses.map(course =>
+      course.courseId === id ? { ...course, status: newStatus } : course
+    ));
+  };
 
   const handleAddClick = () => {
     setIsAddingCourse(true);
@@ -62,6 +45,7 @@ export default function Courses() {
 
   const handleCloseDialog = () => {
     setIsAddingCourse(false);
+    fetchCourses(); 
   };
 
   return (
@@ -79,18 +63,25 @@ export default function Courses() {
         </div>
 
         {isAddingCourse && (
-          <AddCourse isOpen={isAddingCourse} onCancel={handleCloseDialog} />
+          <AddCourse
+            isOpen={isAddingCourse}
+            onCancel={handleCloseDialog}
+          />
         )}
 
         {/* Course Listings Grid */}
         <div className="job-listings">
-          {courses.map((course) => (
-            <CourseCard
-              key={course.id}
-              course={course}
-              onStatusChange={handleStatusChange}
-            />
-          ))}
+          {courses.length === 0 ? (
+            <p>No courses found for this student.</p>
+          ) : (
+            courses.map(course => (
+              <CourseCard
+                key={course.courseId}
+                course={course}
+                onStatusChange={handleStatusChange}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>

@@ -1,19 +1,42 @@
 import React, { useState } from 'react';
 import '../Jobs/jobs.css';
 
-function DegreeCard({ degree, onStatusChange }) {
-  const [status, setStatus] = useState(degree?.status || 'Wishlist');
+function DegreeCard({ degree }) {
+  const [status, setStatus] = useState(degree?.status || 'Wishlist'); // Initial status from degree prop
 
   if (!degree) {
     return <div className="job-card p-4">No degree data available</div>;
   }
 
-  const handleStatusChange = (event) => {
+  const degreeId = degree.id;
+
+  // Function to handle status change
+  const handleStatusChange = async (event) => {
     const newStatus = event.target.value;
-    setStatus(newStatus);
-    onStatusChange(degree.id, newStatus);
+    setStatus(newStatus); // Update the local state
+
+    try {
+      // Make the API request to update the status
+      const response = await fetch(`http://localhost:4000/updateProgressStatus/update-status-degree/${degreeId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (response.ok) {
+        const updatedDegree = await response.json();
+        console.log('Degree status updated:', updatedDegree.message); // Log or handle success message
+      } else {
+        console.error('Failed to update degree status');
+      }
+    } catch (error) {
+      console.error('Error updating degree status:', error);
+    }
   };
 
+  // Function to determine the CSS class for each status
   const getStatusClass = (status) => {
     switch (status.toLowerCase()) {
       case 'enrolled':
@@ -22,11 +45,16 @@ function DegreeCard({ degree, onStatusChange }) {
         return 'status-not-eligible';
       case 'completed':
         return 'status-completed';
-       case 'applied':
+      case 'applied':
         return 'status-applied';
       default:
-        return 'status-wishlist';
+        return 'status-wishlist'; // Default status is wishlist
     }
+  };
+
+  // Function to check if a field is empty and return a fallback message
+  const getFieldValue = (field, fallback) => {
+    return field && field.trim() !== '' ? field : fallback;
   };
 
   return (
@@ -38,31 +66,34 @@ function DegreeCard({ degree, onStatusChange }) {
       <div className="job-card-content">
         <div className="job-card-detail">
           <span className="job-card-icon">📍</span>
-          <span>{degree.location}</span>
+          <span>{getFieldValue(degree.location, 'No location provided')}</span>
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">⏱</span>
-          <span>{degree.duration}</span>
+          <span>{getFieldValue(degree.duration, 'No duration information available')}</span>
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">📚</span>
-          <span>Mode of Study: {degree.modeOfStudy}</span>
+          <span>Mode of Study: {getFieldValue(degree.modeOfStudy, 'No mode of study specified')}</span>
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">📖</span>
-          <span>Curriculum: {degree.curriculumOverview}</span>
+          <span>Curriculum: {getFieldValue(degree.curriculumOverview, 'No curriculum overview available')}</span>
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">💼</span>
-          <span>Career Opportunities: {degree.careerOpportunities}</span>
+          <span>Oppurtunities: {getFieldValue(degree.careerOpportunities, 'No career opportunities specified')}</span>
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">💵</span>
-          <span>Salary Prospects: {degree.salaryProspects}</span>
+          <span>Salary Prospects: {getFieldValue(degree.salaryProspects, 'No salary information available')}</span>
         </div>
       </div>
       <div className="job-card-footer">
+        {/* Display current status */}
         <span className={`job-status-badge ${getStatusClass(status)}`}>{status}</span>
+
+        {/* Dropdown to change status */}
         <select onChange={handleStatusChange} value={status}>
           <option value="Wishlist">Wishlist</option>
           <option value="Enrolled">Enrolled</option>

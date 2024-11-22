@@ -259,7 +259,7 @@ export default function Studentadd() {
                 value={gender}
                 onChange={(e) => setgender(e.target.value)}
               >
-                <option value="">Select Gender</option>
+                <option value="" disabled>Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>

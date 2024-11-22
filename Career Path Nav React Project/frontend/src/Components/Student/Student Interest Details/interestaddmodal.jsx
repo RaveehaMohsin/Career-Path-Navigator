@@ -19,16 +19,16 @@ const AddInterest = ({ isOpen, onCancel }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const interestData = {
       studentid: currentuser.userId,
       interesttype: interestcategory,
       interestcreation: currentDateTime,
     };
-
+  
     const url = `http://localhost:4000/addinterest`;
     const method = "POST";
-
+  
     try {
       const response = await fetch(url, {
         method: method,
@@ -37,14 +37,22 @@ const AddInterest = ({ isOpen, onCancel }) => {
         },
         body: JSON.stringify(interestData),
       });
-
+  
       const data = await response.json(); // Await the response before using `data`
-
+  
       if (data.message) {
         Swal.fire({
           icon: "success",
           title: "Success",
           text: data.message,
+          confirmButtonText: "OK",
+        });
+      } else if (data.error) {
+        // Check for error message in case category already exists
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: data.error, // Display the error message from the server
           confirmButtonText: "OK",
         });
       }
@@ -57,6 +65,7 @@ const AddInterest = ({ isOpen, onCancel }) => {
       });
     }
   };
+  
 
   if (!isOpen) return null;
 

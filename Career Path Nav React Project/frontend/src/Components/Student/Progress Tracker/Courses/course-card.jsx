@@ -1,18 +1,40 @@
 import React, { useState } from 'react';
 import '../Jobs/jobs.css';
 
-function CourseCard({ course, onStatusChange }) {
+function CourseCard({ course }) {
   const [status, setStatus] = useState(course?.status || 'Wishlist');
 
   if (!course) {
     return <div className="job-card p-4">No course data available</div>;
   }
 
-  const handleStatusChange = (event) => {
+  const courseId = course.courseId; 
+
+  const handleStatusChange = async (event) => {
     const newStatus = event.target.value;
-    setStatus(newStatus);
-    onStatusChange(course.id, newStatus);
+    setStatus(newStatus); 
+
+    try {
+
+      const response = await fetch(`http://localhost:4000/updateProgressStatus/update-status-course/${courseId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (response.ok) {
+        const updatedJob = await response.json();
+        console.log('Course status updated:', updatedJob.message);  // Log or handle success message
+      } else {
+        console.error('Failed to update course status');
+      }
+    } catch (error) {
+      console.error('Error updating course status:', error);
+    }
   };
+
 
   const getStatusClass = (status) => {
     switch (status.toLowerCase()) {
@@ -30,13 +52,13 @@ function CourseCard({ course, onStatusChange }) {
   return (
     <div className="job-card">
       <div className="job-card-header">
-        <h3 className="job-card-title">{course.title}</h3>
-        <p className="job-card-company">{course.provider}</p>
+        <h3 className="job-card-title">{course.courseTitle}</h3>
+        <p className="job-card-company">{course.providerSource}</p>
       </div>
       <div className="job-card-content">
         <div className="job-card-detail">
           <span className="job-card-icon">⏱</span>
-          <span>{course.duration}</span>
+          <span>{course.durationCourse}</span>
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">📜</span>
@@ -52,7 +74,7 @@ function CourseCard({ course, onStatusChange }) {
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">💵</span>
-          <span>{course.fees || 'Free'}</span>
+          <span>{course.courseFees || 'Free'}</span>
         </div>
         <div className="job-card-detail">
           <span className="job-card-icon">🏆</span>

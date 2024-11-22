@@ -78,6 +78,7 @@ export default function BackgroundTable({ setisbtnclick1, setSelectedRecord, set
         <thead>
           <tr>
             <th>Institute Name</th>
+            <th>Degree Level</th>
             <th>Degree Title</th>
             <th>Total Marks</th>
             <th>Obtained Marks</th>
@@ -95,6 +96,7 @@ export default function BackgroundTable({ setisbtnclick1, setSelectedRecord, set
             backgroundEducation.map((education, index) => (
               <tr key={index}>
                 <td>{education.instituteName}</td>
+               <td>{education.degreeLevel}</td>
                 <td>{education.degreeTitle}</td>
                 <td>{education.TotalMarks}</td>
                 <td>{education.ObtainedMarks}</td>

@@ -5,6 +5,7 @@ import auth from './Components/auth/auth';
 import StudentMain from './Components/Student/studentmain';
 import KeyboardScroll from './Components/keyboardscroll'; // Import the new component
 import PageNotFound from './Components/PageNotFound/Pagenotfound';
+import AdminMain from './Components/Admin/adminmain';
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
         {/* Counsellor Route */}
 
         {/* Admin Route */}
+        <Route exact path="/admin/counsellorview" component={AdminMain} />
+        <Route exact path="/admin/studentview" component={AdminMain} />
+        <Route exact path="/admin/meetview"  component={AdminMain} />
 
         {/* Default */}
         {/* Catch-All Route for Undefined Paths */}

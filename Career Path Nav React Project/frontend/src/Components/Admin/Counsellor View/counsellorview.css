@@ -1,0 +1,178 @@
+:root {
+  --text-color: #303972;
+  --text-secondary: #00273a;
+  --light-color: #a098ae;
+  --black: #000000;
+  --white: #ffffff;
+  --gray: #e8e3e3;
+  --gray-2: #757575;
+  --icon-color: #fb7d5b;
+  --icon-secondary: #fcc43e;
+
+  --container-color: #f9f9f9;
+  --background-color: #00273a1a;
+
+  --label01: #1eba62;
+  --labelB01: #ddfaea;
+  --label02: #fb7d5b;
+  --labelB02: #fff3f0;
+  --label03: #fd5353;
+  --labelB03: #ffeaea;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+  grid-gap: 20px; /* space between cards */
+  margin: 20px;
+  padding: 0;
+  max-width: 1250px;
+  margin-left: auto;
+}
+
+.card {
+  width: 270px;
+  padding: 20px;
+  margin: none;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  background-color: var(--white);
+
+  transform: scale(1); /* Initial scale */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+  animation: fadeIn 1s ease-out;
+}
+
+.card:hover {
+  transform: scale(1.05); /* Slight zoom effect */
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* More pronounced shadow */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-image {
+  margin-bottom: 15px;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--text-secondary);
+  object-fit: cover;
+}
+
+.card-heading {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+.card-paragraph {
+  font-size: 14px;
+  color: var(--light-color);
+  margin-bottom: 15px;
+}
+.card-label-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+.card-label-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.card-label01,
+.card-label02,
+.card-label03 {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.card-label01 {
+  background-color: var(--labelB01);
+  color: var(--label01);
+}
+
+.card-label02 {
+  background-color: var(--labelB02);
+  color: var(--label02);
+}
+
+.card-label03 {
+  background-color: var(--labelB03); /* Match background to text color */
+  color: var(--label03);
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-button {
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.card-button.primary {
+  background-color: var(--text-secondary);
+  color: white;
+}
+
+.card-button.secondary {
+  background-color: var(--gray);
+  color: var(--text-secondary);
+}
+
+.card-button:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(
+      3,
+      1fr
+    ); /* 3 cards per row on medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* 2 cards per row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .card-grid {
+    grid-template-columns: 1fr; /* 1 card per row on mobile screens */
+  }
+}

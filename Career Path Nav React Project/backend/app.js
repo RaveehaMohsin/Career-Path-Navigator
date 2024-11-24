@@ -25,6 +25,11 @@ var adddegree = require('./routes/Career Recommendations/addDegree');
 var addcourse = require('./routes/Career Recommendations/addCourse');
 var updateStatus = require('./routes/Career Recommendations/updatestatus');
 var getprogress = require('./routes/Career Recommendations/getProgress');
+var addStudentResume = require('./routes/Student , Interest , Background/addStudentResume');
+var getStudentResume = require('./routes/Student , Interest , Background/getStudentResume');
+
+//admin routers
+var getallstudents = require('./routes/For Admin/getallstudent')
 
 var app = express();
 
@@ -60,7 +65,7 @@ app.use('/users', usersRouter);
 app.use('/addauthuser' , addauthuser);
 app.use('/getauthuser' , getauthuser);
 
-//router for student
+//routes for student
 app.use('/addperson' , addperson);
 app.use('/getperson' , getperson);
 app.use('/addinterest',addinterest);
@@ -72,6 +77,11 @@ app.use('/addDegree' , adddegree);
 app.use('/addCourse' , addcourse);
 app.use('/updateProgressStatus' , updateStatus);
 app.use('/getProgresses' ,getprogress);
+app.use('/addstudentresume' , addStudentResume);
+app.use('/getstudentresume' , getStudentResume);
+
+//routes for admin
+app.use('/getstudents' , getallstudents);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

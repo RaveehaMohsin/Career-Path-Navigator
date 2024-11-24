@@ -4,7 +4,6 @@ import UpperHeader from "../../UpperHeader/upperheader";
 import studentHeader from "../../../Assets/studentheader.png";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { PiGenderFemaleBold } from "react-icons/pi";
-import { ImProfile } from "react-icons/im";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { FaCity } from "react-icons/fa";
 import { MdAccountBalance } from "react-icons/md";
@@ -14,6 +13,8 @@ import { IoSchoolOutline } from "react-icons/io5";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosTimer } from "react-icons/io";
 import { FaTag, FaClock } from "react-icons/fa";
+import { FaPhone } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const StudentView = () => {
   const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
@@ -21,12 +22,20 @@ const StudentView = () => {
   const [personData, setpersonData] = useState();
   const [personimage, setSelectedImage] = useState();
   const [interests, setInterests] = useState();
+  const [background, setBackground] = useState();
+  const [jobs, setJobs] = useState();
+  const [degrees, setDegrees] = useState();
+  const [courses, setCourses] = useState();
   const userId = userData.user.userId;
 
   useEffect(() => {
     // Calling both functions inside useEffect
     fetchPersonProfile();
     fetchInterests();
+    fetchBackground();
+    fetchJobs();
+    fetchDegrees();
+    fetchCourses();
   }, []); // Empty dependency array ensures this runs once on mount
 
   const fetchPersonProfile = async () => {
@@ -66,6 +75,78 @@ const StudentView = () => {
     }
   };
 
+  const fetchBackground = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/getbackground/${userId}`
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setBackground(data);
+      } else {
+        setBackground([]);
+      }
+    } catch (error) {
+      console.error("Error fetching background:", error);
+      setBackground([]);
+    }
+  };
+
+  const fetchJobs = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/getProgresses/getjobs/${userId}`
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setJobs(data.jobs);
+      } else {
+        setJobs([]);
+      }
+    } catch (error) {
+      console.error("Error fetching Jobs:", error);
+      setJobs([]);
+    }
+  };
+
+  const fetchDegrees = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/getProgresses/getdegrees/${userId}`
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setDegrees(data.degrees);
+      } else {
+        setDegrees([]);
+      }
+    } catch (error) {
+      console.error("Error fetching Degrees:", error);
+      setDegrees([]);
+    }
+  };
+
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/getProgresses/getcourses/${userId}`
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setCourses(data.courses);
+      } else {
+        setCourses([]);
+      }
+    } catch (error) {
+      console.error("Error fetching Courses:", error);
+      setCourses([]);
+    }
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -74,45 +155,16 @@ const StudentView = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const data = [
-    {
-      institute: "Institute 1",
-      degree: "Bachelor of Science",
-      percentage: "85%",
-    },
-    { institute: "Institute 2", degree: "Intermediate", percentage: "75%" },
-    { institute: "Institute 3", degree: "High School", percentage: "90%" },
-    {
-      institute: "Institute 4",
-      degree: "Bachelor of Science",
-      percentage: "88%",
-    },
-    { institute: "Institute 5", degree: "Intermediate", percentage: "82%" },
-    { institute: "Institute 6", degree: "High School", percentage: "78%" },
-    {
-      institute: "Institute 7",
-      degree: "Bachelor of Science",
-      percentage: "90%",
-    },
-    { institute: "Institute 8", degree: "Intermediate", percentage: "80%" },
-    { institute: "Institute 9", degree: "High School", percentage: "85%" },
-    {
-      institute: "Institute 10",
-      degree: "Bachelor of Science",
-      percentage: "87%",
-    },
-  ];
-
   const [currentPage, setCurrentPage] = useState(1);
   const entriesPerPage = 5;
 
   // Get current entries based on currentPage
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = data.slice(indexOfFirstEntry, indexOfLastEntry);
+  const currentEntries = background?.slice(indexOfFirstEntry, indexOfLastEntry);
 
   const handleNext = () => {
-    if (currentPage < Math.ceil(data.length / entriesPerPage)) {
+    if (currentPage < Math.ceil(background?.length / entriesPerPage)) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -124,7 +176,7 @@ const StudentView = () => {
   };
   return (
     <div>
-      <UpperHeader title="Student View" name={username} />
+      <UpperHeader title="Profile Preview" name={username} />
       {/* Main container with two columns */}
       <div className="main-container">
         <div className="profile-background-container">
@@ -188,10 +240,10 @@ const StudentView = () => {
               <div className="info-column">
                 <div className="cell">
                   <div className="icon-container">
-                    <ImProfile className="icon-view" />
+                    <FaPhone className="icon-view" />
                   </div>
-                  <p className="heading-text">LinkedIn Profile:</p>
-                  <p className="info-text">{personData?.email || "---"}</p>
+                  <p className="heading-text">Phone No:</p>
+                  <p className="info-text">{personData?.PhoneNo || "---"}</p>
                 </div>
                 <div className="cell">
                   <div className="icon-container">
@@ -229,16 +281,20 @@ const StudentView = () => {
               <thead>
                 <tr>
                   <th className="table-heading">Institute Name</th>
+                  <th className="table-heading">Degree Level</th>
                   <th className="table-heading">Degree Title</th>
-                  <th className="table-heading">Obtained Percentage</th>
+                  <th className="table-heading">Marks</th>
                 </tr>
               </thead>
               <tbody>
-                {currentEntries.map((item, index) => (
+                {currentEntries?.map((item, index) => (
                   <tr key={index}>
-                    <td>{item.institute}</td>
-                    <td>{item.degree}</td>
-                    <td>{item.percentage}</td>
+                    <td>{item.instituteName}</td>
+                    <td>{item.degreeLevel}</td>
+                    <td>{item.degreeTitle}</td>
+                    <td>
+                      {item.TotalMarks} / {item.ObtainedMarks}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -275,8 +331,11 @@ const StudentView = () => {
                     }}
                   >
                     <FaClock style={{ marginRight: "5px" }} /> {/* Time icon */}
-                    <span>{new Date(interest.created_at).toLocaleDateString()}</span> {/* Formatted date */}
-                    <br />                   
+                    <span>
+                      {new Date(interest.created_at).toLocaleDateString()}
+                    </span>{" "}
+                    {/* Formatted date */}
+                    <br />
                   </div>
                 </div>
               ))}
@@ -293,22 +352,28 @@ const StudentView = () => {
                     <div className="shine"></div>
                   </div>
                 </div>
-                <div className="info-content">
-                  <p>
-                    {" "}
-                    <IoSchoolOutline className="info-content-icon01" />{" "}
-                    Bachelors of CS
-                  </p>
-                  <p>
-                    {" "}
-                    <CiLocationOn className="info-content-icon02" /> Islamabad,
-                    Pakistan
-                  </p>
-                  <p>
-                    {" "}
-                    <IoIosTimer className="info-content-icon03" /> Full Time
-                  </p>
-                </div>
+                {jobs
+                  ?.filter((job) => job.status === "Current Job")
+                  .map((job) => (
+                    <div key={job.jobId} className="info-content">
+                      <p>
+                        <IoSchoolOutline className="info-content-icon01" />{" "}
+                        {job.jobTitle}
+                      </p>
+                      <p>
+                        <CiLocationOn className="info-content-icon02" />{" "}
+                        {job.company}
+                      </p>
+                      <p>
+                        <IoIosTimer className="info-content-icon03" />{" "}
+                        {job.employmentType}
+                      </p>
+                      <p>
+                        <span className="status-icon">⭐</span> {job.status}
+                      </p>
+                      <p style={{ color: "#00273a" }}>----------</p>
+                    </div>
+                  ))}
               </div>
             </div>
 
@@ -321,22 +386,32 @@ const StudentView = () => {
                     <div className="shine"></div>
                   </div>
                 </div>
-                <div className="info-content">
-                  <p>
-                    {" "}
-                    <IoSchoolOutline className="info-content-icon01" />{" "}
-                    Bachelors of CS
-                  </p>
-                  <p>
-                    {" "}
-                    <CiLocationOn className="info-content-icon02" /> Islamabad,
-                    Pakistan
-                  </p>
-                  <p>
-                    {" "}
-                    <IoIosTimer className="info-content-icon03" /> Full Time
-                  </p>
-                </div>
+                {degrees
+                  ?.filter(
+                    (degree) =>
+                      degree.status === "Enrolled" ||
+                      degree.status === "Completed"
+                  )
+                  .map((degree) => (
+                    <div key={degree.degreeId} className="info-content">
+                      <p>
+                        <IoSchoolOutline className="info-content-icon01" />{" "}
+                        {degree.degreeTitle}
+                      </p>
+                      <p>
+                        <CiLocationOn className="info-content-icon02" />{" "}
+                        {degree.instituition}
+                      </p>
+                      <p>
+                        <IoIosTimer className="info-content-icon03" />{" "}
+                        {degree.duration}
+                      </p>
+                      <p>
+                        <span className="status-icon">⭐</span> {degree.status}
+                      </p>
+                      <p style={{ color: "#00273a" }}>----------</p>
+                    </div>
+                  ))}
               </div>
             </div>
 
@@ -349,55 +424,41 @@ const StudentView = () => {
                     <div className="shine"></div>
                   </div>
                 </div>
-                <div className="info-content">
-                  <p>
-                    {" "}
-                    <IoSchoolOutline className="info-content-icon01" />{" "}
-                    Bachelors of CS
-                  </p>
-                  <p>
-                    {" "}
-                    <CiLocationOn className="info-content-icon02" /> Islamabad,
-                    Pakistan
-                  </p>
-                  <p>
-                    {" "}
-                    <IoIosTimer className="info-content-icon03" /> Full Time
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="card">
-              <div className="line04"></div>
-              <div className="card-content">
-                <h3>Certificates</h3>
-                <div className="progress-bar">
-                  <div className="progress04">
-                    <div className="shine"></div>
-                  </div>
-                </div>
-                <div className="info-content">
-                  <p>
-                    {" "}
-                    <IoSchoolOutline className="info-content-icon01" />{" "}
-                    Bachelors of CS
-                  </p>
-                  <p>
-                    {" "}
-                    <CiLocationOn className="info-content-icon02" /> Islamabad,
-                    Pakistan
-                  </p>
-                  <p>
-                    {" "}
-                    <IoIosTimer className="info-content-icon03" /> Full Time
-                  </p>
-                </div>
+                {courses
+                  ?.filter(
+                    (course) =>
+                      course.status === "Completed"
+                  )
+                  .map((course) => (
+                    <div key={course.degreeId} className="info-content">
+                      <p>
+                        <IoSchoolOutline className="info-content-icon01" />{" "}
+                        {course.courseTitle}
+                      </p>
+                      <p>
+                        <CiLocationOn className="info-content-icon02" />{" "}
+                        {course.providerSource}
+                      </p>
+                      <p>
+                        <IoIosTimer className="info-content-icon03" />{" "}
+                        {course.durationCourse}
+                      </p>
+                      <p>
+                        <span className="status-icon">⭐</span> {course.status}
+                      </p>
+                      <p style={{ color: "#00273a" }}>----------</p>
+                    </div>
+                  ))}
               </div>
             </div>
 
             <div className="for-button">
-              <button className="detail-button"> View More </button>
+              <Link to="/progresstracker/degrees">
+                <button className="detail-button">
+                  {" "}
+                  View More in Progress Tracker{" "}
+                </button>
+              </Link>
             </div>
           </div>
         </div>

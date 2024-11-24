@@ -1,30 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./studentview.css";
 import Upperheader from "../../UpperHeader/upperheader";
 import { SiGooglemeet } from "react-icons/si";
 import { FaUser } from "react-icons/fa";
-import C1 from "../../../Assets/C1.jpg";
 
-const StudentView = () => {
+const StudentViewAdmin = () => {
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
-  const [tableData, setTableData] = useState([
-    { id: 1, img: C1, name: "John Doe", profileStatus: "Active", gender: "Male", dob: "1990-01-01", country: "USA" },
-    { id: 2, img: C1, name: "Jane Smith", profileStatus: "Inactive", gender: "Female", dob: "1985-05-15", country: "Canada" },
-    { id: 3, img: C1, name: "Samuel Green", profileStatus: "Active", gender: "Male", dob: "1992-09-30", country: "UK" },
-    { id: 4, img: C1, name: "John Doe", profileStatus: "Active", gender: "Male", dob: "1990-01-01", country: "USA" },
-    { id: 5, img: C1, name: "Jane Smith", profileStatus: "Inactive", gender: "Female", dob: "1985-05-15", country: "Canada" },
-    { id: 6, img: C1, name: "Samuel Green", profileStatus: "Active", gender: "Male", dob: "1992-09-30", country: "UK" },
-    { id: 7, img: C1, name: "John Doe", profileStatus: "Active", gender: "Male", dob: "1990-01-01", country: "USA" },
-    { id: 8, img: C1, name: "Jane Smith", profileStatus: "Inactive", gender: "Female", dob: "1985-05-15", country: "Canada" },
-    { id: 9, img: C1, name: "Samuel Green", profileStatus: "Active", gender: "Male", dob: "1992-09-30", country: "UK" },
-    { id: 10, img: C1, name: "John Doe", profileStatus: "Active", gender: "Male", dob: "1990-01-01", country: "USA" },
-    { id: 11, img: C1, name: "Jane Smith", profileStatus: "Inactive", gender: "Female", dob: "1985-05-15", country: "Canada" },
-    { id: 13, img: C1, name: "Samuel Green", profileStatus: "Active", gender: "Male", dob: "1992-09-30", country: "UK" },
-    { id: 14, img: C1, name: "John Doe", profileStatus: "Active", gender: "Male", dob: "1990-01-01", country: "USA" },
-    { id: 15, img: C1, name: "Jane Smith", profileStatus: "Inactive", gender: "Female", dob: "1985-05-15", country: "Canada" },
-    { id: 16, img: C1, name: "Samuel Green", profileStatus: "Active", gender: "Male", dob: "1992-09-30", country: "UK" },
-    // Add more entries here...
-  ]);
+  const [tableData, setTableData] = useState([]);
+  const [images, setImages] = useState([]);
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
+  const username = userData.user.firstName + " " + userData.user.lastName;
+
+  // Fetch students data on component mount
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      // Make the fetch request to your backend endpoint
+      const response = await fetch("http://localhost:4000/getstudents"); // Replace with your API URL
+      if (response.ok) {
+        const data = await response.json(); // Parse the JSON response
+        setTableData(data); // Update state with the fetched data
+        const studentImages = data.map(student => {
+          return student.Img ? `http://localhost:4000${student.Img}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe-GsgDIkePXBSguri_zUGTWG0YEY1hMaKNw&s'; // Fallback to C1 if Img is missing
+        });
+        setImages(studentImages);
+      } else {
+        console.error("Failed to fetch students data");
+      }
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
   const sortData = (key) => {
     let direction = "ascending";
@@ -55,7 +72,7 @@ const StudentView = () => {
 
   return (
     <div>
-      <Upperheader title="View Students" />
+      <Upperheader title="View Students" name={username} />
 
       <div className="content-container">
         <div className="table-responsive">
@@ -74,8 +91,8 @@ const StudentView = () => {
                 <th onClick={() => sortData("dob")}>
                   DOB {getSortArrow("dob")}
                 </th>
-                <th onClick={() => sortData("profileStatus")}>
-                  Profile Status {getSortArrow("profileStatus")}
+                <th onClick={() => sortData("city")}>
+                  City {getSortArrow("city")}
                 </th>
                 <th onClick={() => sortData("country")}>
                   Country {getSortArrow("country")}
@@ -85,21 +102,21 @@ const StudentView = () => {
             </thead>
 
             <tbody>
-              {tableData.map((item) => (
+              {tableData.map((item , index) => (
                 <tr key={item.id}>
-                  <th>{item.id}</th>
+                  <th>{item.userId}</th>
                   <td>
                     <img
-                      src={item.img}
+                      src={images[index]}// Use fallback image if 'img' is missing
                       alt={item.name}
                       className="table-profile-image"
                     />
-                    {item.name}
+                    {item.firstName} {item.lastName}
                   </td>
-                  <td>{item.gender}</td>
-                  <td>{item.dob}</td>
-                  <td>{item.profileStatus}</td>
-                  <td>{item.country}</td>
+                  <td>{item.Gender}</td>
+                  <td>{item?.DOB ? formatDate(item?.DOB) : "Not set"}</td>
+                  <td>{item.City}</td>
+                  <td>{item.Country}</td>
                   <td>
                     <button className="view-button">
                       <FaUser />
@@ -118,4 +135,4 @@ const StudentView = () => {
   );
 };
 
-export default StudentView;
+export default StudentViewAdmin;

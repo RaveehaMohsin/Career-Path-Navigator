@@ -1,10 +1,10 @@
 :root {
-    --primary-color: #00273a;
-    --secondary-color: #082635;
+    --primary-color1: #00273a;
+    --secondary-color1: #082635;
     --black: #000000;
     --white: #ffffff;
     --gray: #e8e3e3;
-    --gray-2: #757575;
+    --gray-: #757575;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
@@ -70,13 +70,13 @@
     top: 50%;
     transform: translateY(-50%); /* Vertically center the icon */
     font-size: 20px;
-    color: var(--primary-color);
+    color: var(--primary-color1);
   }
 
   .signIn-Icon {
     position: absolute;             /* Position the icon above the form */
     font-size: 8rem;               /* Icon size */
-    color: var(--primary-color);    /* Icon color */
+    color: var(--primary-color1);    /* Icon color */
     top: 0;                         /* Position it at the top */
     left: 50%;                      /* Center horizontally */
     transform: translateX(-50%) translateY(-76%); /* Move it up */
@@ -97,7 +97,7 @@
 
 
 .input-group input:focus {
-    border: 0.125rem solid var(--primary-color);
+    border: 0.125rem solid var(--primary-color1);
 }
 
 .sign-up-btn,
@@ -108,7 +108,7 @@
     padding: .6rem 0;
     border-radius: .5rem;
     border: none;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color1);
     color: var(--white);
     font-size: 1.2rem;
     outline: none;
@@ -255,7 +255,7 @@
     height: 100vh;
     width: 300vw;
     transform: translate(35%, 0);
-    background-image: linear-gradient(-45deg, var(--primary-color) 50%, var(--secondary-color) 50%);
+    background-image: linear-gradient(-45deg, var(--primary-color1) 50%, var(--secondary-color1) 50%);
     transition: 1s ease-in-out;
     z-index: 6;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -299,7 +299,7 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 1rem;
-    color: var(--primary-color);
+    color: var(--primary-color1);
     pointer-events: none;
 }
 
@@ -310,7 +310,7 @@
   }
   
   .role-group select.role-dropdown option::shadow {
-    background-color: var(--primary-color); /* Primary color on hover */
+    background-color: var(--primary-color1); /* Primary color on hover */
     color: var(--white); /* Contrast text color */
   }
 
@@ -324,7 +324,7 @@
     padding: .6rem 0;
     border-radius: .5rem;
     border: none;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color1);
     color: var(--white);
     font-size: 1.2rem;
     outline: none;
@@ -335,7 +335,7 @@
 .sign-in-btn:active,
 .sign-in-btn:active
 {
-    background-color: var(--primary-color); /* Slightly darker background */
+    background-color: var(--primary-color1); /* Slightly darker background */
     opacity: 0.6; /* Slight fade */
 }
 

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import './dashboard.css';
 import { Link } from 'react-router-dom';
-import { FaUser, FaTachometerAlt, FaSignOutAlt, FaStar, FaUserShield, FaChalkboardTeacher, FaChartArea  } from 'react-icons/fa'; 
+import { FaUser, FaTachometerAlt, FaSignOutAlt, FaStar, FaUserShield, FaChalkboardTeacher, FaChartArea, FaFileAlt, FaEye  } from 'react-icons/fa'; 
 import { IoSchool } from "react-icons/io5";
 import { GiSchoolBag } from "react-icons/gi";
 import { FaFileInvoiceDollar } from "react-icons/fa";
+import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 
 
-const dashboardadmin = () => {
+const Dashboardadmin = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState(null); 
 
@@ -26,7 +27,17 @@ const dashboardadmin = () => {
             </button>
             <nav className="nav">
                 <Link to="/admin/dashboard"><FaChartArea /> Dashboard</Link> 
-                <Link  to="/admin/profile"><FaUser /> Profile</Link>
+                
+                <Link onClick={() => handleSubmenuClick('profile')}>
+                    <FaUser /> Profile
+                </Link>
+                {openSubmenu === 'profile' && (
+                    <div className="submenu">
+                        <NavLink to="/admin/profileadd" activeClassName="active-link" ><FaFileAlt /> Add Personal Details</NavLink>
+                        <NavLink to="/admin/profileview" activeClassName="active-link" ><FaEye /> View Profile</NavLink>
+                    </div>
+                )}
+
                 <Link to="/admin/counsellorview"><IoSchool /> Counsellor</Link>
                 <Link to="/admin/studentview"><GiSchoolBag /> Student</Link>
                 <Link to="/admin/meetview"> <FaTachometerAlt /> Meetings </Link>

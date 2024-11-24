@@ -4,16 +4,24 @@ import { Route, Switch } from "react-router-dom";
 
 import Counsellorview from "./Counsellor View/counsellorview";
 import DashboardAdmin from "../SideDashboard/dashboardadmin";
-import StudentView from "./Student View/studentview";
+import StudentView from "../Student/Student View/studentView";
 import MeetingView from "./Meetings View/meetingview";
 import InvoiceView from "./Invoice View/invoiceview";
 import StudentReviews from "./Reviews/studentreviews";
 import CounsellorReviews from "./Reviews/counsellorreview";
 import SystemReviews from "./Reviews/systemreview";
-// import MeetingsTable from "./Meetings View/Detailed Meet/meetinglist";
-
+import Studentadd from "../Student/Student Add/studentadd";
+import { Redirect } from "react-router-dom";
+import StudentViewAdmin from './Student View/studentview'
 
 export default function AdminMain() {
+  const userData = JSON.parse(localStorage.getItem('CareerPathNavigatorUsers'));
+  const userRole = userData?.user?.role;
+
+  if (!userData || userRole !== 'Admin') {
+    return <Redirect to="/page-not-found" />;
+  }
+  
   return (
     <div>
       <div className="navbar">
@@ -23,8 +31,10 @@ export default function AdminMain() {
         <DashboardAdmin />
         <div className="main-content">
           <Switch>
+            <Route exact path="/admin/profileadd" component={Studentadd} />
+            <Route exact path="/admin/profileview" component={StudentView} />
             <Route exact path="/admin/counsellorview" component={Counsellorview} />
-            <Route exact path="/admin/studentview" component={StudentView} />
+            <Route exact path="/admin/studentview" component={StudentViewAdmin} />
             <Route exact path="/admin/meetview" component={MeetingView} />
             {/* <Route exact path="/admin/meetview/detailmeet" component={MeetingsTable} /> */}
 

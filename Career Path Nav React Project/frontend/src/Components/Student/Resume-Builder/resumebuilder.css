@@ -1,0 +1,113 @@
+.resume-builder-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #00273a, #6c9ebf);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+}
+
+.resume-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.resume-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.resume-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #d1e6f2;
+}
+
+.resume-input,
+.resume-textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #004d69;
+  color: #ffffff;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.resume-textarea {
+  resize: none;
+  height: 100px;
+}
+
+.resume-input::placeholder,
+.resume-textarea::placeholder {
+  color: #b3c6d4;
+}
+
+.resume-projects-section {
+  margin-top: 20px;
+}
+
+.resume-project {
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #003f56;
+  color: #d1e6f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.resume-add-project-button {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.resume-add-project-button:hover {
+  background: linear-gradient(135deg, #0056b3, #003f8a);
+}
+
+.resume-generate-button {
+  background: linear-gradient(135deg, #28a745, #1d6b32);
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+
+.resume-generate-button:hover {
+  background: linear-gradient(135deg, #1d6b32, #145124);
+}
+
+.resume-header {
+  color: #d1e6f2;
+}
+
+.resume-button {
+  font-family: "Poppins", sans-serif;
+}

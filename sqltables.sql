@@ -94,3 +94,15 @@ CREATE TABLE Jobs (
 	status VARCHAR (Max) NOT NULL,
     FOREIGN KEY (studentId) REFERENCES Users(userId)
 );
+
+CREATE TABLE Student (
+    studentId INT PRIMARY KEY,
+    resumeObjective TEXT,
+    technicalSkills VARCHAR(Max),
+    linkedInProfile VARCHAR(100),
+	githubProfile VARCHAR(100),
+	reference VARCHAR(Max),
+    achievmentscertifications TEXT,
+	projects TEXT,
+    FOREIGN KEY (studentId) REFERENCES Users(userId) 
+);

@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import Reviews from "./review";;
 
 
-
-
 const CounsellorReviews = () => {
     const reviewsData = [
         {

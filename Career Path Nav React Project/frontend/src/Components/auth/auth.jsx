@@ -182,7 +182,10 @@ const handleSignIn = async (e) => {
           // Navigate based on user role after a delay
           if (user.user.role === "Student") {
               history.push("/studentprofile/studentadd");
-          } else {
+          }
+          if (user.user.role === "Admin") {
+            history.push("/admin/profileadd");
+        } else {
               history.push("/");
           }
       }, 2000); 

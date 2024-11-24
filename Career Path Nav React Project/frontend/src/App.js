@@ -29,15 +29,16 @@ function App() {
         <Route exact path="/progresstracker/courses" component={StudentMain} />
         <Route exact path="/progresstracker/degrees" component={StudentMain} />
         <Route exact path="/student/chatbot" component={StudentMain} />
+        <Route exact path="/student/resume-builder" component={StudentMain} />
 
         {/* Counsellor Route */}
 
         {/* Admin Route */}
+        <Route exact path="/admin/profileadd" component={AdminMain} />
+        <Route exact path="/admin/profileview" component={AdminMain} />
         <Route exact path="/admin/counsellorview" component={AdminMain} />
         <Route exact path="/admin/studentview" component={AdminMain} />
         <Route exact path="/admin/meetview"  component={AdminMain} />
-        {/* <Route exact path="/admin/meetview/detailmeet" component={AdminMain} /> */}
-
         <Route exact path="/admin/invoiceview"  component={AdminMain} />
         <Route exact path="/admin/studentreview"  component={AdminMain} />
         <Route exact path="/admin/counsellorreview"  component={AdminMain} />

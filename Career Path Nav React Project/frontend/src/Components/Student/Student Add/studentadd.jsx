@@ -154,7 +154,7 @@ export default function Studentadd() {
                 <img
                 src={typeof selectedImage === 'string' ? selectedImage : URL.createObjectURL(selectedImage)}
                   alt="Selected"
-                  className="profile-image"
+                  className="profile-image1"
                   style={{
                     width: "150px",
                     height: "150px",

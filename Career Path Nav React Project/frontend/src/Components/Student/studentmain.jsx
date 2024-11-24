@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Navbar1 from '../Navbar/navbar';
-import Dashboard from '../SideDashboard/dashboard';
+import Dashboard from '../SideDashboard/dashboardstudent';
 
 import Studentadd from './Student Add/studentadd';
 import StudentInterestAdd from './Student Interest Details/StudentInterestAdd';
@@ -11,6 +11,7 @@ import Jobs from './Progress Tracker/Jobs/jobs';
 import Degrees from './Progress Tracker/Degree/degrees';
 import Courses from './Progress Tracker/Courses/courses';
 import Chatbot from './Chatbot/chatbot';
+import Resumebuilder from './Resume-Builder/Resumebuilder';
 
 export default function StudentMain() {
   const userData = JSON.parse(localStorage.getItem('CareerPathNavigatorUsers'));
@@ -37,6 +38,7 @@ export default function StudentMain() {
             <Route exact path="/progresstracker/courses" component={Courses} />
             <Route exact path="/progresstracker/degrees" component={Degrees} />
             <Route exact path="/student/chatbot" component={Chatbot} />
+            <Route exact path="/student/resume-builder" component={Resumebuilder} />
           </Switch>
         </div>
       </div>

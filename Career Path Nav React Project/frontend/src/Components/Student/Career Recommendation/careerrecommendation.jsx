@@ -252,7 +252,7 @@ export default function CareerRecommendation() {
         title: "Validation Warning",
         text: "Please fill all fields.",
       });
-      return; // Stop execution if validation fails
+      return; 
     }
     setJobs([]);
     setDegrees([]);

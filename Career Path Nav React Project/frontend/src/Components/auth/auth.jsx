@@ -115,7 +115,7 @@ const Auth = () => {
                 }, 3000); 
             } else {
                 const error = await response.json();
-                setMessage({ text: error.error || "Failed to sign up.", type: "error" });
+                setMessage({ text: error.error || "Failed to sign up.", type: "error1" });
                 setTimeout(() => {
                   setMessage({ text: "", type: "" });
                   setFormData({
@@ -129,7 +129,7 @@ const Auth = () => {
               }, 3000);
             }
         } catch (err) {
-            setMessage({ text: "An error occurred. Please try again later.", type: "error" });
+            setMessage({ text: "An error occurred. Please try again later.", type: "error1" });
             setTimeout(() => {
               setMessage({ text: "", type: "" });
               setFormData({
@@ -190,7 +190,7 @@ const handleSignIn = async (e) => {
       
       } else {
         const error = await response.json();
-        setMessage({ text: error.message || "Invalid credentials", type: "error" });
+        setMessage({ text: "Invalid credentials", type: "error1" });
                 setTimeout(() => {
                     setMessage({ text: "", type: "" });
                     setFormData({
@@ -200,7 +200,7 @@ const handleSignIn = async (e) => {
         }, 2000); 
       }
     } catch (err) {
-      setMessage({ text: "An error occurred. Please try again later.", type: "error" });
+      setMessage({ text: "An error occurred. Please try again later.", type: "error1" });
     }
   }
 };

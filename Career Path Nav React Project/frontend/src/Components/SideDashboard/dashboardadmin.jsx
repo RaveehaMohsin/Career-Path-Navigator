@@ -46,5 +46,6 @@ const dashboardadmin = () => {
 };
 
 
-export default dashboardadmin;
+export default Dashboardadmin;
+
 

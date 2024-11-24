@@ -424,6 +424,7 @@
     width: 100%;
     max-width: 400px;
     color: #fff;
+
 }
 
 .message-box.success {
@@ -431,9 +432,10 @@
     border: 1px solid #3E8E41;
 }
 
-.message-box.error {
+.message-box.error1 {
     background-color: #F44336; /* Red for errors */
     border: 1px solid #D32F2F;
+   
 }
 
 .hidden {

@@ -186,3 +186,26 @@
     margin: 5px;
   }
 }
+
+
+th {
+  cursor: pointer;
+  user-select: none;
+}
+
+th:hover {
+  color: var(--primary-color);
+}
+
+th::after {
+  content: " ";
+  margin-left: 5px;
+}
+
+th[data-sort="asc"]::after {
+  content: "↑";
+}
+
+th[data-sort="desc"]::after {
+  content: "↓";
+}

@@ -36,6 +36,12 @@ function App() {
         <Route exact path="/admin/counsellorview" component={AdminMain} />
         <Route exact path="/admin/studentview" component={AdminMain} />
         <Route exact path="/admin/meetview"  component={AdminMain} />
+        {/* <Route exact path="/admin/meetview/detailmeet" component={AdminMain} /> */}
+
+        <Route exact path="/admin/invoiceview"  component={AdminMain} />
+        <Route exact path="/admin/studentreview"  component={AdminMain} />
+        <Route exact path="/admin/counsellorreview"  component={AdminMain} />
+        <Route exact path="/admin/systemreview"  component={AdminMain} />
 
         {/* Default */}
         {/* Catch-All Route for Undefined Paths */}

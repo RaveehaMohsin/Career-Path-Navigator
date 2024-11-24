@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./meetingview.css";
+import "./calender.css";
+import { useHistory } from "react-router-dom";
 
 const Calender = () => {
   const currentYear = new Date().getFullYear();
@@ -21,12 +22,30 @@ const Calender = () => {
 
   // Array of month names
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   // Array of day names
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const dayNames = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   // Year options (5 years before and after the current year)
   const yearOptions = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
@@ -76,16 +95,14 @@ const Calender = () => {
           <div key={dayIndex} className="calendar-date">
             <span>{dayIndex + 1}</span>
             <button
+              key={dayIndex}
               style={{
-                color: buttonColors[dayIndex % buttonColors.length], // Assign colors cyclically
+                color: buttonColors[dayIndex % buttonColors.length], // Apply cyclic colors
                 backgroundColor: "none",
                 border: "none",
               }}
-              onClick={() =>
-                alert(`Selected Date: ${dayIndex + 1}-${month + 1}-${year}`)
-              }
             >
-              4 Meet Scheduled
+              4 Meet scheduled
             </button>
           </div>
         ))}

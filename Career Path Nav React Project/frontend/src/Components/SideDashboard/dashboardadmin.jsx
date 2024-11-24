@@ -25,18 +25,18 @@ const dashboardadmin = () => {
                 &#9776;
             </button>
             <nav className="nav">
-                <Link><FaChartArea /> Dashboard</Link> 
-                <Link><FaUser /> Profile</Link>
-                <Link><IoSchool /> Counsellor</Link>
-                <Link><GiSchoolBag /> Student</Link>
-                <Link> <FaTachometerAlt /> Meetings </Link>
-                <Link> <FaFileInvoiceDollar /> Invoice </Link>
+                <Link to="/admin/dashboard"><FaChartArea /> Dashboard</Link> 
+                <Link  to="/admin/profile"><FaUser /> Profile</Link>
+                <Link to="/admin/counsellorview"><IoSchool /> Counsellor</Link>
+                <Link to="/admin/studentview"><GiSchoolBag /> Student</Link>
+                <Link to="/admin/meetview"> <FaTachometerAlt /> Meetings </Link>
+                <Link to="/admin/invoiceview"> <FaFileInvoiceDollar /> Invoice </Link>
                 <Link onClick={() => handleSubmenuClick('review')}> <FaStar /> Reviews</Link>
                 {openSubmenu === 'review' && (
                     <div className="submenu">
-                        <Link><IoSchool /> Counsellors</Link>
-                        <Link><FaUserShield /> Student</Link>
-                        <Link><FaChalkboardTeacher/> System</Link>
+                        <Link to="/admin/counsellorreview"><IoSchool /> Counsellors</Link>
+                        <Link to="/admin/studentreview"><FaUserShield /> Student</Link>
+                        <Link to="/admin/systemreview"><FaChalkboardTeacher/> System</Link>
                     </div>
                 )}
                 <Link to="/auth"><FaSignOutAlt /> Logout</Link>
@@ -44,6 +44,7 @@ const dashboardadmin = () => {
         </div>
     );
 };
+
 
 export default dashboardadmin;
 

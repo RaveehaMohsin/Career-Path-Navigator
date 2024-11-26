@@ -39,9 +39,10 @@ router.post("/", async (req, res) => {
 
         res.status(201).json({ message: "User registered successfully" });
     } catch (err) {
-        console.error("Error handling user registration:", err);
         res.status(500).json({ error: "An error occurred while processing your request." });
     }
 });
 
 module.exports = router;
+
+

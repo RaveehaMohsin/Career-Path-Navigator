@@ -14,6 +14,7 @@ router.post("/", async (req, res) => {
 
     // Check if the interest category already exists for the given student ID
     const checkQuery = `
+     USE CareerPathNavigator;
       SELECT COUNT(*) AS count
       FROM Interest
       WHERE studentId = @studentId AND category = @category
@@ -31,6 +32,7 @@ router.post("/", async (req, res) => {
 
     // Insert the new interest
     const query = `
+      USE CareerPathNavigator;
       INSERT INTO Interest (studentId, category, created_at)
       VALUES (@studentId, @category, @created_at)
     `;

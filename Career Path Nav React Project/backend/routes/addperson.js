@@ -35,7 +35,7 @@ router.post("/", upload.single("profileImage"), async (req, res) => {
         const pool = await sql.connect();
 
         // Check if the user already exists
-        const checkQuery = `SELECT COUNT(*) AS count FROM Person WHERE userId = @userId`;
+        const checkQuery = `USE CareerPathNavigator; SELECT COUNT(*) AS count FROM Person WHERE userId = @userId`;
         const checkResult = await pool
             .request()
             .input("userId", sql.Int, userId)
@@ -46,6 +46,7 @@ router.post("/", upload.single("profileImage"), async (req, res) => {
         if (userExists) {
             // Update the existing record
             const updateQuery = `
+            USE CareerPathNavigator;
                 UPDATE Person
                 SET Gender = @gender,
                     PhoneNo = @phoneNo,
@@ -74,6 +75,7 @@ router.post("/", upload.single("profileImage"), async (req, res) => {
         } else {
             // Insert a new record
             const insertQuery = `
+                USE CareerPathNavigator;
                 INSERT INTO Person (userId, Gender, PhoneNo, CNIC, DOB, Address, City, Country, Img)
                 VALUES (@userId, @gender, @phoneNo, @cnic, @dob, @address, @city, @country, @img)
             `;

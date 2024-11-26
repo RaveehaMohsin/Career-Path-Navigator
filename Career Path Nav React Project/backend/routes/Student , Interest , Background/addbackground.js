@@ -16,6 +16,7 @@ router.post("/", async (req, res) => {
 
     // Query to check if the student has already entered the same degree details
     const checkQuery = `
+     USE CareerPathNavigator;
       SELECT COUNT(*) AS count
       FROM Background
       WHERE studentId = @studentId
@@ -39,6 +40,7 @@ router.post("/", async (req, res) => {
 
     // SQL query to insert data into the Background table
     const query = `
+      USE CareerPathNavigator;
       INSERT INTO Background (studentId, instituteName, degreeTitle, degreeLevel, TotalMarks, ObtainedMarks)
       VALUES (@studentId, @instituteName, @degreeTitle, @degreeLevel, @totalMarks, @obtainedMarks)
     `;

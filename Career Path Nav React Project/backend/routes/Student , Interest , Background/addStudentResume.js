@@ -19,6 +19,7 @@ router.post("/", async (req, res) => {
 
     // Check if the student already exists in the table
     const checkQuery = `
+      USE CareerPathNavigator;
       SELECT COUNT(*) AS count FROM Student WHERE studentId = @studentId
     `;
     const checkResult = await pool
@@ -29,6 +30,7 @@ router.post("/", async (req, res) => {
     if (checkResult.recordset[0].count > 0) {
       // Update the existing record
       const updateQuery = `
+        USE CareerPathNavigator;
         UPDATE Student
         SET 
           resumeObjective = @resumeObjective,
@@ -57,6 +59,7 @@ router.post("/", async (req, res) => {
     } else {
       // Insert a new record
       const insertQuery = `
+        USE CareerPathNavigator;
         INSERT INTO Student (studentId, resumeObjective, technicalSkills, linkedInProfile, githubProfile, 
                              reference, achievmentscertifications, projects)
         VALUES (@studentId, @resumeObjective, @technicalSkills, @linkedInProfile, @githubProfile, 

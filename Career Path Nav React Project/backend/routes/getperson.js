@@ -8,6 +8,7 @@ router.get('/:userId', async (req, res) => {
     try {
         const pool = await sql.connect();
         const query = `
+            USE CareerPathNavigator;
             SELECT userId, Gender, PhoneNo, CNIC, DOB, Address, City, Country, Img
             FROM Person
             WHERE userId = @userId

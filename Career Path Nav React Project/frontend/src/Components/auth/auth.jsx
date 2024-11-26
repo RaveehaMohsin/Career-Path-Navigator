@@ -170,7 +170,7 @@ const handleSignIn = async (e) => {
       if (response.ok) {
         const user = await response.json();
         localStorage.setItem("CareerPathNavigatorUsers", JSON.stringify(user));
-
+      
         setMessage({ text: "Login successful!", type: "success" });
         setTimeout(() => {
           setMessage({ text: "", type: "" });
@@ -183,7 +183,7 @@ const handleSignIn = async (e) => {
           if (user.user.role === "Student") {
               history.push("/studentprofile/studentadd");
           }
-          if (user.user.role === "Admin") {
+          else if (user.user.role === "Admin") {
             history.push("/admin/profileadd");
         } else {
               history.push("/");

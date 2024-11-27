@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./studentview.css";
+import "./studentviewadmin.css";
 import Upperheader from "../../UpperHeader/upperheader";
 import { SiGooglemeet } from "react-icons/si";
 import { FaUser } from "react-icons/fa";

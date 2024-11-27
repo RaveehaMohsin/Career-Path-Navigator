@@ -231,11 +231,10 @@ tbody tr td:nth-child(1) {
   padding-bottom: 10px;
 }
 
-.info-detail-box {
+.info-detail-box{
   margin-top: 20px;
   margin-bottom: 20px;
   text-align: left;
-
 }
 
 .info-content-icon01 {
@@ -257,6 +256,7 @@ tbody tr td:nth-child(1) {
   padding: 2px;
 }
 .card{
+  width: 100%;
   display: flex;
   padding: 20px;
   border-radius: 5px;
@@ -265,7 +265,7 @@ tbody tr td:nth-child(1) {
   border: none;
   margin-top: 10px;
   margin-bottom: 40px;
-  width: 100%;
+
 }
 
 .line01 {

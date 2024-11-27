@@ -96,3 +96,7 @@ router.get("/getdegrees/:studentId", async (req, res) => {
   
 
 module.exports = router;
+
+
+
+

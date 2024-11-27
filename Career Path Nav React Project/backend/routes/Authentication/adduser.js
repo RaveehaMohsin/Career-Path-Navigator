@@ -9,7 +9,6 @@ router.post("/", async (req, res) => {
     if (!firstName || !lastName || !email || !role || !password) {
         return res.status(400).json({ error: "All fields are required" });
     }
-
     try {
         // Check if the email already exists in the database
         const checkEmailQuery = `

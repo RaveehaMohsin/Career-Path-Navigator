@@ -147,12 +147,18 @@
   
 
   @media (max-width: 1024px) {
+    .invoice-container{
+      margin: auto;
+    }
     .invoice-card {
       width: calc(50% - 20px);
     }
   }
   
   @media (max-width: 764px) {
+    .invoice-cards{
+      margin-top: 20px;
+    }
     .invoice-card {
       width: 100%;
     }

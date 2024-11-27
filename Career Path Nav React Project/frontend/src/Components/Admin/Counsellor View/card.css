@@ -162,17 +162,19 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 790px) {
   .card-grid {
     grid-template-columns: repeat(
       2,
       1fr
-    ); /* 2 cards per row on smaller screens */
+    ); 
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 540px) {
   .card-grid {
-    grid-template-columns: 1fr; /* 1 card per row on mobile screens */
+    grid-template-columns: 1fr;
+    justify-items: center;  
+    align-items: center;  
   }
 }

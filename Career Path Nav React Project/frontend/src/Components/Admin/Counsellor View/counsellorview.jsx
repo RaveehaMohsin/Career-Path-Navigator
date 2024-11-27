@@ -1,5 +1,4 @@
 import React from "react";
-import "./counsellorview.css";
 import Upperheader from "../../UpperHeader/upperheader";
 import C1 from "../../../Assets/C1.jpg";
 import C2 from "../../../Assets/C2.jpg";

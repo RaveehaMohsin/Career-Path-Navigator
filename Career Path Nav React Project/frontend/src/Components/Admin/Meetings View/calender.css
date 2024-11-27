@@ -31,14 +31,13 @@
     border-radius: 10px;
     background-color: #f9f9f9;
   
-    /* Shadow and hover animation for the container */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   .calendar-header {
     display: flex;
-    justify-content: space-between; /* Align heading and filters opposite each other */
+    justify-content: space-between; 
     align-items: center;
     margin-bottom: 20px;
   }
@@ -128,3 +127,98 @@
     transform: scale(1.1);
   }
   
+
+
+  @media screen and (max-width: 870px) {
+    .calendar-container {
+      margin: 20px;
+      padding: 15px;
+    }
+  
+    .calendar-header {
+      margin-bottom: 40px;
+
+    }
+    .calendar-header h2 {
+      font-size: 20px;
+    }
+
+    .filters select {
+      width: 120px;
+      padding: 8px;
+      font-size: normal;
+
+    }
+  
+    .calendar-days {
+      grid-template-columns: repeat(7, 1fr);
+      font-size: 12px;
+    }
+  
+    .calendar-date {
+      height: 80px;
+      padding: 10px;
+    }
+  
+    .calendar-date span {
+      font-size: 14px;
+    }
+  
+    .calendar-date button {
+      font-size: 10px;
+      padding: 5px;
+    }
+  }
+  
+  @media screen and (max-width: 700px) {
+    .calendar-header {
+      flex-direction: column;
+      gap: 15px;
+      align-items: flex-start;
+    }
+  
+    .calendar-header h2 {
+      font-size: 18px;
+    }
+  
+    .calendar-grid {
+      grid-template-columns: repeat(7, 1fr); 
+    }
+  
+    .calendar-date {
+      height: 70px;
+      padding: 8px;
+    }
+  
+    .calendar-date span {
+      font-size: 12px;
+    }
+  
+    .calendar-date button {
+      font-size: 8px;
+      padding: 4px;
+    }
+  }
+
+
+  @media screen and (max-width: 600px) {
+    .calendar-container{
+      padding: 5px;
+    }
+    .calendar-grid {
+      grid-template-columns: repeat(7, 1fr); 
+    }
+    .calendar-date button {
+      font-size: 7px;
+    }
+    .calendar-day{
+      font-size: 9px;
+    }
+    .calendar-date{
+      margin-bottom: 0px;
+    }
+    .calendar-header h2{
+      margin: 5px;
+    }
+  }
+

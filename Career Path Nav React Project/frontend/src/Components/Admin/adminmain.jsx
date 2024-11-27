@@ -12,7 +12,10 @@ import CounsellorReviews from "./Reviews/counsellorreview";
 import SystemReviews from "./Reviews/systemreview";
 import Studentadd from "../Student/Student Add/studentadd";
 import { Redirect } from "react-router-dom";
-import StudentViewAdmin from './Student View/studentview'
+import StudentViewAdmin from './Student View/studentview';
+import DetailMeetList from "./Meetings View/admindetailmeetinglist";
+import CounsellorDetailMeetList from "./Counsellor View/counsellordetailmeetlist";
+import StudentDetailMeetList from "./Student View/studentdetailmeetlist";
 
 export default function AdminMain() {
   const userData = JSON.parse(localStorage.getItem('CareerPathNavigatorUsers'));
@@ -36,7 +39,10 @@ export default function AdminMain() {
             <Route exact path="/admin/counsellorview" component={Counsellorview} />
             <Route exact path="/admin/studentview" component={StudentViewAdmin} />
             <Route exact path="/admin/meetview" component={MeetingView} />
-            {/* <Route exact path="/admin/meetview/detailmeet" component={MeetingsTable} /> */}
+
+            <Route exact path="/admin/meetview/detailmeet" component={DetailMeetList} />
+            <Route exact path="/admin/meetview/counsellordetailmeet" component={CounsellorDetailMeetList} />
+            <Route exact path="/admin/meetview/studentdetailmeet" component={StudentDetailMeetList} />
 
             <Route exact path="/admin/invoiceview" component={InvoiceView} />
             <Route exact path="/admin/counsellorreview" component={CounsellorReviews} />

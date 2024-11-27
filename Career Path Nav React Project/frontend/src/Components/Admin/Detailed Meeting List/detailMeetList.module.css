@@ -1,0 +1,101 @@
+.meetContainer {
+    width: 1250px;
+    margin-left: auto;
+    padding: 50px;
+  }
+  
+  .tableMeet {
+    overflow-x: auto;
+    border-radius: 10px;
+  }
+  
+  .detailMeetTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .detailMeetTable th {
+    background-color: rgba(160, 152, 174, 0.1);
+    font-weight: bold;
+    padding: 15px;
+  }
+  
+  .detailMeetTable td,
+  .detailMeetTable th {
+    padding: 20px;
+    text-align: left;
+    border: none;
+    padding-bottom: 30px;
+  }
+  
+  .detailMeetTable tbody tr {
+    background-color: var(--white);
+  }
+  
+  .meetHeading {
+    text-align: left;
+    padding: 20px;
+    font-size: x-large;
+    font-weight: bold;
+    color: #00273a;
+  }
+  
+  .detailMeetTable tbody tr td:nth-child(1) {
+    color: #00273a;
+    font-weight: bold;
+  }
+  .detailMeetTable tbody tr td:nth-child(2){
+    color: #123c51;
+  }
+  .detailMeetTable tbody tr td:nth-child(3) {
+    font-weight: normal;
+  }
+  
+  .detailMeetTable tbody tr td:nth-child(4) {
+    color: #757575;
+    font-weight: normal;
+  }
+  
+  .detailMeetTable tbody tr td:nth-child(6) {
+  
+    font-weight: bold;
+  }
+  
+  @media (max-width: 1150px) {
+    .meetContainer {
+      width: auto;
+      padding: 25px;
+      margin: auto;
+    }
+  
+    .meetHeading {
+      font-size: 1.2rem;
+    }
+  
+    .detailMeetTable th,
+    .detailMeetTable td {
+      padding: 10px;
+    }
+    .detailMeetTable td{
+      font-size: 14px;
+    }
+  
+  }
+  
+  @media (max-width: 768px) {
+    .meetHeading{
+      font-size: medium;
+      padding: 2px;
+      margin-bottom: 10px;
+    }
+    .detailMeetTable tbody tr td:nth-child(1),
+    .detailMeetTable tbody tr td:nth-child(2) {
+      font-size: 11px;
+    }
+  
+    .detailMeetTable th,
+    .detailMeetTable td {
+      font-size: 12px;
+      padding: 10px;
+    }
+  }

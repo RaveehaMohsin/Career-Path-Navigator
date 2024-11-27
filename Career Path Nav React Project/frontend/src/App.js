@@ -44,6 +44,10 @@ function App() {
         <Route exact path="/admin/counsellorreview"  component={AdminMain} />
         <Route exact path="/admin/systemreview"  component={AdminMain} />
 
+        <Route exact path="/admin/meetview/detailmeet" component={AdminMain} />
+        <Route exact path="/admin/meetview/counsellordetailmeet" component={AdminMain} />
+        <Route exact path="/admin/meetview/studentdetailmeet" component={AdminMain} />
+        
         {/* Default */}
         {/* Catch-All Route for Undefined Paths */}
         <Route component={PageNotFound} />

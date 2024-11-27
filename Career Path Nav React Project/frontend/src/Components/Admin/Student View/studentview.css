@@ -28,7 +28,6 @@
 .table-responsive {
   overflow-x: auto;
   border-radius: 5px;
-  
 }
 
 .table th,
@@ -39,35 +38,33 @@
   padding-bottom: 20px;
 }
 
-.table td{
-    padding-top: 20px;
+.table td {
+  padding-top: 20px;
 }
 
-
 .table tbody tr td:nth-child(1) {
-    color: var(--gray-2); 
-    font-weight: bold;
+  color: var(--gray-2);
+  font-weight: bold;
 }
 
 .table tbody tr td:nth-child(2) {
-    color: var(--text-secondary); 
-    font-weight: bold; 
+  color: var(--text-secondary);
+  font-weight: bold;
 }
 .table tbody tr td:nth-child(3) {
-  color: var(--black); 
+  color: var(--black);
   font-weight: normal;
 }
 .table tbody tr td:nth-child(5) {
   color: var(--text-color);
-  font-weight: bold; 
+  font-weight: bold;
 }
 .table tbody tr td:nth-child(4) {
-    color: var(--gray-2); 
+  color: var(--gray-2);
 }
 .table tbody tr td:nth-child(6) {
-    color: var(--text-secondary);
+  color: var(--text-secondary);
 }
-
 
 .table th {
   background-color: rgba(160, 152, 174, 0.1);
@@ -79,7 +76,6 @@
   background-color: var(--white);
 }
 
-/* Circle Image Style */
 .table-profile-image {
   border-radius: 10px;
   width: 40px;
@@ -99,28 +95,23 @@
 }
 
 .view-button:hover {
-    color:  var(--gray);
-    background-color: var(--text-secondary); 
-    transform: scale(1.1); 
-  }
+  color: var(--gray);
+  background-color: var(--text-secondary);
+  transform: scale(1.1);
+}
 
- 
-  /* Add hover effect for rows */
-  .table tbody tr {
-    transition: transform 0.3s ease, background-color 0.3s ease; 
-  }
-  
-  .table tbody tr:hover {
-    background-color: #f1f1f1; 
-    transform: scale(1.02); 
-  }
-  .view-heading{
-    padding-left: 5px;
-  }
-  
+.table tbody tr {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
 
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+  transform: scale(1.02);
+}
+.view-heading {
+  padding-left: 5px;
+}
 
-  /* General responsiveness */
 .table-responsive {
   overflow-x: auto;
   border-radius: 5px;
@@ -129,7 +120,8 @@
 }
 
 /* Table heading and cell alignment */
-.table th, .table td {
+.table th,
+.table td {
   white-space: nowrap; /* Prevent text wrapping for large content */
   text-align: left;
 }
@@ -155,57 +147,30 @@
     height: 30px;
   }
 
-  .table th, .table td {
+  .table th,
+  .table td {
     padding: 8px; /* Reduce padding for better fit */
   }
 }
 
-/* Further adjustments for extra small screens */
-@media (max-width: 576px) {
-  .table th, .table td {
-    display: block; /* Stack table cells */
-    text-align: right; /* Align content */
-    padding: 10px 5px;
+@media (max-width: 660px) {
+  .table {
+    width: 100%;
+    border-collapse: collapse;
   }
 
-  .table th::before {
-    content: attr(data-label); /* Add labels for accessibility */
-    font-weight: bold;
-    float: left;
-    color: var(--text-secondary);
+  .table th,
+  .table td {
+    padding: 6px;
+    text-align: left;
   }
 
-  .table tr {
-    display: block;
-    margin-bottom: 1rem;
-    border: 1px solid var(--gray); /* Add a border for better visibility */
-    border-radius: 8px;
+
+  /* Hide the Gender and City columns */
+  th:nth-child(3), /* "Gender" header */
+  td:nth-child(3), /* "Gender" data */
+  th:nth-child(5), /* "City" header */
+  td:nth-child(5) /* "City" data */ {
+    display: none;
   }
-
-  .view-button {
-    margin: 5px;
-  }
-}
-
-
-th {
-  cursor: pointer;
-  user-select: none;
-}
-
-th:hover {
-  color: var(--primary-color);
-}
-
-th::after {
-  content: " ";
-  margin-left: 5px;
-}
-
-th[data-sort="asc"]::after {
-  content: "↑";
-}
-
-th[data-sort="desc"]::after {
-  content: "↓";
 }

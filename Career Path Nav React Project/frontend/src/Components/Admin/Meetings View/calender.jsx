@@ -54,6 +54,14 @@ const Calender = () => {
   const handleYearChange = (event) => setYear(parseInt(event.target.value));
   const handleMonthChange = (event) => setMonth(parseInt(event.target.value));
 
+
+
+  const history = useHistory();
+
+  const handleViewMeet = () => {
+    history.push("/admin/meetview/detailmeet");
+  };
+
   return (
     <div className="calendar-container">
       {/* Filters and Month-Year Heading */}
@@ -101,6 +109,7 @@ const Calender = () => {
                 backgroundColor: "none",
                 border: "none",
               }}
+              onClick={handleViewMeet}
             >
               4 Meet scheduled
             </button>

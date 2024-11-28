@@ -6,16 +6,21 @@ import StudentMain from './Components/Student/studentmain';
 import KeyboardScroll from './Components/keyboardscroll'; // Import the new component
 import PageNotFound from './Components/PageNotFound/Pagenotfound';
 import AdminMain from './Components/Admin/adminmain';
+import LandingPage from './Components/LandingPage/LandingPage';
 
 function App() {
   return (
     <div className="App">
       <KeyboardScroll />
       <Switch>
-        {/* Redirect to /auth when the base URL is accessed */}
+        {/* Redirect to /landing when the base URL is accessed */}
         <Route exact path="/">
-          <Redirect to="/auth" />
+          <Redirect to="/careerpathnavigator" />
         </Route>
+
+
+       {/* Landing Route */}
+        <Route exact path="/careerpathnavigator"  component={LandingPage} />
 
         {/* Auth Route */}
         <Route exact path="/auth" component={auth} />
@@ -48,6 +53,7 @@ function App() {
         <Route exact path="/admin/meetview/counsellordetailmeet" component={AdminMain} />
         <Route exact path="/admin/meetview/studentdetailmeet" component={AdminMain} />
         
+       
         {/* Default */}
         {/* Catch-All Route for Undefined Paths */}
         <Route component={PageNotFound} />

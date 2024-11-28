@@ -36,8 +36,12 @@ function App() {
         <Route exact path="/progresstracker/degrees" component={StudentMain} />
         <Route exact path="/student/chatbot" component={StudentMain} />
         <Route exact path="/student/resume-builder" component={StudentMain} />
+        <Route exact path="/review/system" component={StudentMain} />
+        <Route exact path="/review/counsellor" component={StudentMain} />
 
         {/* Counsellor Route */}
+        <Route exact path="/counsellor/profileadd" component={CounsellorMain} />
+        <Route exact path="/counsellor/profileview" component={CounsellorMain} />
         <Route exact path="/counsellor/studentview" component={CounsellorMain} />
 
 

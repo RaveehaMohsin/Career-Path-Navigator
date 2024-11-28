@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./studentViewProfile.css";
+import "./studentViewProfile1.css";
 import UpperHeader from "../../UpperHeader/upperheader";
 import studentHeader from "../../../Assets/studentheader.png";
 import { MdOutlineMailOutline } from "react-icons/md";

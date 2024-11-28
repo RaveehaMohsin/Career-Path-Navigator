@@ -106,3 +106,29 @@ CREATE TABLE Student (
 	projects TEXT,
     FOREIGN KEY (studentId) REFERENCES Users(userId) 
 );
+
+-- Create the Feedback table (Weak Entity)
+CREATE TABLE Feedback (
+    feedbackId INT PRIMARY KEY IDENTITY(1,1),  -- Auto increment feedbackId
+    fromUserId INT NOT NULL,
+    toUserId INT NOT NULL,
+    rating INT,
+    comments VARCHAR(MAX),  -- Changed from TEXT to VARCHAR(MAX) for better compatibility
+    submissionDate DATETIME,  -- Changed to DATETIME for full date-time capture
+    recommendtoothers BIT,  -- Using BIT for boolean representation
+    experience VARCHAR(50),
+    FOREIGN KEY (fromUserId) REFERENCES Users(userId),
+    FOREIGN KEY (toUserId) REFERENCES Users(userId)
+);
+
+CREATE TABLE Counsellor (
+    counsellorId INT PRIMARY KEY,
+    expertise VARCHAR(100),
+    yearOfExperience INT,
+    noOfDaysAvailable INT,  
+    availableDays VARCHAR(255),  
+    timeSlots VARCHAR(255),  
+    qualifications VARCHAR(255),  
+    hourlyRate DECIMAL(10, 2), 
+    FOREIGN KEY (counsellorId) REFERENCES Users(userId) 
+);

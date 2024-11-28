@@ -28,6 +28,7 @@ var updateStatus = require('./routes/Career Recommendations/updatestatus');
 var getprogress = require('./routes/Career Recommendations/getProgress');
 var addStudentResume = require('./routes/Student , Interest , Background/addStudentResume');
 var getStudentResume = require('./routes/Student , Interest , Background/getStudentResume');
+var addreview = require('./routes/Reviews/addreview')
 
 //admin routers
 var getallstudents = require('./routes/For Admin/getallstudent')
@@ -81,6 +82,7 @@ app.use('/updateProgressStatus' , updateStatus);
 app.use('/getProgresses' ,getprogress);
 app.use('/addstudentresume' , addStudentResume);
 app.use('/getstudentresume' , getStudentResume);
+app.use('/addreview' , addreview);
 
 //routes for admin
 app.use('/getstudents' , getallstudents);

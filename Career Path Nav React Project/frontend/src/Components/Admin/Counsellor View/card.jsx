@@ -10,7 +10,6 @@ const Card = ({ pic, heading, paragraph, label1, label2, label3}) => {
     history.push("/admin/meetview/counsellordetailmeet");
   };
 
-
     return (
       <div className="card">
         <div className="card-image">

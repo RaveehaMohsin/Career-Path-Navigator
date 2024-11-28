@@ -185,7 +185,10 @@ const handleSignIn = async (e) => {
           }
           else if (user.user.role === "Admin") {
             history.push("/admin/profileadd");
-        } else {
+        } 
+        else if (user.user.role === "Counsellor") {
+          history.push("/counsellor/profileadd");
+      }else {
               history.push("/");
           }
       }, 2000); 

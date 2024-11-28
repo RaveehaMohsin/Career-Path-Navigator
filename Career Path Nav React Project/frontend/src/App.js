@@ -1,11 +1,12 @@
 import './App.css';
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom'; // Import Redirect
+import { Switch, Route, Redirect } from 'react-router-dom'; 
 import auth from './Components/auth/auth';
 import StudentMain from './Components/Student/studentmain';
-import KeyboardScroll from './Components/keyboardscroll'; // Import the new component
+import KeyboardScroll from './Components/keyboardscroll'; 
 import PageNotFound from './Components/PageNotFound/Pagenotfound';
 import AdminMain from './Components/Admin/adminmain';
+import CounsellorMain from './Components/Counsellor/counsellormain';
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
         <Route exact path="/student/resume-builder" component={StudentMain} />
 
         {/* Counsellor Route */}
+        <Route exact path="/counsellor/studentview" component={CounsellorMain} />
+
 
         {/* Admin Route */}
         <Route exact path="/admin/profileadd" component={AdminMain} />

@@ -13,7 +13,7 @@ const StudentDetailMeetList = () => {
   ];
   const data = [
     {
-        Counsellor: "Alice Smith",
+      Counsellor: "Alice Smith",
       "Meet Date": "2024-01-10",
       "Meet Link": "https://meet.example.com/123",
       "Meet Time": "10:00 AM - 11:00 AM",
@@ -21,7 +21,7 @@ const StudentDetailMeetList = () => {
       Amount: "$50",
     },
     {
-        Counsellor: "Bob Johnson",
+      Counsellor: "Bob Johnson",
       "Meet Date": "2024-01-11",
       "Meet Link": "https://meet.example.com/456",
       "Meet Time": "02:00 PM - 03:00 PM",
@@ -29,7 +29,7 @@ const StudentDetailMeetList = () => {
       Amount: "$40",
     },
     {
-        Counsellor: "Charlie Brown",
+      Counsellor: "Charlie Brown",
       "Meet Date": "2024-01-12",
       "Meet Link": "https://meet.example.com/789",
       "Meet Time": "04:00 PM - 05:00 PM",
@@ -37,7 +37,7 @@ const StudentDetailMeetList = () => {
       Amount: "$60",
     },
     {
-        Counsellor: "Diana Davis",
+      Counsellor: "Diana Davis",
       "Meet Date": "2024-01-13",
       "Meet Link": "https://meet.example.com/101",
       "Meet Time": "01:00 PM - 02:00 PM",
@@ -45,7 +45,7 @@ const StudentDetailMeetList = () => {
       Amount: "$45",
     },
     {
-        Counsellor: "Edward Taylor",
+      Counsellor: "Edward Taylor",
       "Meet Date": "2024-01-14",
       "Meet Link": "https://meet.example.com/202",
       "Meet Time": "03:00 PM - 04:00 PM",

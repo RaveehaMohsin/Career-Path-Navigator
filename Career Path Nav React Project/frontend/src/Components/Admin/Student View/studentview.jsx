@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./studentviewadmin.css";
-import Upperheader from "../../UpperHeader/upperheader";
 import { SiGooglemeet } from "react-icons/si";
 import { FaUser } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
+import Upperheader from "../../UpperHeader/upperheader"
 
 const StudentViewAdmin = () => {
-
   const history = useHistory();
 
   const handlestudentViewMeet = () => {
     history.push("/admin/meetview/studentdetailmeet");
+  };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
   };
 
   const [tableData, setTableData] = useState([]);
@@ -42,14 +48,6 @@ const StudentViewAdmin = () => {
     } catch (error) {
       console.error("Error fetching students:", error);
     }
-  };
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -91,7 +89,10 @@ const StudentViewAdmin = () => {
                     <button className="view-button">
                       <FaUser />
                     </button>
-                    <button className="view-button" onClick={handlestudentViewMeet}>
+                    <button
+                      className="view-button"
+                      onClick={handlestudentViewMeet}
+                    >
                       <SiGooglemeet />
                     </button>
                   </td>

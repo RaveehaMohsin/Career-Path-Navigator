@@ -54,7 +54,8 @@ function App() {
 
         <Route exact path="/admin/meetview/detailmeet" component={AdminMain} />
         <Route exact path="/admin/meetview/counsellordetailmeet" component={AdminMain} />
-        <Route exact path="/admin/meetview/studentdetailmeet" component={AdminMain} />
+        <Route exact path="/admin/studentsview/studentpersonprofile/:userId" component={AdminMain} />
+        <Route exact path="/admin/studentsview/studentdetailmeet" component={AdminMain} />
         
        
         {/* Default */}

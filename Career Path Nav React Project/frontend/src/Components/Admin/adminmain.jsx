@@ -43,7 +43,8 @@ export default function AdminMain() {
 
             <Route exact path="/admin/meetview/detailmeet" component={DetailMeetList} />
             <Route exact path="/admin/meetview/counsellordetailmeet" component={CounsellorDetailMeetList} />
-            <Route exact path="/admin/meetview/studentdetailmeet" component={StudentDetailMeetList} />
+            <Route exact path="/admin/studentsview/studentpersonprofile/:userId" component={StudentView} />
+            <Route exact path="/admin/studentsview/studentdetailmeet" component={StudentDetailMeetList} />
 
             <Route exact path="/admin/invoiceview" component={InvoiceView} />
             <Route exact path="/admin/counsellorreview" component={CounsellorReviews} />

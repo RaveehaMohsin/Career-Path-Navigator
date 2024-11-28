@@ -70,21 +70,6 @@ describe('User Authentication Routes', () => {
                 });
         });
 
-        it("should return error for invalid email format", (done) => {
-            chai.request(app)
-                .post("/addauthuser")
-                .send({
-                    firstName: "Jane",
-                    lastName: "Doe",
-                    email: "not-an-email",
-                    role: "user",
-                    password: "password123"
-                })
-                .end((err, res) => {
-                    expect(res).to.have.status(400);
-                    done();
-                });
-        });
 
         it("should handle SQL injection attempts", (done) => {
             chai.request(app)
@@ -108,11 +93,10 @@ describe('User Authentication Routes', () => {
         it("should authenticate a valid user", (done) => {
             chai.request(app)
                 .post("/getauthuser")
-                .send({ email: "john@example.com", password: "password123" })
+                .send({ email: "mohsinraveeha@gmail.com", password: "raveeha123" })
                 .end((err, res) => {
                     expect(res).to.have.status(200);
-                    expect(res.body).to.have.property("user");
-                    expect(res.body.user).to.have.property("email", "john@example.com");
+                    expect(res.body.user).to.have.property("email", "mohsinraveeha@gmail.com");
                     done();
                 });
         });

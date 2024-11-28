@@ -27,7 +27,7 @@
   margin: 20px;
   padding: 0;
   max-width: 1250px;
-  margin-left: auto;
+  margin-left: 250px;
 }
 
 .card {
@@ -153,8 +153,9 @@
   opacity: 0.8;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1250px) {
   .card-grid {
+    margin-left: 0;
     grid-template-columns: repeat(
       3,
       1fr
@@ -163,7 +164,9 @@
 }
 
 @media (max-width: 790px) {
+  
   .card-grid {
+    margin-left: 0;
     grid-template-columns: repeat(
       2,
       1fr
@@ -173,6 +176,7 @@
 
 @media (max-width: 540px) {
   .card-grid {
+    margin-left: 0;
     grid-template-columns: 1fr;
     justify-items: center;  
     align-items: center;  

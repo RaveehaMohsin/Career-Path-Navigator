@@ -16,6 +16,7 @@ var getauthuser = require('./routes/Authentication/getuser')
 //student routers
 var addperson = require('./routes/addperson')
 var getperson = require('./routes/getperson')
+var getuser = require('./routes/getuser')
 var addinterest = require('./routes/Student , Interest , Background/addinterest')
 var getinterest = require('./routes/Student , Interest , Background/getinterest')
 var addbackground = require('./routes/Student , Interest , Background/addbackground');
@@ -68,6 +69,7 @@ app.use('/getauthuser' , getauthuser);
 //routes for student
 app.use('/addperson' , addperson);
 app.use('/getperson' , getperson);
+app.use('/getuser' , getuser);
 app.use('/addinterest',addinterest);
 app.use('/getinterest', getinterest);
 app.use('/addbackground' , addbackground);

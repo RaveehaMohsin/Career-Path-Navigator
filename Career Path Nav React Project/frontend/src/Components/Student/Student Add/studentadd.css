@@ -66,6 +66,12 @@
     font-size: 22px; /* Icon size */
     color: #00273a; /* Icon color */
   }
+  @media (max-width: 1520px) {
+    .left-section {
+   margin-left: 1%;
+      
+    }
+  }
   
   /* Responsive Design for Smaller Screens */
   @media (max-width: 768px) {

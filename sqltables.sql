@@ -124,7 +124,6 @@ CREATE TABLE Feedback (
 CREATE TABLE Counsellor (
     counsellorId INT PRIMARY KEY,
     expertise VARCHAR(100),
-    yearOfExperience INT,
     noOfDaysAvailable INT,  
     availableDays VARCHAR(255),  
     timeSlots VARCHAR(255),  

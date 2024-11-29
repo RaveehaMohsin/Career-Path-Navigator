@@ -33,6 +33,10 @@ var addreview = require('./routes/Reviews/addreview')
 //admin routers
 var getallstudents = require('./routes/For Admin/getallstudent')
 
+//counsellor routers
+var addschedule = require('./routes/Counsellor/scheduleadd');
+var getschedule = require("./routes/Counsellor/scheduleget");
+
 var app = express();
 
 const cors = require("cors");
@@ -86,6 +90,12 @@ app.use('/addreview' , addreview);
 
 //routes for admin
 app.use('/getstudents' , getallstudents);
+
+
+//routes for counsellor
+app.use('/addschedule' , addschedule);
+app.use('/getschedule' , getschedule);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -62,8 +62,8 @@ const Dashboard = () => {
                 </Link>
                 {openSubmenu === 'meeting' && (
                     <div className="submenu">
-                        <Link><FaCalendarAlt /> Appointment</Link>
-                        <Link><FaBell /> Notifications</Link>
+                        <NavLink to="/meetwithcounsellor/appointment" activeClassName="active-link"><FaCalendarAlt /> Appointment</NavLink>
+                        <NavLink to="/meetwithcounsellor/notifications" activeClassName="active-link"><FaBell /> Notifications</NavLink>
                     </div>
                 )}
                 <Link to="/auth"><FaSignOutAlt /> Logout</Link>

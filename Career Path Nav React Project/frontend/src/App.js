@@ -38,11 +38,14 @@ function App() {
         <Route exact path="/student/resume-builder" component={StudentMain} />
         <Route exact path="/review/system" component={StudentMain} />
         <Route exact path="/review/counsellor" component={StudentMain} />
+        <Route exact path="/meetwithcounsellor/appointment" component={StudentMain} />
 
         {/* Counsellor Route */}
         <Route exact path="/counsellor/profileadd" component={CounsellorMain} />
         <Route exact path="/counsellor/profileview" component={CounsellorMain} />
+        <Route exact path="/counsellor/expertise" component={CounsellorMain} />
         <Route exact path="/counsellor/studentview" component={CounsellorMain} />
+
 
 
         {/* Admin Route */}

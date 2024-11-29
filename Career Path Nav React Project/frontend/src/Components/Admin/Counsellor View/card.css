@@ -20,7 +20,7 @@
   --labelB03: #ffeaea;
 }
 
-.card-grid {
+.counsellor-card-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
   grid-gap: 20px; /* space between cards */
@@ -30,7 +30,7 @@
   margin-left: 250px;
 }
 
-.card {
+.counsellor-card {
   width: 270px;
   padding: 20px;
   margin: none;
@@ -45,27 +45,16 @@
   animation: fadeIn 1s ease-out;
 }
 
-.card:hover {
+.counsellor-card:hover {
   transform: scale(1.05); /* Slight zoom effect */
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* More pronounced shadow */
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.card-image {
+.counsellor-card-image {
   margin-bottom: 15px;
 }
 
-.profile-image {
+.counsellor-profile-image {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -73,19 +62,19 @@
   object-fit: cover;
 }
 
-.card-heading {
+.counsellor-card-heading {
   font-size: 20px;
   font-weight: bold;
   color: var(--text-color);
-  font-weight: bold;
 }
 
-.card-paragraph {
+.counsellor-card-paragraph {
   font-size: 14px;
   color: var(--light-color);
   margin-bottom: 15px;
 }
-.card-label-container {
+
+.counsellor-card-label-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,15 +83,15 @@
   margin-top: 5px;
 }
 
-.card-label-row {
+.counsellor-card-label-row {
   display: flex;
   justify-content: center;
   gap: 15px;
 }
 
-.card-label01,
-.card-label02,
-.card-label03 {
+.counsellor-card-label01,
+.counsellor-card-label02,
+.counsellor-card-label03 {
   display: inline-block;
   padding: 5px 10px;
   border-radius: 5px;
@@ -110,27 +99,27 @@
   font-weight: bold;
 }
 
-.card-label01 {
+.counsellor-card-label01 {
   background-color: var(--labelB01);
   color: var(--label01);
 }
 
-.card-label02 {
+.counsellor-card-label02 {
   background-color: var(--labelB02);
   color: var(--label02);
 }
 
-.card-label03 {
-  background-color: var(--labelB03); /* Match background to text color */
+.counsellor-card-label03 {
+  background-color: var(--labelB03);
   color: var(--label03);
 }
 
-.card-buttons {
+.counsellor-card-buttons {
   display: flex;
   justify-content: space-between;
 }
 
-.card-button {
+.counsellor-card-button {
   padding: 8px 15px;
   font-size: 14px;
   border-radius: 5px;
@@ -139,46 +128,39 @@
   transition: background-color 0.3s;
 }
 
-.card-button.primary {
+.counsellor-card-button.primary {
   background-color: var(--text-secondary);
   color: white;
 }
 
-.card-button.secondary {
+.counsellor-card-button.secondary {
   background-color: var(--gray);
   color: var(--text-secondary);
 }
 
-.card-button:hover {
+.counsellor-card-button:hover {
   opacity: 0.8;
 }
 
 @media (max-width: 1250px) {
-  .card-grid {
+  .counsellor-card-grid {
     margin-left: 0;
-    grid-template-columns: repeat(
-      3,
-      1fr
-    ); /* 3 cards per row on medium screens */
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row on medium screens */
   }
 }
 
 @media (max-width: 790px) {
-  
-  .card-grid {
+  .counsellor-card-grid {
     margin-left: 0;
-    grid-template-columns: repeat(
-      2,
-      1fr
-    ); 
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 540px) {
-  .card-grid {
+  .counsellor-card-grid {
     margin-left: 0;
     grid-template-columns: 1fr;
-    justify-items: center;  
-    align-items: center;  
+    justify-items: center;
+    align-items: center;
   }
 }

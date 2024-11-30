@@ -44,6 +44,7 @@ function App() {
         {/* Counsellor Route */}
         <Route exact path="/counsellor/profileadd" component={CounsellorMain} />
         <Route exact path="/counsellor/profileview" component={CounsellorMain} />
+        <Route exact path="/counsellor/profileviewwithcard" component={CounsellorMain} />
         <Route exact path="/counsellor/expertise" component={CounsellorMain} />
         <Route exact path="/counsellor/studentview" component={CounsellorMain} />
         <Route exact path="/counsellor/meetview" component={CounsellorMain} />

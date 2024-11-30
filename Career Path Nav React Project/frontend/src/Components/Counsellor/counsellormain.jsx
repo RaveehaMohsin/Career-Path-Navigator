@@ -34,7 +34,7 @@ export default function CounsellorMain() {
               <Route exact path="/counsellor/profileview" component={StudentView} />
               <Route exact path="/counsellor/expertise" component={ScheduleManagement} />
               <Route exact path="/counsellor/studentview" component={StudentViewCounsellor} />
-              <Route exact path="/counsellor/profileview" component={CounsellorProfileView} />
+              <Route exact path="/counsellor/profileviewwithcard" component={CounsellorProfileView} />
               
   
             </Switch>

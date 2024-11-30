@@ -6,15 +6,9 @@ import StudentMain from './Components/Student/studentmain';
 import KeyboardScroll from './Components/keyboardscroll'; 
 import PageNotFound from './Components/PageNotFound/Pagenotfound';
 import AdminMain from './Components/Admin/adminmain';
-<<<<<<< HEAD
 
 import CounsellorMain from './Components/Counsellor/counsellormain';
-
 import LandingPage from './Components/LandingPage/LandingPage';
-=======
-import LandingPage from './Components/LandingPage/LandingPage';
-import CounsellorMain from './Components/Counsellor/counsellormain';
->>>>>>> 272bf2f6def0119ab0d16c835e77b817933ef177
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../Student/Student View/studentViewProfile.css";
+import "../../Student/Student View/studentViewProfile1.css";
 import UpperHeader from "../../UpperHeader/upperheader";
 import profilePic from "../../../Assets/studentProfilePic.jpg";
 import studentHeader from "../../../Assets/studentheader.png";

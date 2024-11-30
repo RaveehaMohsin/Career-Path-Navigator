@@ -1,93 +1,128 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import Upperheader from "../../../UpperHeader/upperheader";
 import Card from "../../../Admin/Counsellor View/card"; // Import the Card component
-import C1 from "../../../../Assets/C1.jpg"; // Example image path
+import "./appointment.css";
+import Swal from 'sweetalert2';
 
 export default function Appointment() {
-    const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
-    const username = userData.user.firstName + " " + userData.user.lastName;
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
+  const username = userData.user.firstName + " " + userData.user.lastName;
 
-    const today = new Date();
-    const maxDate = new Date();
-    maxDate.setDate(today.getDate() + 14); // Set the max date to 2 weeks from today
+  const today = new Date();
+  const maxDate = new Date();
+  maxDate.setDate(today.getDate() + 14); // Set the max date to 2 weeks from today
 
-    const [selectedDate, setSelectedDate] = useState('');
-    const [startTime, setStartTime] = useState('');
-    const [showCounsellors, setShowCounsellors] = useState(false); // State to show cards
+  const [selectedDate, setSelectedDate] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [showCounsellors, setShowCounsellors] = useState(false);
+  const [counsellors, setCounsellors] = useState([]);
 
-    const handleShowCounselors = () => {
-        const now = new Date();
-    
-        if (!selectedDate || !startTime) {
-            alert("Please select both a date and a start time.");
-            return;
-        }
-    
-        const selectedDateTime = new Date(`${selectedDate}T${startTime}`);
-        if (selectedDateTime < now) {
-            alert("You cannot select a past date or time.");
-            return;
-        }
-    
-        setShowCounsellors(true); // Show the cards
-        console.log("Selected Date:", selectedDate);
-        console.log("Selected Start Time:", startTime);
-    };
+  const handleShowCounselors = async () => {
+    if (!selectedDate || !startTime) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops...',
+          text: 'Please select both a date and a start time.',
+        });
+        return;
+      }
 
-    return (
-        <div>
-            <Upperheader title="Select your Counsellor" name={username} />
-            <div style={{ padding: '20px' }}>
-                <h3>Book an Appointment</h3>
-                <div style={{ marginBottom: '20px' }}>
-                    <label htmlFor="date">Select Date (Within 2 Weeks):</label>
-                    <input
-                        type="date"
-                        id="date"
-                        min={today.toISOString().split('T')[0]} // Today's date
-                        max={maxDate.toISOString().split('T')[0]} // Max date (2 weeks)
-                        value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
-                        style={{ marginLeft: '10px', padding: '5px' }}
-                    />
-                </div>
-                <div style={{ marginBottom: '20px' }}>
-                    <label htmlFor="time">Select Start Time:</label>
-                    <input
-                        type="time"
-                        id="time"
-                        value={startTime}
-                        onChange={(e) => setStartTime(e.target.value)}
-                        style={{ marginLeft: '10px', padding: '5px' }}
-                    />
-                </div>
-                <button
-                    onClick={handleShowCounselors}
-                    style={{
-                        padding: '10px 20px',
-                        backgroundColor: '#4CAF50',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer',
-                    }}
-                >
-                    Show Counselors
-                </button>
-            </div>
+    const now = new Date();
+    const selectedDateTime = new Date(`${selectedDate}T${startTime}`);
+    if (selectedDateTime < now) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Date/Time',
+          text: 'You cannot select a past date or time.',
+        });
+        return;
+      }
 
-            {showCounsellors && ( // Conditionally render the Card component
-                <div className="counsellor-card-grid" style={{ marginTop: '20px' }}>
-                    <Card
-                        pic={C1}
-                        heading="John Doe"
-                        paragraph="Career Counsellor"
-                        label1="Male"
-                        label2="Business"
-                        label3="10 years of Experience"
-                    />
-                </div>
-            )}
+    try {
+      const response = await fetch(
+        `http://localhost:4000/users-counsellors?selectedDate=${selectedDate}&selectedTime=${startTime}`
+      );
+      const counsellors = await response.json();
+
+      // Map counsellors to include their image URLs
+      const updatedCounsellors = counsellors.map((counsellor) => ({
+        ...counsellor,
+        Img: counsellor.Img
+          ? `http://localhost:4000${counsellor.Img}`
+          : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe-GsgDIkePXBSguri_zUGTWG0YEY1hMaKNw&s", // Fallback image
+      }));
+
+      setCounsellors(updatedCounsellors); // Save counsellors with image URLs
+      setShowCounsellors(true);
+    } catch (err) {
+      console.error("Error fetching counsellors:", err);
+      alert("Failed to fetch counsellors.");
+    }
+  };
+
+  return (
+    <div>
+      <Upperheader title="Select your Counsellor" name={username} />
+      <div className="appointment-container">
+        <h3 className="appointment-heading">Book an Appointment</h3>
+
+        <div className="appointment-form-row">
+          <div className="appointment-form-group">
+            <label htmlFor="date" className="appointment-label">
+              Select Date (Within 2 Weeks):
+            </label>
+            <input
+              type="date"
+              id="date"
+              min={today.toISOString().split("T")[0]} // Today's date
+              max={maxDate.toISOString().split("T")[0]} // Max date (2 weeks)
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="appointment-input"
+            />
+          </div>
+
+          <div className="appointment-form-group">
+            <label htmlFor="time" className="appointment-label">
+              Select Start Time:
+            </label>
+            <input
+              type="time"
+              id="time"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              className="appointment-input"
+            />
+          </div>
         </div>
-    );
+
+        <button onClick={handleShowCounselors} className="appointment-button">
+          Show Counselors
+        </button>
+      </div>
+
+      {showCounsellors && counsellors.length > 0 && (
+        <div className="counsellor-card-grid" style={{ marginTop: "20px" }}>
+          {counsellors.map((counsellor, index) => (
+            <Card
+              key={index} // Add key to avoid key warning
+              pic={counsellor.Img} // Pass the image URL directly to the Card component
+              heading={`${counsellor.firstName} ${counsellor.lastName}`}
+              email={counsellor.email}
+              expertise={counsellor.expertise}
+              availableDays={counsellor.availableDays}
+              timeSlots={counsellor.timeSlots}
+              hourlyRate={counsellor.hourlyRate}
+              status={counsellor.status}
+              meetingdate = {selectedDate}
+              meetingtime = {startTime}
+              studentId = {userData.user.userId}
+              counsellorId = {counsellor.counsellorId}
+              appointmentMode={true} // Enable appointment mode
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }

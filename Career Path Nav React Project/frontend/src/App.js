@@ -24,6 +24,7 @@ function App() {
        {/* Landing Route */}
         <Route exact path="/careerpathnavigator"  component={LandingPage} />
 
+
         {/* Auth Route */}
         <Route exact path="/auth" component={auth} />
 
@@ -40,6 +41,7 @@ function App() {
         <Route exact path="/review/system" component={StudentMain} />
         <Route exact path="/review/counsellor" component={StudentMain} />
         <Route exact path="/meetwithcounsellor/appointment" component={StudentMain} />
+        <Route exact path="/meetwithcounsellor/notifications" component={StudentMain} />
 
         {/* Counsellor Route */}
         <Route exact path="/counsellor/profileadd" component={CounsellorMain} />

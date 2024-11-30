@@ -91,13 +91,20 @@
 
 .counsellor-card-label01,
 .counsellor-card-label02,
-.counsellor-card-label03 {
+.counsellor-card-label03,
+.counsellor-card-label04,
+.counsellor-card-label05,
+.counsellor-card-label06 {
   display: inline-block;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 12px;
   font-weight: bold;
+  max-width: 100%; /* Prevent overflow */
+  overflow-wrap: break-word; /* Ensure text wraps properly */
 }
+
+
 
 .counsellor-card-label01 {
   background-color: var(--labelB01);
@@ -114,10 +121,27 @@
   color: var(--label03);
 }
 
+.counsellor-card-label04 {
+  background-color: #a2f9c2; 
+  color: #15a453; /* Green color */
+}
+
+.counsellor-card-label05 {
+  background-color: #f3bebe; 
+  color: #e93b3b; /* Red color */
+}
+
+.counsellor-card-label06 {
+  background-color: #fbe6a1;
+  color: #ed6844; /* Orange color */
+}
+
 .counsellor-card-buttons {
   display: flex;
   justify-content: space-between;
 }
+
+
 
 .counsellor-card-button {
   padding: 8px 15px;
@@ -133,6 +157,7 @@
   color: white;
 }
 
+
 .counsellor-card-button.secondary {
   background-color: var(--gray);
   color: var(--text-secondary);
@@ -141,6 +166,7 @@
 .counsellor-card-button:hover {
   opacity: 0.8;
 }
+
 
 @media (max-width: 1250px) {
   .counsellor-card-grid {

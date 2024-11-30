@@ -28,7 +28,9 @@ var updateStatus = require('./routes/Career Recommendations/updatestatus');
 var getprogress = require('./routes/Career Recommendations/getProgress');
 var addStudentResume = require('./routes/Student , Interest , Background/addStudentResume');
 var getStudentResume = require('./routes/Student , Interest , Background/getStudentResume');
-var addreview = require('./routes/Reviews/addreview')
+var addreview = require('./routes/Reviews/addreview');
+var addmeeting = require('./routes/Counsellor/addmeeting');
+var getmeetings = require("./routes/Counsellor/getmeeting");
 
 //admin routers
 var getallstudents = require('./routes/For Admin/getallstudent')
@@ -36,6 +38,9 @@ var getallstudents = require('./routes/For Admin/getallstudent')
 //counsellor routers
 var addschedule = require('./routes/Counsellor/scheduleadd');
 var getschedule = require("./routes/Counsellor/scheduleget");
+var getuserscounsellors = require('./routes/Counsellor/meetingappointment');
+var invoicegenerate = require('./routes/Counsellor/invoicegenerate');
+var addinvoicetable = require('./routes/Counsellor/addinvoice')
 
 var app = express();
 
@@ -95,6 +100,11 @@ app.use('/getstudents' , getallstudents);
 //routes for counsellor
 app.use('/addschedule' , addschedule);
 app.use('/getschedule' , getschedule);
+app.use('/users-counsellors' , getuserscounsellors);
+app.use('/create-payment-session', invoicegenerate );
+app.use('/addinvoice' , addinvoicetable);
+app.use('/create-meeting' , addmeeting);
+app.use('/get-meetings' , getmeetings);
 
 
 // catch 404 and forward to error handler

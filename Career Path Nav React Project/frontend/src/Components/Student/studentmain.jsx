@@ -14,6 +14,7 @@ import Chatbot from './Chatbot/chatbot';
 import Resumebuilder from './Resume-Builder/Resumebuilder';
 import Reviews from './Reviews/Reviews';
 import Appointment from './Meet with Counsellor/Appointment/Appointment';
+import Notifications from './Meet with Counsellor/Notifications/Notifications';
 
 export default function StudentMain() {
   const userData = JSON.parse(localStorage.getItem('CareerPathNavigatorUsers'));
@@ -44,6 +45,7 @@ export default function StudentMain() {
             <Route exact path="/review/system" component={Reviews} />
             <Route exact path="/review/counsellor" component={Reviews} />
             <Route exact path="/meetwithcounsellor/appointment" component={Appointment} />
+            <Route exact path="/meetwithcounsellor/notifications" component={Notifications} />
           </Switch>
         </div>
       </div>

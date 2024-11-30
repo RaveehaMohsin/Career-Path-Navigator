@@ -131,3 +131,24 @@ CREATE TABLE Counsellor (
     hourlyRate DECIMAL(10, 2), 
     FOREIGN KEY (counsellorId) REFERENCES Users(userId) 
 );
+
+-- Create the Invoice table (Strong Entity)
+CREATE TABLE Invoice (
+    invoiceId VARCHAR(255) PRIMARY KEY ,
+    amount DECIMAL(10, 2),
+    timeIssues DATE
+);
+
+-- Create the Meeting table (Weak Entity)
+CREATE TABLE Meeting (
+    meetingId INT PRIMARY KEY IDENTITY(1,1),
+    invoiceId VARCHAR(255) NOT NULL,
+    studentId INT NOT NULL,
+    counsellorId INT NOT NULL,
+    MeetingTime TIME,
+    MeetingDate DATE,
+    meetLink VARCHAR(255),
+    FOREIGN KEY (invoiceId) REFERENCES Invoice(invoiceId),
+    FOREIGN KEY (studentId) REFERENCES Users(userId),
+    FOREIGN KEY (counsellorId) REFERENCES Counsellor(counsellorId)
+);

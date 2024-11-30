@@ -34,6 +34,8 @@ var getmeetings = require("./routes/Counsellor/getmeeting");
 
 //admin routers
 var getallstudents = require('./routes/For Admin/getallstudent')
+var getreviews = require('./routes/Reviews/getreviews')
+var getcounsellors = require('./routes/For Admin/getallcounsellors')
 
 //counsellor routers
 var addschedule = require('./routes/Counsellor/scheduleadd');
@@ -95,6 +97,8 @@ app.use('/addreview' , addreview);
 
 //routes for admin
 app.use('/getstudents' , getallstudents);
+app.use('/getreviews' , getreviews);
+app.use('/getcounsellors' , getcounsellors);
 
 
 //routes for counsellor

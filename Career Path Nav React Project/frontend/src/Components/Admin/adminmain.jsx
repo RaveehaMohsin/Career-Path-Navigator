@@ -40,8 +40,7 @@ export default function AdminMain() {
           <Route exact path="/admin/dashboard" component={DashboradAdminView} />
 
             <Route exact path="/admin/profileadd" component={Studentadd} />
-            <Route exact path="/admin/profileview" component={StudentView} />
-            <Route exact path="/admin/profileviewwithcard" component={AdminProfileView} />
+            <Route exact path="/admin/profileview" component={AdminProfileView} />
 
 
             <Route exact path="/admin/counsellorview" component={Counsellorview} />

@@ -35,7 +35,7 @@ const Dashboardadmin = () => {
                     <div className="submenu">
                         <NavLink to="/admin/profileadd" activeClassName="active-link" ><FaFileAlt /> Add Personal Details</NavLink>
                         <NavLink to="/admin/profileview" activeClassName="active-link" ><FaEye /> View Profile</NavLink>
-                        <NavLink to="/admin/profileviewwithcard" activeClassName="active-link" ><FaEye /> View Profile with Card</NavLink>                        
+    
                     </div>
                 )}
 

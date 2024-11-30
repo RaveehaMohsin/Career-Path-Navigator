@@ -8,6 +8,7 @@ import {
   FaClock,
   FaCalendarAlt,
   FaMoneyBill,
+  FaChalkboardTeacher
 } from "react-icons/fa";
 import {
   FaCheckCircle,
@@ -115,17 +116,17 @@ const Card = ({
           </p>
         </div>
       ) : (
-        <p className="counsellor-card-paragraph">{paragraph}</p>
+        <p className="counsellor-card-paragraph"><FaEnvelope /> {paragraph}</p>
       )}
       <div className="counsellor-card-label-container">
         {!appointmentMode && (
           <div className="counsellor-card-label-row">
-            <div className="counsellor-card-label01">{label1}</div>
-            <div className="counsellor-card-label02">{label2}</div>
+            <div className="counsellor-card-label01"><FaMoneyBill />  ${label1}</div>
+            <div className="counsellor-card-label02"><FaClock></FaClock> {label2}</div>
           </div>
         )}
         {!appointmentMode && (
-          <div className="counsellor-card-label03">{label3}</div>
+          <div className="counsellor-card-label03"><FaChalkboardTeacher /> {label3}</div>
         )}
       </div>
       <div className="counsellor-card-buttons">

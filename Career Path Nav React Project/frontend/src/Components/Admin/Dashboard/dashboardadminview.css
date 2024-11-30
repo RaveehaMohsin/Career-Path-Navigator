@@ -1,0 +1,278 @@
+@keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+.unique-main-wrapper {
+    width: 1250px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .unique-row-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  .unique-column-container {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    border-radius: 10px;
+  }
+  
+  .unique-vertical-container {
+    padding: 10px;
+    text-align: center;
+    border-radius: 6px;
+  }
+.unique-box-a{
+    display: flex;
+    gap: 30px;
+}
+
+
+  .info-box-card {
+    display: flex;
+    position: relative; /* Ensure the card and icon are positioned relative to each other */
+    background-color: white;
+    padding-top: 30px;
+    padding-left: 80px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    animation: fadeInUp 0.6s ease-out;
+  }
+ 
+  
+  .info-box-card p {
+    color: #757575;
+    margin: 5px 0; /* Add some spacing between paragraphs */
+  }
+  
+  .info-box-card h3 {
+    color: #00273a;
+    margin: 10px 0; /* Add spacing below the heading */
+  }
+  
+  .info-box-card-image{
+
+    color: white;
+    height: 30px;
+    width: 30px;
+  }
+  .info-box-card-image-container {
+    position: absolute; /* Ensures it stays in place relative to the card */
+    top: 55px; /* Move it above the card */
+    left: 15px; /* Align horizontally with card padding */
+    width: 55px;
+    height: 55px;
+    background-color: #00273a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .info-box-card-image-container02 {
+    position: absolute; /* Ensures it stays in place relative to the card */
+    top: 55px; /* Move it above the card */
+    left: 15px; /* Align horizontally with card padding */
+    width: 55px;
+    height: 55px;
+    background-color: #fb7d5b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .info-box-card-image-container03{
+    position: absolute; /* Ensures it stays in place relative to the card */
+    top: 55px; /* Move it above the card */
+    left: 15px; /* Align horizontally with card padding */
+    width: 55px;
+    height: 55px;
+    background-color: #fcc43e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .chart-content-container{
+    
+    height: 525px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    animation: fadeInUp 0.8s ease-out;
+  }
+  .unique-box-c,
+  .unique-box-d{
+    width: 570px;
+  }
+  
+  .table-cobntet-last-container{
+    width: 1155px;
+    padding: 0px;
+  }
+
+
+  .dashboard-heading {
+    background-color: white;
+    padding: 20px;
+    color: var(--text-color);
+    text-align: left;
+    font-size: medium;
+    font-weight: bold;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-bottom: 0;
+}
+
+.dashboard-info-container {
+    margin-top: 50px;
+}
+
+.dashboard-info-table {
+    background-color: white;
+    width: 100%;
+    border-collapse: collapse; /* Ensure proper table formatting */
+}
+
+.dashboard-table-heading {
+    font-weight: normal;
+    padding: 20px 10px;
+    background-color: #00273a1a;
+    text-align: center;
+}
+
+.dashboard-info-table td {
+    padding: 20px 10px;
+    text-align: center;
+}
+
+.dashboard-info-table tbody tr td:nth-child(2) {
+    color: #757575; /* Degree column color */
+}
+
+.dashboard-info-table tbody tr td:nth-child(1),
+.dashboard-info-table tbody tr td:nth-child(3) {
+    color: #303972;
+    font-weight: bold;
+}
+
+.dashboard-pagination-buttons {
+    background-color: #f9f9f9;
+    padding: 20px 10px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.dashboard-pagination-button {
+    width: 40px;
+    height: 40px;
+    padding: 2px;
+    border-radius: 5px;
+    border: 2px solid #00273a;
+    margin: 5px;
+    color: #00273a;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.dashboard-pagination-button:hover {
+    background-color: #e8e3e3;
+    transform: scale(1.1);
+}
+
+  
+
+  @media (max-width: 1150px) {
+    .unique-main-wrapper {
+        width: auto;
+        margin: auto;
+      justify-content: center; 
+      align-items: center;
+     
+
+    }
+    .unique-vertical-container{
+        gap: 55px;
+    }
+    .unique-row-wrapper,
+    .dashboard-info-container{
+        width: 560px;
+    }
+  
+    .unique-column-container {
+      flex-direction: column; /* Stack columns on smaller screens */
+    }
+    
+  
+    
+  }
+  
+  /* For mobile screens (480px and below) */
+  @media (max-width: 550px) {
+     
+    .unique-vertical-container{
+        gap: 10px;
+    }
+    .unique-row-wrapper {
+      gap: 10px; /* Reduce the gap between rows */
+
+      width: 450px;
+    }
+    .info-box-card-image-container02,
+    .info-box-card-image-container,
+    .info-box-card-image-container03{
+        top: 40px; /* Move it above the card */
+    left: 15px; 
+    }
+    .line-chart-container{
+        padding-left: 40px;
+        width: 200px;
+    }
+  
+    .info-box-card h3 {
+      font-size: 1rem; /* Adjust font size for mobile */
+    }
+  
+    .info-box-card p {
+      font-size: 0.6rem; /* Adjust font size for mobile */
+    }
+  
+    .chart-content-container,
+    .dashboard-info-container {
+        width: 430px;
+      height: auto;
+      padding: 5px; /* Add padding to the chart container */
+    }
+  
+    .unique-box-a {
+      gap: 20px; /* Reduce gap between elements */
+    }
+  
+    .table-cobntet-last-container {
+      width: 100%; /* Ensure table takes full width */
+    }
+  }
+  

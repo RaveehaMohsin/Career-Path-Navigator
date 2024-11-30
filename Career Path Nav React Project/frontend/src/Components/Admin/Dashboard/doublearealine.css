@@ -1,0 +1,57 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+  }
+  
+  .linechart-heading {
+    padding-left: 20px;
+    font-size: 24px;
+    color: hsl(200, 100%, 11%); /* Your desired heading color */
+    margin: 0;
+  }
+  
+  .custom-legend {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.7); /* Transparent background */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #333; /* Dark text color */
+    margin-right: 20px;
+  }
+  
+  .legend-circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+.graph-chart-container{
+    /* padding-top: 50px;
+    padding-bottom: 50px; */
+    
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.graph-chart-container02{
+    margin-top: 31px;
+    margin-bottom: 31px;
+}
+  
+  .custom-legend {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  

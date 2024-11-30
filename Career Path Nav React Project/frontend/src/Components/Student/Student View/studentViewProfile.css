@@ -61,6 +61,19 @@
   font-weight: bold;
   color: var(--text-color);
 }
+.info-box{
+  margin-bottom: 20px;
+}
+.stars{
+  font-size: 30px;
+
+}
+.feedback {
+  color: #757575;
+  text-align: left;
+  margin-bottom: 10px; /* Adds space between reviews */
+}
+
 
 /* Personal information section styling */
 .personal-info {
@@ -235,6 +248,7 @@ tbody tr td:nth-child(1) {
   margin-top: 20px;
   margin-bottom: 20px;
   text-align: left;
+  width: auto;
 }
 
 .info-content-icon01 {

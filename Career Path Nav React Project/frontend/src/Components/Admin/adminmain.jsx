@@ -17,6 +17,8 @@ import StudentViewAdmin from './Student View/studentview';
 import DetailMeetList from "./Meetings View/admindetailmeetinglist";
 import CounsellorDetailMeetList from "./Counsellor View/counsellordetailmeetlist";
 import StudentDetailMeetList from "./Student View/studentdetailmeetlist";
+import AdminProfileView from "./Profile View Admin/profileviewadmin";
+import DashboradAdminView from "./Dashboard/dashboardadminview";
 
 export default function AdminMain() {
   const userData = JSON.parse(localStorage.getItem('CareerPathNavigatorUsers'));
@@ -35,8 +37,13 @@ export default function AdminMain() {
         <DashboardAdmin />
         <div className="main-content">
           <Switch>
+          <Route exact path="/admin/dashboard" component={DashboradAdminView} />
+
             <Route exact path="/admin/profileadd" component={Studentadd} />
             <Route exact path="/admin/profileview" component={StudentView} />
+            <Route exact path="/admin/profileviewwithcard" component={AdminProfileView} />
+
+
             <Route exact path="/admin/counsellorview" component={Counsellorview} />
             <Route exact path="/admin/studentview" component={StudentViewAdmin} />
             <Route exact path="/admin/meetview" component={MeetingView} />

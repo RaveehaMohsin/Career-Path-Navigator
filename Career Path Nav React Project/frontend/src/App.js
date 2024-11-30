@@ -16,6 +16,7 @@ function App() {
     <div className="App">
       <KeyboardScroll />
       <Switch>
+        {/* Redirect to /landing when the base URL is accessed */}
         <Route exact path="/">
           <Redirect to="/careerpathnavigator" />
         </Route>
@@ -40,11 +41,17 @@ function App() {
 
         {/* Counsellor Route */}
         <Route exact path="/counsellor/studentview" component={CounsellorMain} />
+        <Route exact path="/counsellor/meetview" component={CounsellorMain} />
+        <Route exact path="/counsellor/profileview" component={CounsellorMain} />
 
 
         {/* Admin Route */}
+        <Route exact path="/admin/dashboard" component={AdminMain} />
+
         <Route exact path="/admin/profileadd" component={AdminMain} />
         <Route exact path="/admin/profileview" component={AdminMain} />
+        <Route exact path="/admin/profileviewwithcard" component={AdminMain} />
+
         <Route exact path="/admin/counsellorview" component={AdminMain} />
         <Route exact path="/admin/studentview" component={AdminMain} />
         <Route exact path="/admin/meetview"  component={AdminMain} />

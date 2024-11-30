@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import DashboardConsellor from "../SideDashboard/dashboardcounsellor";
 import StudentViewCounsellor from "./Student View/studentviewcounsellor";
 import CounsellorMeetings from "./Counsellor Meetings/counsellormeet";
+import CounsellorProfileView from "./Profile View/counsellorprofileView";
 
 
 
@@ -28,6 +29,7 @@ export default function CounsellorMain() {
             <Switch>
               <Route exact path="/counsellor/studentview" component={StudentViewCounsellor} />
               <Route exact path="/counsellor/meetview" component={CounsellorMeetings} />
+              <Route exact path="/counsellor/profileview" component={CounsellorProfileView} />
               
   
             </Switch>

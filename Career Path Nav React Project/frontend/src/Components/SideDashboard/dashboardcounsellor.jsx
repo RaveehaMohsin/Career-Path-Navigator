@@ -35,6 +35,7 @@ const DashboardConsellor = () => {
                     <div className="submenu">
                         <NavLink to="/counsellor/profileadd" activeClassName="active-link" ><FaFileAlt /> Add Personal Details</NavLink>
                         <NavLink to="/counsellor/profileview" activeClassName="active-link" ><FaEye /> View Profile</NavLink>
+                        <NavLink to="/counsellor/expertise" activeClassName="active-link" ><FaChalkboardTeacher /> Schedule Management</NavLink>
                     </div>
                 )}
                 <Link to="/counsellor/studentview"><GiSchoolBag /> Student</Link>

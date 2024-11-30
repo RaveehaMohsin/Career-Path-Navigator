@@ -1,0 +1,124 @@
+
+.schedule-page {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.schedule-header {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #00273a;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.schedule-form {
+  max-width: 900px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #00273a, #007a99);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.schedule-form:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.form-section {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.form-section label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.form-section input,
+.form-section textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-section input:focus,
+.form-section textarea:focus {
+  border-color: #00405b;
+  box-shadow: 0 0 6px rgba(0, 64, 91, 0.3);
+  outline: none;
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.radio-group label {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 15px;
+  background: #f8f9fa;
+  border-radius: 20px;
+  font-size: 1rem;
+  color: #00273a;
+  cursor: pointer;
+  border: 1px solid #d9d9d9;
+  transition: all 0.3s ease;
+}
+
+.radio-group label:hover {
+  background: #e6f7ff;
+  border-color: #00405b;
+}
+
+.radio-group input {
+  margin-right: 5px;
+}
+
+.radio-group input:checked + label {
+  background: #00405b;
+  color: white;
+  border-color: #00405b;
+}
+
+.time-slots {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.time-slots input {
+  width: 48%;
+}
+
+.submit-btn {
+  background-color: #00273a;
+  color: #ffffff;
+  padding: 12px 20px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background-color: #00405b;
+  transform: translateY(-3px);
+}
+
+.submit-btn:active {
+  transform: translateY(1px);
+}

@@ -53,8 +53,8 @@ const Dashboard = () => {
                 </Link>
                 {openSubmenu === 'review' && (
                     <div className="submenu">
-                        <Link><FaUserShield /> To System</Link>
-                        <Link><FaChalkboardTeacher />To Counsellors</Link>
+                        <NavLink to="/review/system" activeClassName="active-link"><FaUserShield /> To System</NavLink>
+                        <NavLink to="/review/counsellor" activeClassName="active-link"><FaChalkboardTeacher /> To Counsellors</NavLink>
                     </div>
                 )}
                 <Link onClick={() => handleSubmenuClick('meeting')}>
@@ -62,8 +62,8 @@ const Dashboard = () => {
                 </Link>
                 {openSubmenu === 'meeting' && (
                     <div className="submenu">
-                        <Link><FaCalendarAlt /> Appointment</Link>
-                        <Link><FaBell /> Notifications</Link>
+                        <NavLink to="/meetwithcounsellor/appointment" activeClassName="active-link"><FaCalendarAlt /> Appointment</NavLink>
+                        <NavLink to="/meetwithcounsellor/notifications" activeClassName="active-link"><FaBell /> Notifications</NavLink>
                     </div>
                 )}
                 <Link to="/auth"><FaSignOutAlt /> Logout</Link>

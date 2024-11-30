@@ -16,6 +16,7 @@ var getauthuser = require('./routes/Authentication/getuser')
 //student routers
 var addperson = require('./routes/addperson')
 var getperson = require('./routes/getperson')
+var getuser = require('./routes/getuser')
 var addinterest = require('./routes/Student , Interest , Background/addinterest')
 var getinterest = require('./routes/Student , Interest , Background/getinterest')
 var addbackground = require('./routes/Student , Interest , Background/addbackground');
@@ -27,9 +28,14 @@ var updateStatus = require('./routes/Career Recommendations/updatestatus');
 var getprogress = require('./routes/Career Recommendations/getProgress');
 var addStudentResume = require('./routes/Student , Interest , Background/addStudentResume');
 var getStudentResume = require('./routes/Student , Interest , Background/getStudentResume');
+var addreview = require('./routes/Reviews/addreview')
 
 //admin routers
 var getallstudents = require('./routes/For Admin/getallstudent')
+
+//counsellor routers
+var addschedule = require('./routes/Counsellor/scheduleadd');
+var getschedule = require("./routes/Counsellor/scheduleget");
 
 var app = express();
 
@@ -68,6 +74,7 @@ app.use('/getauthuser' , getauthuser);
 //routes for student
 app.use('/addperson' , addperson);
 app.use('/getperson' , getperson);
+app.use('/getuser' , getuser);
 app.use('/addinterest',addinterest);
 app.use('/getinterest', getinterest);
 app.use('/addbackground' , addbackground);
@@ -79,9 +86,16 @@ app.use('/updateProgressStatus' , updateStatus);
 app.use('/getProgresses' ,getprogress);
 app.use('/addstudentresume' , addStudentResume);
 app.use('/getstudentresume' , getStudentResume);
+app.use('/addreview' , addreview);
 
 //routes for admin
 app.use('/getstudents' , getallstudents);
+
+
+//routes for counsellor
+app.use('/addschedule' , addschedule);
+app.use('/getschedule' , getschedule);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

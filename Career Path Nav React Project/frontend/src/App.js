@@ -6,10 +6,15 @@ import StudentMain from './Components/Student/studentmain';
 import KeyboardScroll from './Components/keyboardscroll'; 
 import PageNotFound from './Components/PageNotFound/Pagenotfound';
 import AdminMain from './Components/Admin/adminmain';
+<<<<<<< HEAD
 
 import CounsellorMain from './Components/Counsellor/counsellormain';
 
 import LandingPage from './Components/LandingPage/LandingPage';
+=======
+import LandingPage from './Components/LandingPage/LandingPage';
+import CounsellorMain from './Components/Counsellor/counsellormain';
+>>>>>>> 272bf2f6def0119ab0d16c835e77b817933ef177
 
 function App() {
   return (
@@ -38,11 +43,18 @@ function App() {
         <Route exact path="/progresstracker/degrees" component={StudentMain} />
         <Route exact path="/student/chatbot" component={StudentMain} />
         <Route exact path="/student/resume-builder" component={StudentMain} />
+        <Route exact path="/review/system" component={StudentMain} />
+        <Route exact path="/review/counsellor" component={StudentMain} />
+        <Route exact path="/meetwithcounsellor/appointment" component={StudentMain} />
 
         {/* Counsellor Route */}
+        <Route exact path="/counsellor/profileadd" component={CounsellorMain} />
+        <Route exact path="/counsellor/profileview" component={CounsellorMain} />
+        <Route exact path="/counsellor/expertise" component={CounsellorMain} />
         <Route exact path="/counsellor/studentview" component={CounsellorMain} />
         <Route exact path="/counsellor/meetview" component={CounsellorMain} />
         <Route exact path="/counsellor/profileview" component={CounsellorMain} />
+
 
 
         {/* Admin Route */}
@@ -62,7 +74,8 @@ function App() {
 
         <Route exact path="/admin/meetview/detailmeet" component={AdminMain} />
         <Route exact path="/admin/meetview/counsellordetailmeet" component={AdminMain} />
-        <Route exact path="/admin/meetview/studentdetailmeet" component={AdminMain} />
+        <Route exact path="/admin/studentsview/studentpersonprofile/:userId" component={AdminMain} />
+        <Route exact path="/admin/studentsview/studentdetailmeet" component={AdminMain} />
         
        
         {/* Default */}

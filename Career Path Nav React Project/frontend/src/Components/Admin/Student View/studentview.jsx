@@ -9,7 +9,7 @@ const StudentViewAdmin = () => {
   const history = useHistory();
 
   const handlestudentViewMeet = () => {
-    history.push("/admin/meetview/studentdetailmeet");
+    history.push("/admin/studentsview/studentdetailmeet");
   };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -18,6 +18,9 @@ const StudentViewAdmin = () => {
     const day = date.getDate().toString().padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
+  const handleStudentViewProfile = (userId)=>{
+    history.push(`/admin/studentsview/studentpersonprofile/${userId}`);
+  }
 
   const [tableData, setTableData] = useState([]);
   const [images, setImages] = useState([]);
@@ -86,7 +89,7 @@ const StudentViewAdmin = () => {
                   <td>{item.City}</td>
                   <td>{item.Country}</td>
                   <td>
-                    <button className="view-button">
+                    <button className="view-button" onClick={()=>handleStudentViewProfile(item.userId)}>
                       <FaUser />
                     </button>
                     <button

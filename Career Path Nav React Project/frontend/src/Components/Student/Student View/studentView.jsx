@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./studentViewProfile.css";
+import "./studentViewProfile1.css";
 import UpperHeader from "../../UpperHeader/upperheader";
 import studentHeader from "../../../Assets/studentheader.png";
 import { MdOutlineMailOutline } from "react-icons/md";
@@ -15,10 +15,12 @@ import { IoIosTimer } from "react-icons/io";
 import { FaTag, FaClock } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const StudentView = () => {
   const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
   const username = userData.user.firstName + " " + userData.user.lastName;
+  const [currentuserdata , setcurrentuserdata] = useState();
   const [personData, setpersonData] = useState();
   const [personimage, setSelectedImage] = useState();
   const [interests, setInterests] = useState();
@@ -26,10 +28,12 @@ const StudentView = () => {
   const [jobs, setJobs] = useState();
   const [degrees, setDegrees] = useState();
   const [courses, setCourses] = useState();
-  const userId = userData.user.userId;
+  const { userId: urlUserId } = useParams();
+  const userId = urlUserId || userData.user.userId;
 
   useEffect(() => {
     // Calling both functions inside useEffect
+    fetchuserProfile();
     fetchPersonProfile();
     fetchInterests();
     fetchBackground();
@@ -51,6 +55,22 @@ const StudentView = () => {
         }
       } else {
         console.log("No person data found.");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const fetchuserProfile = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/getuser/${userId}`);
+      const data = await response.json();
+
+      if (data) {
+        setcurrentuserdata(data);
+       
+      } else {
+        console.log("No User data found.");
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -198,8 +218,8 @@ const StudentView = () => {
             </div>
 
             <div className="student-name">
-              <h2>{username}</h2>
-              <p>{userData.user.role}</p>
+            <h2>{currentuserdata?.firstName && currentuserdata?.lastName ? `${currentuserdata.firstName} ${currentuserdata.lastName}` : "Not set"}</h2>
+              <p>{currentuserdata?.role}</p>
             </div>
 
             <div className="personal-info">
@@ -209,7 +229,7 @@ const StudentView = () => {
                     <MdOutlineMailOutline className="icon-view" />
                   </div>
                   <p className="heading-text"> Email:</p>
-                  <p className="info-text">{userData.user.email}</p>
+                  <p className="info-text">{currentuserdata?.email}</p>
                 </div>
 
                 <div className="cell">

@@ -12,6 +12,8 @@ import Degrees from './Progress Tracker/Degree/degrees';
 import Courses from './Progress Tracker/Courses/courses';
 import Chatbot from './Chatbot/chatbot';
 import Resumebuilder from './Resume-Builder/Resumebuilder';
+import Reviews from './Reviews/Reviews';
+import Appointment from './Meet with Counsellor/Appointment/Appointment';
 
 export default function StudentMain() {
   const userData = JSON.parse(localStorage.getItem('CareerPathNavigatorUsers'));
@@ -39,6 +41,9 @@ export default function StudentMain() {
             <Route exact path="/progresstracker/degrees" component={Degrees} />
             <Route exact path="/student/chatbot" component={Chatbot} />
             <Route exact path="/student/resume-builder" component={Resumebuilder} />
+            <Route exact path="/review/system" component={Reviews} />
+            <Route exact path="/review/counsellor" component={Reviews} />
+            <Route exact path="/meetwithcounsellor/appointment" component={Appointment} />
           </Switch>
         </div>
       </div>

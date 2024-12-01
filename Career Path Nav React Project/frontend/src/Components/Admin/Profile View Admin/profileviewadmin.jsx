@@ -13,6 +13,7 @@ import { FaPhone } from "react-icons/fa";
 import { VscFeedback } from "react-icons/vsc";
 import { useParams } from "react-router-dom";
 
+
 const AdminProfileView = () => {
   const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
   const username = userData.user.firstName + " " + userData.user.lastName;
@@ -22,10 +23,24 @@ const AdminProfileView = () => {
   const { userId: urlUserId } = useParams();
   const userId = urlUserId || userData.user.userId;
 
+  const [reveiews, setReviews] = useState();
+
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+
   useEffect(() => {
     // Calling both functions inside useEffect
     fetchuserProfile();
     fetchPersonProfile();
+    fetchReviews();
+
   }, []); // Empty dependency array ensures this runs once on mount
 
   const fetchPersonProfile = async () => {
@@ -63,28 +78,34 @@ const AdminProfileView = () => {
     }
   };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    return `${year}-${month}-${day}`;
+
+  const fetchReviews = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/getreviews`);
+      const data = await response.json();
+  
+      if (response.ok) {
+        const filteredReviews = data.filter((review) => review.toUserId === 2);
+        setReviews(filteredReviews);
+        console.log(reveiews)
+      } else {
+        setReviews([]);
+      }
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+      setReviews([]);
+    }
   };
 
-  const reviews = [
-    "Good service, but could be faster.",
-    "Intuitive UI, very easy to use.",
-    "App crashed a few times, but support.",
-    "Time-saving feature, highly recommended!",
-    "Good product, needs more customization."
-  ];
 
   return (
     <div>
-      <UpperHeader title="Profile Preview" name={username} />
+     <UpperHeader title="Profile Preview" name={username} />
       {/* Main container with two columns */}
       <div className="main-container">
-      <div className="profile-container">
+      <div className="profile-background-container">
+          {/* Personal Profile View section */}
+          <div className="profile-container">
             <div className="profile-header">
               <img
                 src={studentHeader}
@@ -176,6 +197,7 @@ const AdminProfileView = () => {
               </div>
             </div>
           </div>
+          </div>
 
         {/* Additional parallel info section */}
         <div className="additional-info-container">
@@ -191,25 +213,26 @@ const AdminProfileView = () => {
           </div>
 
           <div className="info-detail-box">
-            <div className="card">
-              <div className="line01"></div>
-              <div className="card-content">
-                <h3>Reviews</h3>
-                <div className="progress-bar">
-                  <div className="progress01">
-                    <div className="shine"></div>
-                  </div>
-                </div>
-                <div className="info-content">
-                  {reviews.map((review, index) => (
-                    <div key={index} className="feedback">
-                      <VscFeedback className="info-content-icon01" />
-                      {review}
-                    </div>
-                  ))}
-                </div>
+          <div className="card">
+          <div className="line01"></div>
+          <div className="card-content">
+            <h3>Reviews</h3>
+            <div className="progress-bar">
+              <div className="progress01">
+                <div className="shine"></div>
               </div>
             </div>
+            <div className="info-content">
+              {reveiews?.map((review, index) => (
+                <div key={index} className="feedback">
+                  <VscFeedback className="info-content-icon01" />
+                  <p>{review?.comments || review?.experience}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
 
             <div className="for-button">
               <button className="detail-button"> View More </button>
@@ -221,3 +244,6 @@ const AdminProfileView = () => {
   );
 };
 export default AdminProfileView;
+
+
+

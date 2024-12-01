@@ -1,0 +1,87 @@
+/* Main container for the form */
+.appointment-container {
+    padding: 30px;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #f0f0f0;  /* Light gray background */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading style */
+  .appointment-heading {
+    font-size: 26px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  /* Form row for horizontal inputs */
+  .appointment-form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Space between the inputs */
+  }
+  
+  /* Each form group */
+  .appointment-form-group {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  /* Label styling */
+  .appointment-label {
+    font-size: 16px;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  /* Input styling */
+  .appointment-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease;
+  }
+  
+  /* Focus effect for inputs */
+  .appointment-input:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+  
+  /* Button styling */
+  .appointment-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #ff6f61; /* Vibrant coral red */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  /* Button hover effect */
+  .appointment-button:hover {
+    background-color: #ff5a50; /* Darker coral red */
+  }
+  
+  /* Responsive styling for smaller screens */
+  @media (max-width: 768px) {
+    .appointment-form-row {
+      flex-direction: column; /* Stack inputs vertically */
+    }
+  
+    .appointment-form-group {
+      margin-bottom: 15px; /* Space between inputs when stacked */
+    }
+  }
+  

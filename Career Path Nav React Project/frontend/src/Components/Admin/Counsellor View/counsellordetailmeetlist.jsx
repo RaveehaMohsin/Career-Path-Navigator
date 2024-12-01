@@ -1,67 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Upperheader from "../../UpperHeader/upperheader";
 import DataTableMeetView from "../Detailed Meeting List/detailMeetList";
 
 const CounsellorDetailMeetList = () => {
+  const { mycounsellorId } = useParams();
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
+  const username = userData.user.firstName + " " + userData.user.lastName;
+  const [data, setData] = useState([]);
   const columns = [
     "Student",
     "Meet Date",
     "Meet Link",
     "Meet Time",
     "Status",
-    "Amount",
   ];
-  const data = [
-    {
-      Student: "Alice Smith",
-      "Meet Date": "2024-01-10",
-      "Meet Link": "https://meet.example.com/123",
-      "Meet Time": "10:00 AM - 11:00 AM",
-      Status: "Paid",
-      Amount: "$50",
-    },
-    {
-      Student: "Bob Johnson",
-      "Meet Date": "2024-01-11",
-      "Meet Link": "https://meet.example.com/456",
-      "Meet Time": "02:00 PM - 03:00 PM",
-      Status: "Pending",
-      Amount: "$40",
-    },
-    {
-      Student: "Charlie Brown",
-      "Meet Date": "2024-01-12",
-      "Meet Link": "https://meet.example.com/789",
-      "Meet Time": "04:00 PM - 05:00 PM",
-      Status: "Paid",
-      Amount: "$60",
-    },
-    {
-      Student: "Diana Davis",
-      "Meet Date": "2024-01-13",
-      "Meet Link": "https://meet.example.com/101",
-      "Meet Time": "01:00 PM - 02:00 PM",
-      Status: "Pending",
-      Amount: "$45",
-    },
-    {
-      Student: "Edward Taylor",
-      "Meet Date": "2024-01-14",
-      "Meet Link": "https://meet.example.com/202",
-      "Meet Time": "03:00 PM - 04:00 PM",
-      Status: "Paid",
-      Amount: "$55",
-    },
-  ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/get-meetings`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch meetings");
+        }
+
+        const result = await response.json();
+
+
+        const filteredData = result.meetings
+  .filter((meeting) => meeting.counsellorId === parseInt(mycounsellorId, 10)) // Ensure type conversion
+  .map((meeting) => {
+    const meetingDateTime = new Date(meeting.MeetingDate);
+    const meetingTime = new Date(meeting.MeetingTime).toISOString().substring(11, 16); // Extract HH:mm
+
+    const now = new Date();
+
+    meetingDateTime.setHours(meetingTime.split(":")[0], meetingTime.split(":")[1], 0);
+
+    const status = meetingDateTime < now ? "Done" : "Pending";
+
+    return {
+      Student: `${meeting.studentFirstName} ${meeting.studentLastName}`,
+      "Meet Date": new Date(meeting.MeetingDate).toLocaleDateString(),
+      "Meet Link": meeting.meetLink,
+      "Meet Time": meetingTime, // Use formatted time
+      Status: status,
+      Amount: `$${meeting.amount || 0}`,
+    };
+  });
+
+
+
+
+
+        setData(filteredData);
+      } catch (error) {
+        console.error("Error fetching meetings:", error);
+      }
+    };
+
+    fetchData();
+  }, [mycounsellorId]);
 
   return (
     <div>
-      <Upperheader title="View Detail Meetings List" />
+      <Upperheader title="View Meetings" name={username} />
 
       <DataTableMeetView
         columns={columns}
         data={data}
-        title="Meets scheduled at 10-January-2024"
+        title={`Meets scheduled for Counsellor ID: ${mycounsellorId}`}
       />
     </div>
   );

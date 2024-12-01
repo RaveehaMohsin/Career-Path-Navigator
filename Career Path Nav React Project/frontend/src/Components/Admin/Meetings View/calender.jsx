@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./calender.css";
-import { useHistory } from "react-router-dom";
 
 const Calender = () => {
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth();
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
 
-  // State for year and month
+  // State for year, month, and meeting counts
   const [year, setYear] = useState(currentYear);
   const [month, setMonth] = useState(currentMonth);
+  const [meetingCounts, setMeetingCounts] = useState({}); // Store meeting counts by date
+
+  // Assuming `userdata.user.userId` is available in your application
+  const counsellorId = userData?.user?.userId; // Replace with actual access to user data
 
   // Helper to generate days for the month
   const getDaysInMonth = (year, month) => {
@@ -50,17 +54,36 @@ const Calender = () => {
   // Year options (5 years before and after the current year)
   const yearOptions = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
 
+  // Fetch meeting counts from the backend
+  useEffect(() => {
+    const fetchMeetingCounts = async () => {
+      try {
+        // Construct the fetch URL based on whether counsellorId is present
+        let url = `http://localhost:4000/get-meetings-count?year=${year}&month=${month + 1}`;
+
+        if (window.location.pathname.includes("/counsellor/meetview") && counsellorId) {
+          // Add counsellorId to the request URL
+          url += `&counsellorId=${counsellorId}`;
+        }
+
+        const response = await fetch(url); // Fetch for the selected year, month, and optional counsellorId
+        if (!response.ok) {
+          throw new Error("Failed to fetch meeting counts");
+        }
+
+        const result = await response.json();
+        setMeetingCounts(result.counts); // Expect counts in { "2024-12-02": 2, ... } format
+      } catch (error) {
+        console.error("Error fetching meeting counts:", error);
+      }
+    };
+
+    fetchMeetingCounts();
+  }, [year, month, counsellorId]);
+
   // Handle year and month change
   const handleYearChange = (event) => setYear(parseInt(event.target.value));
   const handleMonthChange = (event) => setMonth(parseInt(event.target.value));
-
-
-
-  const history = useHistory();
-
-  const handleViewMeet = () => {
-    history.push("/admin/meetview/detailmeet");
-  };
 
   return (
     <div className="calendar-container">
@@ -99,22 +122,26 @@ const Calender = () => {
 
       {/* Calendar Grid */}
       <div className="calendar-grid">
-        {Array.from({ length: daysInMonth }, (_, dayIndex) => (
-          <div key={dayIndex} className="calendar-date">
-            <span>{dayIndex + 1}</span>
-            <button
-              key={dayIndex}
-              style={{
-                color: buttonColors[dayIndex % buttonColors.length], // Apply cyclic colors
-                backgroundColor: "none",
-                border: "none",
-              }}
-              onClick={handleViewMeet}
-            >
-              4 Meet scheduled
-            </button>
-          </div>
-        ))}
+        {Array.from({ length: daysInMonth }, (_, dayIndex) => {
+          const date = new Date(year, month, dayIndex + 1)
+            .toISOString()
+            .substring(0, 10); // Format as YYYY-MM-DD
+          const count = meetingCounts[date] || 0; // Default to 0 if no meetings
+          return (
+            <div key={dayIndex} className="calendar-date">
+              <span>{dayIndex + 1}</span>
+              <button
+                style={{
+                  color: buttonColors[dayIndex % buttonColors.length], // Apply cyclic colors
+                  backgroundColor: "none",
+                  border: "none",
+                }}
+              >
+                {count} {count === 1 ? "Meeting" : "Meetings"} scheduled
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

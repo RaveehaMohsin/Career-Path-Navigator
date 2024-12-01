@@ -21,7 +21,7 @@ const Dashboard = () => {
                 &#9776;
             </button>
             <nav className="nav">
-                <Link to='/dashboard'><FaChartArea /> Dashboard</Link> 
+                <Link to='/student/dashboard'><FaChartArea /> Dashboard</Link> 
                 <Link onClick={() => handleSubmenuClick('profile')}>
                     <FaUser /> Profile
                 </Link>

@@ -14,7 +14,7 @@
     width: 1250px;
     margin-top: 50px;
     margin-left: auto;
-    margin-right: 50px;
+    margin-right: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -224,6 +224,10 @@
   
     .unique-column-container {
       flex-direction: column; /* Stack columns on smaller screens */
+    }
+
+    .dashboard-info-table{
+      font-size: 14px;
     }
     
   

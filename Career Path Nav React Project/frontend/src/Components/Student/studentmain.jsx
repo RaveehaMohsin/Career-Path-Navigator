@@ -14,6 +14,7 @@ import Chatbot from './Chatbot/chatbot';
 import Resumebuilder from './Resume-Builder/Resumebuilder';
 import Reviews from './Reviews/Reviews';
 import Appointment from './Meet with Counsellor/Appointment/Appointment';
+import DashboradStudentView from './Dashboard/dashboardstudentview';
 
 export default function StudentMain() {
   const userData = JSON.parse(localStorage.getItem('CareerPathNavigatorUsers'));
@@ -32,6 +33,7 @@ export default function StudentMain() {
         <Dashboard />
         <div className="main-content">
           <Switch>
+          <Route exact path="/student/dashboard" component={DashboradStudentView} />
             <Route exact path="/studentprofile/studentadd" component={Studentadd} />
             <Route exact path="/studentprofile/interestsadd" component={StudentInterestAdd} />
             <Route exact path="/student/careerrecommendation" component={Careerrecommendation} />

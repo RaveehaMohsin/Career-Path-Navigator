@@ -45,13 +45,38 @@
     margin-right: 10px;
 }
 .graph-chart-container02{
-    margin-top: 31px;
+    margin-top: 20px;
     margin-bottom: 31px;
 }
-  
+
+
+.barchart-heading{
+  padding-left: 20px;
+    font-size: 24px;
+    color: hsl(200, 100%, 11%); /* Your desired heading color */
+    margin-top: 5px;
+}
+  .bar-header-container{
+    color: gray;
+  }
   .custom-legend {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+  }
+  
+  .status-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+  
+  .column {
+    width: 45%; /* Adjust width as needed */
+  }
+  
+  .column p {
+    margin: 5px 0;
   }
   

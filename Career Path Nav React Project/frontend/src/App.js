@@ -28,6 +28,7 @@ function App() {
         <Route exact path="/auth" component={auth} />
 
         {/* Student Role Routes */}
+        <Route exact path="/student/dashboard" component={StudentMain} />
         <Route exact path="/studentprofile/studentadd" component={StudentMain} />
         <Route exact path="/studentprofile/interestsadd" component={StudentMain} />
         <Route exact path="/student/careerrecommendation" component={StudentMain} />
@@ -42,6 +43,7 @@ function App() {
         <Route exact path="/meetwithcounsellor/appointment" component={StudentMain} />
 
         {/* Counsellor Route */}
+        <Route exact path="/counsellor/dashboard" component={CounsellorMain} />
         <Route exact path="/counsellor/profileadd" component={CounsellorMain} />
         <Route exact path="/counsellor/profileview" component={CounsellorMain} />
         <Route exact path="/counsellor/profileviewwithcard" component={CounsellorMain} />

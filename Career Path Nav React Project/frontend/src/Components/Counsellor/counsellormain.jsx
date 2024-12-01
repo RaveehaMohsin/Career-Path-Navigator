@@ -12,6 +12,8 @@ import Studentadd from "../Student/Student Add/studentadd";
 import StudentView from "../Student/Student View/studentView";
 import ScheduleManagement from "./Schedule Management/ScheduleManagement";
 
+import DashboradCounsellorView from "./Dashboard/dashboardcounsellorview";
+
 
 export default function CounsellorMain() {
     const userData = JSON.parse(localStorage.getItem('CareerPathNavigatorUsers'));
@@ -30,6 +32,7 @@ export default function CounsellorMain() {
           <DashboardConsellor />
           <div className="main-content">
             <Switch>
+            <Route exact path="/counsellor/dashboard" component={DashboradCounsellorView} />
               <Route exact path="/counsellor/profileadd" component={Studentadd} />
               <Route exact path="/counsellor/profileview" component={StudentView} />
               <Route exact path="/counsellor/expertise" component={ScheduleManagement} />

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import "./dashboardadminview.css";
+import "../../Admin/Dashboard/dashboardadminview.css";
 import Upperheader from "../../UpperHeader/upperheader";
 import { RxPerson } from "react-icons/rx";
-import AreaLineChart from "./lineareachart";
-import DoubleAreaLineChart from "./doublearealine";
-import BarChart from "./barchart";
+import AreaLineChart from "../../Admin/Dashboard/lineareachart";
+import DoubleAreaLineChart from "../../Admin/Dashboard/doublearealine";
+import BarChart from "../../Admin/Dashboard/barchart";
 import { GiReceiveMoney } from "react-icons/gi";
+import { SiGooglemeet } from "react-icons/si";
 
-const DashboradAdminView = () => {
+const DashboradCounsellorView = () => {
   const linechartData = [40, 70, 50, 60, 75, 50];
   const doublelinechartLabels = [
     "Jan",
@@ -46,65 +47,60 @@ const DashboradAdminView = () => {
   ];
 
   const barchartData = [
-    1, -1, 2, 1, 1, -2, 1, -1, -1, 0, 1, -1, 2, -1, 0, -2, 2, 1, -1, 2,
+    3, -1, -2, 4, -1, 5, 4, -1, 5, 0, 4, -1, -2, -1, 3, -2, 3, 5, -1, 3,
   ]; // The Y-axis values
   const barChartlabels = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  ]; // The X-axis labels (months, for example)
+  ]; // The X-axis labels 
   const barChartstatus = {
-    p1: "2. Completed",
-    p2: "1. Enrolled",
-    p3: "0. Nothing",
-    p4: "-1. Wishlist",
-    p5: "-2. Not Eligible",
-  }; // Custom status values
-  const barCharttitleData = "Degree Status Distribution"; // Custom title
+    p1: "5. Positive",
+    p2: "4. Positive",
+    p3: "3. Positive",
+    p4: "2. Negative",
+    p5: "1. Negative",
+  }; 
+  const barCharttitleData = "Feedback Evaluation"; 
 
-  const students = [
+  const meetings = [
     {
       id: 1,
-      name: "Ali Ahmed",
-      institute: "University of Lahore",
-      degree: "BSc Computer Science",
-      obtainedMarks: 850,
-      totalMarks: 1000,
-      percentage: "85%",
+      studentName: "Ali Ahmed",
+      gender: "Male",
+      meetingTime: "10:00 AM",
+      meetingDate: "2024-12-05",
+      amount: "$50",
     },
     {
       id: 2,
-      name: "Sara Khan",
-      institute: "FAST-NUCES",
-      degree: "BBA",
-      obtainedMarks: 780,
-      totalMarks: 1000,
-      percentage: "78%",
+      studentName: "Sara Khan",
+      gender: "Female",
+      meetingTime: "2:00 PM",
+      meetingDate: "2024-12-06",
+      amount: "$60",
     },
     {
       id: 3,
-      name: "Usman Malik",
-      institute: "NUST",
-      degree: "Electrical Engineering",
-      obtainedMarks: 920,
-      totalMarks: 1000,
-      percentage: "92%",
+      studentName: "Usman Malik",
+      gender: "Male",
+      meetingTime: "11:00 AM",
+      meetingDate: "2024-12-07",
+      amount: "$55",
     },
     {
       id: 4,
-      name: "Ayesha Tariq",
-      institute: "LUMS",
-      degree: "MBA",
-      obtainedMarks: 870,
-      totalMarks: 1000,
-      percentage: "87%",
+      studentName: "Ayesha Tariq",
+      gender: "Female",
+      meetingTime: "4:00 PM",
+      meetingDate: "2024-12-08",
+      amount: "$45",
     },
     {
       id: 5,
-      name: "Hamza Sheikh",
-      institute: "COMSATS",
-      degree: "Software Engineering",
-      obtainedMarks: 750,
-      totalMarks: 1000,
-      percentage: "75%",
+      studentName: "Hamza Sheikh",
+      gender: "Male",
+      meetingTime: "9:00 AM",
+      meetingDate: "2024-12-09",
+      amount: "$70",
     },
   ];
 
@@ -113,7 +109,7 @@ const DashboradAdminView = () => {
 
 
   const handleNext = () => {
-    if (currentPage < Math.ceil(students.length / entriesPerPage)) {
+    if (currentPage < Math.ceil(meetings.length / entriesPerPage)) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -149,11 +145,11 @@ const DashboradAdminView = () => {
               <div className="info-box-card">
                 <div>
                   <div className="info-box-card-image-container02">
-                    <RxPerson className="info-box-card-image" />
+                    <SiGooglemeet className="info-box-card-image" />
                   </div>
 
-                  <p>Total Counsellors</p>
-                  <h3>943</h3>
+                  <p>Total Meetings</p>
+                  <h3>86</h3>
                   {/* Compare last two months Counsellors if count is greater or less */}
                   <p>-5% than month </p>
                 </div>
@@ -173,7 +169,7 @@ const DashboradAdminView = () => {
                 </div>
 
                 <div className="line-chart-container">
-                  {/* Line chart on all invoice prices */}
+                  {/* Line chart on all invoice prices of meets that scheduled by him/her*/}
                   <AreaLineChart data={linechartData} />
                 </div>
               </div>
@@ -183,16 +179,16 @@ const DashboradAdminView = () => {
           <div className="unique-column-container">
             <div className="unique-vertical-container unique-box-c">
               <div className="chart-content-container">
-                {/* The query for for generation of data will likkt like
+                {/* The query for generation of data will look like
                 SELECT 
-                  FORMAT(Meeting.MeetingDate, 'yyyy-MM') AS Month,
-                  SUM(Invoice.amount) AS TotalRevenue,
-                  COUNT(Meeting.meetingId) AS TotalMeetings
-                  FROM Invoice
-                  JOIN Meeting ON Invoice.invoiceId = Meeting.invoiceId
-                  GROUP BY FORMAT(Meeting.MeetingDate, 'yyyy-MM')
-                  ORDER BY FORMAT(Meeting.MeetingDate, 'yyyy-MM');
-                  
+                FORMAT(Meeting.MeetingDate, 'yyyy-MM') AS Month,
+                SUM(Invoice.amount) AS TotalRevenue,
+                COUNT(Meeting.meetingId) AS TotalMeetings
+                FROM Invoice
+                JOIN Meeting ON Invoice.invoiceId = Meeting.invoiceId
+                WHERE Meeting.counsellorId = @CounsellorId 
+                GROUP BY FORMAT(Meeting.MeetingDate, 'yyyy-MM')
+                ORDER BY FORMAT(Meeting.MeetingDate, 'yyyy-MM');
                   */}
                 <DoubleAreaLineChart
                   title="Monthly Revenue & Meetings Held"
@@ -205,28 +201,21 @@ const DashboradAdminView = () => {
             <div className="unique-vertical-container unique-box-d">
               <div className="chart-content-container">
                 {/* This will create the bar chart on the latest degree of students....
-
-                    WITH LatestDegree AS (
-                        SELECT 
-                            studentId, 
-                            MAX(degreeId) AS latestDegreeId
-                        FROM Degree
-                        GROUP BY studentId
-                    )
                     SELECT 
-                        d.studentId AS userId,
-                        'Degree' AS category,
-                        CASE 
-                          WHEN status IN ('completed') THEN 2
-                      WHEN status IN ('enroled') THEN 1 
-
-                            WHEN status IN ('whishlist') THEN -1 
-                      WHEN status IN ('not eligilbel') THEN -2
-
-                            ELSE 0
-                        END AS value
-                    FROM Degree d
-                    INNER JOIN LatestDegree ld ON d.degreeId = ld.latestDegreeId; */}
+                    m.studentId,
+                    f.rating AS FeedbackRating,
+                    CASE 
+                        WHEN f.rating = 3 THEN 3
+                        WHEN f.rating = 4 THEN 4
+                        WHEN f.rating = 5 THEN 5
+                        WHEN f.rating = 1 THEN -1
+                        WHEN f.rating = 2 THEN -2
+                        ELSE 0 -- Neutral or unexpected ratings
+                    END AS FeedbackValue
+                    FROM Feedback f
+                    JOIN Meeting m ON f.fromUserId = m.studentId
+                    WHERE m.counsellorId = @CounsellorId -- Replace @CounsellorId with the counselor ID
+                    ORDER BY m.studentId, FeedbackRating; */}
                 <BarChart
                   titleData={barCharttitleData}
                   labels={barChartlabels}
@@ -240,50 +229,47 @@ const DashboradAdminView = () => {
           <div className="unique-column-container">
             <div className="table-cobntet-last-container">
               <div className="dashboard-info-container">
+
                 {/* SELECT 
-                  u.userId, 
-                  CONCAT(u.firstName, ' ', u.lastName) AS StudentName,
-                  b.instituteName,
-                  b.degreeTitle,
-                  b.degreeLevel,
-                  b.TotalMarks,
-                  b.ObtainedMarks,
-                  FORMAT((b.ObtainedMarks / b.TotalMarks) * 100, 'N2') AS percentage
-                  FROM Background b
-                  INNER JOIN Users u ON b.studentId = u.userId;
-                  */}
+                    CONCAT(u.firstName, ' ', u.lastName) AS StudentName,
+                    u.Gender,
+                    FORMAT(m.MeetingTime, 'hh:mm tt') AS MeetingTime,
+                    FORMAT(m.MeetingDate, 'yyyy-MM-dd') AS MeetingDate,
+                    i.amount AS InvoiceAmount
+                        FROM Meeting m
+                        JOIN Invoice i ON m.invoiceId = i.invoiceId
+                        JOIN Users u ON m.studentId = u.userId
+                        JOIN Person p ON u.userId = p.userId
+                        WHERE m.counsellorId = @CounsellorId
+                        ORDER BY m.MeetingDate DESC, m.MeetingTime DESC; */}
+
                 <h3 className="dashboard-heading">
-                  Student Background Information
+                  Meetings Overview
                 </h3>
                 <table className="dashboard-info-table">
                   <thead>
                     <tr>
-                      <th className="dashboard-table-heading">Id</th>
                       <th className="dashboard-table-heading">Student Name</th>
                       <th className="dashboard-table-heading">
-                        Institute Name
+                        Gender
                       </th>
-                      <th className="dashboard-table-heading">Degree Title</th>
-                      <th className="dashboard-table-heading">
-                        Obtained Marks
-                      </th>
-                      <th className="dashboard-table-heading">Total Marks</th>
-                      <th className="dashboard-table-heading">Percentage</th>
+                      <th className="dashboard-table-heading">Meeting Time</th>
+                      <th className="dashboard-table-heading">Meeting Date</th>
+                      <th className="dashboard-table-heading">Amount</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {students.map((student) => (
-                      <tr key={student.id}>
-                        <td>{student.id}</td>
-                        <td>{student.name}</td>
-                        <td>{student.institute}</td>
-                        <td>{student.degree}</td>
-                        <td>{student.obtainedMarks}</td>
-                        <td>{student.totalMarks}</td>
-                        <td>{student.percentage}</td>
-                      </tr>
-                    ))}
+                  {meetings.map((meeting) => (
+            <tr key={meeting.id}>
+              <td>{meeting.studentName}</td>
+              <td>{meeting.gender}</td>
+              
+              <td>{meeting.meetingTime}</td>
+              <td>{meeting.meetingDate}</td>
+              <td>{meeting.amount}</td>
+            </tr>
+          ))}
                   </tbody>
                 </table>
 
@@ -311,4 +297,4 @@ const DashboradAdminView = () => {
   );
 };
 
-export default DashboradAdminView;
+export default DashboradCounsellorView;

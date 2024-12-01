@@ -14,20 +14,14 @@ import {
 // Register Chart.js components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const BarChart = () => {
-  // Updated dummy data for the bar chart with more variation
+const BarChart = ({ titleData, labels, status, chartData }) => {
+  // Default dataset structure
   const data = {
-    labels: [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
-      "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"
-    ],
+    labels: labels, // Dynamic labels passed as prop
     datasets: [
       {
-        label: "Balance",
-        data: [
-          20, -50, 80, -45, 60, -90, 120, -110, 140, -130, 80, -20, 
-          -60, 100, -30, 50
-        ], // Added more dummy data
+        label: titleData || "Balance", // Use dynamic titleData or fallback to "Balance"
+        data: chartData, // Data passed as prop
         backgroundColor: (context) => {
           const value = context.raw;
           // Color bars based on value
@@ -54,7 +48,7 @@ const BarChart = () => {
       x: {
         title: {
           display: true,
-          text: "Months", // X-axis title
+          text: "Users", // X-axis title
         },
         grid: {
           display: false, // Remove grid from x-axis
@@ -63,7 +57,7 @@ const BarChart = () => {
       y: {
         title: {
           display: true,
-          text: "Amount", // Y-axis title
+          text: "Count", // Y-axis title
         },
         beginAtZero: true,
         grid: {
@@ -80,11 +74,25 @@ const BarChart = () => {
   return (
     <div>
       {/* Flexbox layout for the header */}
-      <div className="header-container">
-        <h2 className="linechart-heading">Balance <br /> Analysis</h2>
+      <div className="bar-header-container">
+        <h2 className="barchart-heading">
+          {titleData}
+        </h2>
+        <div className="status-container">
+          <div className="column">
+            <p>{status.p1}</p>
+            <p>{status.p2}</p>
+            <p>{status.p3}</p>
+          </div>
+          <div className="column">
+          <p>{status.p4}</p>
+          <p>{status.p5}</p>
+          </div>
+        </div>
       </div>
       <div className="graph-chart-container02">
-        <Bar data={data} options={options} height={650} width={800} /> {/* Increased height */}
+        <Bar data={data} options={options} height={500} width={800} />{" "}
+        {/* Increased height */}
       </div>
     </div>
   );

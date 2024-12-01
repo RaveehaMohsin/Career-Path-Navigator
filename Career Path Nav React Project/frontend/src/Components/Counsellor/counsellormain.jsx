@@ -13,6 +13,11 @@ import ScheduleManagement from "./Schedule Management/ScheduleManagement";
 import StudentView from "../Student/Student View/studentView";
 import StudentDetailMeetList from "../Admin/Student View/studentdetailmeetlist";
 import CounsellorMeetings from "./Counsellor Meetings/counsellormeet";
+import CounsellorInvoiceView from "./Invoice/invoiceviewcounsellor";
+import CounsellorNoifications from "./Notifications/notificatinscounsellor";
+import CounsellorViewStudentReviews from "./View Student Reviews/viewstudentreviewsCounsellor";
+import CounsellorGiveReviewStudent from "./Give Reviews/givereviewstudentcounsellor";
+import CounsellorGiveReviewSystem from "./Give Reviews/givereviewsystemcounsellor";
 
 import DashboradCounsellorView from "./Dashboard/dashboardcounsellorview";
 
@@ -42,6 +47,11 @@ export default function CounsellorMain() {
               <Route exact path="/counsellor/studentsview/studentpersonprofile/:userId" component={StudentView} />
               <Route exact path="/counsellor/studentsview/studentdetailmeet/:userId" component={StudentDetailMeetList} />
               <Route exact path="/counsellor/meetview" component={CounsellorMeetings} />
+              <Route exact path="/counsellor/invoiceview" component={CounsellorInvoiceView} />
+              <Route exact path="/counsellor/notifications" component={CounsellorNoifications} />
+              <Route exact path="/counsellor/viewstudentreviews" component={CounsellorViewStudentReviews} />
+              <Route exact path="/counsellor/givestudentreview" component={CounsellorGiveReviewStudent} />
+              <Route exact path="/counsellor/givesystemreview" component={CounsellorGiveReviewSystem} /> 
             </Switch>
           </div>
         </div>

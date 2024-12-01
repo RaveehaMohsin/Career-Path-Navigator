@@ -42,12 +42,12 @@ const DashboardConsellor = () => {
                 <NavLink to="/counsellor/meetview" activeClassName="active-link"> <FaTachometerAlt /> Meetings </NavLink>
                 <NavLink to="/counsellor/invoiceview" activeClassName="active-link"> <FaFileInvoiceDollar /> Invoice </NavLink>
                 <NavLink to="/counsellor/notifications" activeClassName="active-link"> <FaFileInvoiceDollar /> Notifications </NavLink>
-                <NavLink to="/counsellor/studentreviews" activeClassName="active-link"> <FaStar />Student Reviews</NavLink>
+                <NavLink to="/counsellor/viewstudentreviews" activeClassName="active-link"> <FaStar />Student Reviews</NavLink>
                 <Link onClick={() => handleSubmenuClick('review')}> <FaStar />Give Reviews</Link>
                 {openSubmenu === 'review' && (
                     <div className="submenu">
-                        <NavLink to="/counsellor/studentreview" activeClassName="active-link"><FaUserShield /> Student</NavLink>
-                        <NavLink to="/counsellor/systemreview" activeClassName="active-link"><FaChalkboardTeacher/> System</NavLink>
+                        <NavLink to="/counsellor/givestudentreview" activeClassName="active-link"><FaUserShield /> Student</NavLink>
+                        <NavLink to="/counsellor/givesystemreview" activeClassName="active-link"><FaChalkboardTeacher/> System</NavLink>
                     </div>
                 )}
                 <NavLink to="/auth" activeClassName="active-link"><FaSignOutAlt /> Logout</NavLink>

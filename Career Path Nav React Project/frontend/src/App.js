@@ -52,10 +52,13 @@ function App() {
         <Route exact path="/counsellor/expertise" component={CounsellorMain} />
         <Route exact path="/counsellor/studentview" component={CounsellorMain} />
         <Route exact path="/counsellor/meetview" component={CounsellorMain} />
-        <Route exact path="/counsellor/profileview" component={CounsellorMain} />
         <Route exact path="/counsellor/studentsview/studentpersonprofile/:userId" component={CounsellorMain} />
         <Route exact path="/counsellor/studentsview/studentdetailmeet/:userId" component={CounsellorMain} />
-        <Route exact path="/counsellor/meetview" component={CounsellorMain} />
+        <Route exact path="/counsellor/invoiceview" component={CounsellorMain} />
+        <Route exact path="/counsellor/notifications" component={CounsellorMain} />
+        <Route exact path="/counsellor/viewstudentreviews" component={CounsellorMain} />
+        <Route exact path="/counsellor/givestudentreview" component={CounsellorMain} />
+        <Route exact path="/counsellor/givesystemreview" component={CounsellorMain} />
 
 
 

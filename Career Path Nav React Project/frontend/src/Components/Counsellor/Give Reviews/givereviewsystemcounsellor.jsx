@@ -5,8 +5,7 @@ const CounsellorGiveReviewSystem = () =>{
 
 return(
     <div>
-        <ReviewForm />
-        
+        <ReviewForm />     
     </div>
 )
 };

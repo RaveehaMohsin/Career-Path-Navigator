@@ -8,17 +8,22 @@ const InvoiceView = () => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
   const username = userData.user.firstName + " " + userData.user.lastName;
+  const userId = userData.user.userId; // Assuming userId is the counsellor's ID
 
   const invoicesPerPage = 12;
   const totalPages = Math.ceil(data.length / invoicesPerPage);
-  
+
   const getRandomStatusClass = () => {
     const statuses = ['status-paid', 'status-pending', 'status-overdue'];
     const randomIndex = Math.floor(Math.random() * statuses.length);
     return statuses[randomIndex];
   };
+
   // Fetch invoices from the backend on component mount
   useEffect(() => {
+    // Check if the URL contains "counsellor"
+    const isCounsellorView = window.location.pathname.includes("counsellor");
+
     fetch("http://localhost:4000/get-invoices")
       .then((response) => response.json()) // Assuming the API returns JSON
       .then((invoices) => {
@@ -28,13 +33,17 @@ const InvoiceView = () => {
           status: "Paid",
           statusClass: getRandomStatusClass(), // Hardcode status as 'Paid'
         }));
-        setData(updatedInvoices); // Set fetched data to state
-        console.log(updatedInvoices); // Log the data to see what it looks like
+
+        // If URL has "counsellor", filter invoices based on counsellorId
+        const filteredInvoices = isCounsellorView
+          ? updatedInvoices.filter((invoice) => invoice.counsellorId === userId)
+          : updatedInvoices;
+
+        setData(filteredInvoices); // Set fetched data to state
+        console.log(filteredInvoices); // Log the data to see what it looks like
       })
       .catch((error) => console.error("Error fetching invoices:", error));
-  }, []);
-
- 
+  }, [userId]); // Adding userId as a dependency to re-fetch when it changes
 
   const currentInvoices = data.slice(
     (currentPage - 1) * invoicesPerPage,
@@ -82,7 +91,7 @@ const InvoiceView = () => {
 
   return (
     <div>
-      <Upperheader title="View Meetings" name={username} />
+      <Upperheader title="View your Invoices" name={username} />
       <div className="invoice-container">
         <h1 className="invoice-title">Invoices</h1>
 

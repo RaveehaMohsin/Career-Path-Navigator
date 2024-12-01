@@ -7,27 +7,36 @@ router.get('/', async (req, res) => {
         const pool = await sql.connect();
         const query = `
             SELECT 
-        [invoiceId], 
-        [amount], 
-        [timeIssues] 
-        FROM 
-        [CareerPathNavigator].[dbo].[Invoice] 
+                i.[invoiceId], 
+                i.[amount], 
+                i.[timeIssues],
+                m.[meetingId], 
+                m.[studentId], 
+                m.[counsellorId], 
+                m.[MeetingTime], 
+                m.[MeetingDate], 
+                m.[meetLink]
+            FROM 
+                [CareerPathNavigator].[dbo].[Invoice] i
+            INNER JOIN 
+                [CareerPathNavigator].[dbo].[Meeting] m
+            ON 
+                i.[invoiceId] = m.[invoiceId]
         `;
         
         const result = await pool.request().query(query);
 
-        // Check if any student data was found
+        // Check if any data was found
         if (result.recordset.length === 0) {
-            return res.status(404).json({ message: "No Invoices found." });
+            return res.status(404).json({ message: "No data found." });
         }
 
-        // Respond with the student data
+        // Respond with the joined data
         res.status(200).json(result.recordset);
     } catch (error) {
         console.error("Database error:", error);
-        res.status(500).json({ error: "An error occurred while fetching student information." });
+        res.status(500).json({ error: "An error occurred while fetching data." });
     }
 });
 
 module.exports = router;
-

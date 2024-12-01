@@ -99,8 +99,7 @@ const CounsellorProfileView = () => {
       <UpperHeader title="Profile Preview" name={username} />
       {/* Main container with two columns */}
       <div className="main-container">
-        <div className="profile-container">
-          =======
+        
           <div className="profile-background-container">
             {/* Personal Profile View section */}
             <div className="profile-container">
@@ -204,7 +203,7 @@ const CounsellorProfileView = () => {
               </div>
             </div>
           </div>
-          </div>
+          
 
           
           {/* Additional parallel info section */}

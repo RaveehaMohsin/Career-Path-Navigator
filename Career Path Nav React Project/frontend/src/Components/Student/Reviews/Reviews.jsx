@@ -18,13 +18,24 @@ export default function ReviewForm() {
   const [recommend, setRecommend] = useState(false);
   const [experience, setExperience] = useState("");
   const [selectedCounsellorId, setSelectedCounsellorId] = useState(""); 
+  const [selectedStudentId, setSelectedStudentId] = useState("");  // For selecting student ID
 
   const isCounsellorPage = window.location.pathname === "/review/counsellor";
+  const isGiveStudentReviewPage = window.location.pathname === "/counsellor/givestudentreview";  // Check for student review page
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const fromUserId = currentUser.userId;
-    const toUserId = isCounsellorPage ? selectedCounsellorId : 2;   
+    let toUserId;
+
+    // Determine the toUserId based on the page
+    if (isCounsellorPage) {
+      toUserId = selectedCounsellorId;
+    } else if (isGiveStudentReviewPage) {
+      toUserId = selectedStudentId;  // Use selectedStudentId for student review page
+    } else {
+      toUserId = 2; // Default ID or fallback if needed
+    }
 
     const formData = {
       rating,
@@ -76,11 +87,12 @@ export default function ReviewForm() {
 
   return (
     <div>
-       <UpperHeader title={isCounsellorPage ? "Give reviews to Counsellor" : "Give reviews to System"} name={username} />
+      <UpperHeader title={isCounsellorPage ? "Give reviews to Counsellor" : (isGiveStudentReviewPage ? "Give reviews to Student" : "Give reviews to System")} name={username} />
       <div className="review-container">
         <form onSubmit={handleSubmit} className="review-form">
           <h2 className="review-title">Share Your Feedback</h2>
-          {/* Conditionally render the select box for counsellor */}
+
+          {/* Conditionally render the select box for counsellor or student */}
           {isCounsellorPage && (
             <div className="review-field">
               <label className="review-label">Select Counsellor:</label>
@@ -96,6 +108,25 @@ export default function ReviewForm() {
                 <option value="6">Counsellor 6</option>
                 <option value="7">Counsellor 7</option>
                 <option value="8">Counsellor 8</option>
+              </select>
+            </div>
+          )}
+
+          {isGiveStudentReviewPage && (
+            <div className="review-field">
+              <label className="review-label">Select Student:</label>
+              <select
+                value={selectedStudentId}
+                onChange={(e) => setSelectedStudentId(e.target.value)}
+                className="review-select"
+                required
+              >
+                <option value="" disabled>Select a student</option>
+                <option value="101">Student 101</option>
+                <option value="102">Student 102</option>
+                <option value="103">Student 103</option>
+                <option value="104">Student 104</option>
+                <option value="105">Student 105</option>
               </select>
             </div>
           )}
@@ -131,7 +162,6 @@ export default function ReviewForm() {
               onChange={(e) => setComments(e.target.value)}
               placeholder="Write your comments here..."
               className="review-textarea"
-              
             />
           </div>
 
@@ -145,7 +175,6 @@ export default function ReviewForm() {
               checked={recommend}
               onChange={() => setRecommend(!recommend)}
               className="review-checkbox"
-
             />
           </div>
 

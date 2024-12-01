@@ -6,7 +6,6 @@ router.get("/", async (req, res) => {
     try {
       const pool = await sql.connect();
   
-      // Query to retrieve all feedback
       const query = `
         USE CareerPathNavigator;
         SELECT 

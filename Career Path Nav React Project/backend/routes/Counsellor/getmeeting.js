@@ -10,9 +10,26 @@ router.get('/', async (req, res) => {
 
     // SQL query to fetch all meetings
     const query = `
-      SELECT meetingId , invoiceId, studentId, counsellorId, MeetingDate, MeetingTime, meetLink
-      FROM Meeting
-    `;
+    SELECT 
+      m.meetingId,
+      m.invoiceId,
+      m.studentId,
+      m.counsellorId,
+      m.MeetingDate,
+      m.MeetingTime,
+      m.meetLink,
+      s.firstName AS studentFirstName,
+      s.lastName AS studentLastName,
+      c.firstName AS counsellorFirstName,
+      c.lastName AS counsellorLastName
+    FROM 
+      Meeting m
+    LEFT JOIN 
+      Users s ON m.studentId = s.userId
+    LEFT JOIN 
+      Users c ON m.counsellorId = c.userId
+  `;
+  
     
     // Execute the SQL query
     const result = await pool.request().query(query);

@@ -1,58 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./invoiceview.css";
 import Upperheader from "../../UpperHeader/upperheader";
 
 const InvoiceView = () => {
-  const initialInvoices = [
-    { id: 1, timeIssued: "2024-11-01 10:30", status: "Paid", amount: 200.5 },
-    { id: 2, timeIssued: "2024-10-29 14:00", status: "Pending", amount: 100.0 },
-    { id: 3, timeIssued: "2024-11-20 09:15", status: "Overdue", amount: 500.0 },
-    { id: 4, timeIssued: "2024-11-15 12:00", status: "Paid", amount: 150.75 },
-    { id: 5, timeIssued: "2024-11-10 08:45", status: "Pending", amount: 300.2 },
-    {
-      id: 6,
-      timeIssued: "2024-10-28 16:30",
-      status: "Overdue",
-      amount: 450.75,
-    },
-    { id: 7, timeIssued: "2024-10-15 09:30", status: "Paid", amount: 275.5 },
-    { id: 8, timeIssued: "2024-11-05 14:50", status: "Pending", amount: 125.0 },
-    { id: 9, timeIssued: "2024-11-18 11:20", status: "Paid", amount: 350.0 },
-    {
-      id: 10,
-      timeIssued: "2024-11-12 10:00",
-      status: "Overdue",
-      amount: 225.5,
-    },
-    { id: 11, timeIssued: "2024-11-03 13:10", status: "Paid", amount: 275.3 },
-    {
-      id: 12,
-      timeIssued: "2024-10-30 15:45",
-      status: "Pending",
-      amount: 410.0,
-    },
-    { id: 13, timeIssued: "2024-10-22 12:25", status: "Paid", amount: 199.5 },
-    {
-      id: 14,
-      timeIssued: "2024-11-07 08:50",
-      status: "Overdue",
-      amount: 520.0,
-    },
-    {
-      id: 15,
-      timeIssued: "2024-10-25 18:30",
-      status: "Pending",
-      amount: 345.0,
-    },
-    { id: 16, timeIssued: "2024-10-27 10:15", status: "Paid", amount: 400.5 },
-  ];
-
-  const [data, setData] = useState(initialInvoices);
+  const [data, setData] = useState([]);  // Initialize state for invoices
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
+  const username = userData.user.firstName + " " + userData.user.lastName;
 
   const invoicesPerPage = 12;
   const totalPages = Math.ceil(data.length / invoicesPerPage);
+  
+  const getRandomStatusClass = () => {
+    const statuses = ['status-paid', 'status-pending', 'status-overdue'];
+    const randomIndex = Math.floor(Math.random() * statuses.length);
+    return statuses[randomIndex];
+  };
+  // Fetch invoices from the backend on component mount
+  useEffect(() => {
+    fetch("http://localhost:4000/get-invoices")
+      .then((response) => response.json()) // Assuming the API returns JSON
+      .then((invoices) => {
+        // Hardcoding the status to "Paid" for all invoices as per your request
+        const updatedInvoices = invoices.map((invoice) => ({
+          ...invoice,
+          status: "Paid",
+          statusClass: getRandomStatusClass(), // Hardcode status as 'Paid'
+        }));
+        setData(updatedInvoices); // Set fetched data to state
+        console.log(updatedInvoices); // Log the data to see what it looks like
+      })
+      .catch((error) => console.error("Error fetching invoices:", error));
+  }, []);
+
+ 
 
   const currentInvoices = data.slice(
     (currentPage - 1) * invoicesPerPage,
@@ -76,10 +58,11 @@ const InvoiceView = () => {
     const sortedData = [...data].sort((a, b) => {
       if (key === "amount") {
         return direction === "ascending" ? a[key] - b[key] : b[key] - a[key];
-      } else if (key === "timeIssued") {
-        return direction === "ascending"
-          ? new Date(a[key]) - new Date(b[key])
-          : new Date(b[key]) - new Date(a[key]);
+      } else if (key === "timeIssues") {
+        // Format the date before comparing
+        const dateA = new Date(a[key]);
+        const dateB = new Date(b[key]);
+        return direction === "ascending" ? dateA - dateB : dateB - dateA;
       } else {
         return direction === "ascending"
           ? a[key].localeCompare(b[key])
@@ -91,14 +74,20 @@ const InvoiceView = () => {
     setSortConfig({ key, direction });
   };
 
+  // Format the date as 'YYYY-MM-DD'
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-CA"); // Format to 'YYYY-MM-DD'
+  };
+
   return (
     <div>
-      <Upperheader title="View Invoices" />
+      <Upperheader title="View Meetings" name={username} />
       <div className="invoice-container">
         <h1 className="invoice-title">Invoices</h1>
 
         <div className="filters">
-          <button onClick={() => sortData("timeIssued")}>
+          <button onClick={() => sortData("timeIssues")}>
             Sort by Time Issued
           </button>
           <button onClick={() => sortData("status")}>Sort by Status</button>
@@ -107,21 +96,15 @@ const InvoiceView = () => {
 
         <div className="invoice-cards">
           {currentInvoices.map((invoice) => (
-            <div key={invoice.id} className="invoice-card">
+            <div key={invoice.invoiceId} className="invoice-card">
               <div className="card-row">
                 <span className="label">Time Issued:</span>
-                <span>{invoice.timeIssued}</span>
+                <span>{formatDate(invoice.timeIssues)}</span> {/* Display formatted date */}
               </div>
               <div className="card-row">
                 <span className="label">Status:</span>
                 <span
-                  className={`status ${
-                    invoice.status.toLowerCase() === "paid"
-                      ? "status-paid"
-                      : invoice.status.toLowerCase() === "pending"
-                      ? "status-pending"
-                      : "status-overdue"
-                  }`}
+                  className={`status ${invoice.statusClass}`}
                 >
                   {invoice.status}
                 </span>

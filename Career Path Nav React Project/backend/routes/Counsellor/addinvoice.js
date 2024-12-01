@@ -3,7 +3,7 @@ const router = express.Router();
 const stripe = require('stripe')('sk_test_51PrEzpFdjrY56P1cqjq3g45v43hCnxBJyfSDhCHVnnenfSol1Jn2vy4SKLzdVMzqOcOZuIDudHy76l22rxsVVDTo004kHibLxh');
 const sql = require('mssql');
 
-// Function to check if invoice already exists for a given sessionId
+
 const checkInvoiceExists = async (sessionId) => {
   try {
     const pool = await sql.connect();

@@ -26,7 +26,7 @@ const DashboardConsellor = () => {
                 &#9776;
             </button>
             <nav className="nav">
-                <Link to="/counsellor/dashboard"><FaChartArea /> Dashboard</Link> 
+                <NavLink to="/counsellor/dashboard" activeClassName="active-link"><FaChartArea /> Dashboard</NavLink> 
                 
                 <Link onClick={() => handleSubmenuClick('profile')}>
                     <FaUser /> Profile
@@ -38,19 +38,19 @@ const DashboardConsellor = () => {
                         <NavLink to="/counsellor/profileview" activeClassName="active-link" ><FaEye /> View Profile</NavLink>
                     </div>
                 )}
-                <Link to="/counsellor/studentview"><GiSchoolBag /> Student</Link>
-                <Link to="/counsellor/meetview"> <FaTachometerAlt /> Meetings </Link>
-                <Link to="/counsellor/invoiceview"> <FaFileInvoiceDollar /> Invoice </Link>
-                <Link to="/counsellor/notifications"> <FaFileInvoiceDollar /> Notifications </Link>
-                <Link to="/counsellor/studentreviews"> <FaStar />Student Reviews</Link>
+                <NavLink to="/counsellor/studentview" activeClassName="active-link"><GiSchoolBag /> Student</NavLink>
+                <NavLink to="/counsellor/meetview" activeClassName="active-link"> <FaTachometerAlt /> Meetings </NavLink>
+                <NavLink to="/counsellor/invoiceview" activeClassName="active-link"> <FaFileInvoiceDollar /> Invoice </NavLink>
+                <NavLink to="/counsellor/notifications" activeClassName="active-link"> <FaFileInvoiceDollar /> Notifications </NavLink>
+                <NavLink to="/counsellor/studentreviews" activeClassName="active-link"> <FaStar />Student Reviews</NavLink>
                 <Link onClick={() => handleSubmenuClick('review')}> <FaStar />Give Reviews</Link>
                 {openSubmenu === 'review' && (
                     <div className="submenu">
-                        <Link to="/counsellor/studentreview"><FaUserShield /> Student</Link>
-                        <Link to="/counsellor/systemreview"><FaChalkboardTeacher/> System</Link>
+                        <NavLink to="/counsellor/studentreview" activeClassName="active-link"><FaUserShield /> Student</NavLink>
+                        <NavLink to="/counsellor/systemreview" activeClassName="active-link"><FaChalkboardTeacher/> System</NavLink>
                     </div>
                 )}
-                <Link to="/auth"><FaSignOutAlt /> Logout</Link>
+                <NavLink to="/auth" activeClassName="active-link"><FaSignOutAlt /> Logout</NavLink>
             </nav>
         </div>
     );

@@ -51,6 +51,9 @@ function App() {
         <Route exact path="/counsellor/studentview" component={CounsellorMain} />
         <Route exact path="/counsellor/meetview" component={CounsellorMain} />
         <Route exact path="/counsellor/profileview" component={CounsellorMain} />
+        <Route exact path="/counsellor/studentsview/studentpersonprofile/:userId" component={CounsellorMain} />
+        <Route exact path="/counsellor/studentsview/studentdetailmeet/:userId" component={CounsellorMain} />
+        <Route exact path="/counsellor/meetview" component={CounsellorMain} />
 
 
 
@@ -68,11 +71,12 @@ function App() {
         <Route exact path="/admin/studentreview"  component={AdminMain} />
         <Route exact path="/admin/counsellorreview"  component={AdminMain} />
         <Route exact path="/admin/systemreview"  component={AdminMain} />
-
-        <Route exact path="/admin/meetview/detailmeet" component={AdminMain} />
+        
         <Route exact path="/admin/meetview/counsellordetailmeet" component={AdminMain} />
         <Route exact path="/admin/studentsview/studentpersonprofile/:userId" component={AdminMain} />
-        <Route exact path="/admin/studentsview/studentdetailmeet" component={AdminMain} />
+        <Route exact path="/admin/studentsview/studentdetailmeet/:userId" component={AdminMain} />
+        <Route exact path="/admin/counsellorview/counsellorpersonprofile/:mycounsellorId" component={AdminMain} />
+        <Route exact path="/admin/counsellorview/counsellordetailmeet/:mycounsellorId" component={AdminMain} />
         
        
         {/* Default */}

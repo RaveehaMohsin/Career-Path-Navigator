@@ -10,6 +10,9 @@ import CounsellorProfileView from "./Profile View/counsellorprofileView";
 
 import Studentadd from "../Student/Student Add/studentadd";
 import ScheduleManagement from "./Schedule Management/ScheduleManagement";
+import StudentView from "../Student/Student View/studentView";
+import StudentDetailMeetList from "../Admin/Student View/studentdetailmeetlist";
+import CounsellorMeetings from "./Counsellor Meetings/counsellormeet";
 
 
 export default function CounsellorMain() {
@@ -33,6 +36,9 @@ export default function CounsellorMain() {
               <Route exact path="/counsellor/profileview" component={CounsellorProfileView} />
               <Route exact path="/counsellor/expertise" component={ScheduleManagement} />
               <Route exact path="/counsellor/studentview" component={StudentViewCounsellor} />
+              <Route exact path="/counsellor/studentsview/studentpersonprofile/:userId" component={StudentView} />
+              <Route exact path="/counsellor/studentsview/studentdetailmeet/:userId" component={StudentDetailMeetList} />
+              <Route exact path="/counsellor/meetview" component={CounsellorMeetings} />
             </Switch>
           </div>
         </div>

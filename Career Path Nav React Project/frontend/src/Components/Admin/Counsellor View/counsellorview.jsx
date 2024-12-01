@@ -22,6 +22,7 @@ const CounsellorView = () => {
               : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe-GsgDIkePXBSguri_zUGTWG0YEY1hMaKNw&s", // Fallback image
           }));
           setCounsellors(updatedCounsellors);  // Update state with modified counsellor data
+          console.log(counsellors)
         } else {
           console.error("Failed to fetch counsellors:", data.message);
         }
@@ -47,6 +48,7 @@ const CounsellorView = () => {
             label1={`${counsellor.hourlyRate} /hr `} 
             label2={counsellor.timeSlots}
             label3={counsellor.expertise}
+            mycounsellorId={counsellor.userId}
           />
         ))}
       </div>

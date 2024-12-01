@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../Student/Student View/studentViewProfile1.css";
 import UpperHeader from "../../UpperHeader/upperheader";
-import profilePic from "../../../Assets/studentProfilePic.jpg";
 import studentHeader from "../../../Assets/studentheader.png";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { PiGenderFemaleBold } from "react-icons/pi";
@@ -10,13 +9,13 @@ import { FaCity } from "react-icons/fa";
 import { MdAccountBalance } from "react-icons/md";
 import { MdOutlineSpeakerNotes } from "react-icons/md";
 import { FaRegAddressCard } from "react-icons/fa";
-import { IoIosTimer } from "react-icons/io";
 import { HiOutlineBadgeCheck } from "react-icons/hi";
 import { IoSchoolOutline } from "react-icons/io5";
 import { MdOutlineEventAvailable } from "react-icons/md";
 import { GiSandsOfTime } from "react-icons/gi";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { FaPhone } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
 const CounsellorProfileView = () => {
 
@@ -26,7 +25,8 @@ const CounsellorProfileView = () => {
   const [personData, setpersonData] = useState();
   const [personimage, setSelectedImage] = useState();
   const[counsellors , setCounsellors] = useState();
-  const userId =  userData.user.userId;
+  const { mycounsellorId: urlUserId } = useParams();
+  const userId = urlUserId || userData.user.userId;
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -37,11 +37,10 @@ const CounsellorProfileView = () => {
   };
 
   useEffect(() => {
-    // Calling both functions inside useEffect
     fetchuserProfile();
     fetchPersonProfile();
     fetchCounsellors();
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, []); 
 
   const fetchPersonProfile = async () => {
     try {
@@ -84,8 +83,9 @@ const CounsellorProfileView = () => {
       const data = await response.json();
   
       if (response.ok) {
-        const filteredCounsellors = data.filter(counsellor => counsellor.userId === userId);   
+        const filteredCounsellors = data.filter(counsellor => counsellor.userId == userId); 
         setCounsellors(filteredCounsellors);  
+
       } else {
         console.error("Failed to fetch counsellors:", data.message);
       }
@@ -211,11 +211,11 @@ const CounsellorProfileView = () => {
   </div>
   {counsellors &&  (
     <>
-     <p><HiOutlineBadgeCheck className="info-content-icon01" /> {counsellors[0].expertise}</p>
-  <p><IoSchoolOutline className="info-content-icon03" /> {counsellors[0].qualifications}</p>
-      <p><MdOutlineEventAvailable className="info-content-icon02" /> {counsellors[0].noOfDaysAvailable} days available in week</p>
-      <p><GiSandsOfTime className="info-content-icon01" /> {counsellors[0].timeSlots}</p>
-      <p><GiTakeMyMoney className="info-content-icon03" /> ${counsellors[0].hourlyRate} /hr</p>
+     <p><HiOutlineBadgeCheck className="info-content-icon01" /> {counsellors[0]?.expertise}</p>
+  <p><IoSchoolOutline className="info-content-icon03" /> {counsellors[0]?.qualifications}</p>
+      <p><MdOutlineEventAvailable className="info-content-icon02" /> {counsellors[0]?.noOfDaysAvailable} days available in week</p>
+      <p><GiSandsOfTime className="info-content-icon01" /> {counsellors[0]?.timeSlots}</p>
+      <p><GiTakeMyMoney className="info-content-icon03" /> ${counsellors[0]?.hourlyRate} /hr</p>
     </>
   )}
 </div>

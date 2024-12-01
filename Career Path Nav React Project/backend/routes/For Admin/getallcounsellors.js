@@ -26,8 +26,7 @@ router.get('/', async (req, res) => {
                    C.availableDays, 
                    C.timeSlots, 
                    C.qualifications, 
-                   C.hourlyRate,
-                   C.counsellorId
+                   C.hourlyRate
             FROM [CareerPathNavigator].[dbo].[Users] u
             JOIN [CareerPathNavigator].[dbo].[Person] p
                 ON u.userId = p.userId

@@ -26,7 +26,7 @@ const Dashboardadmin = () => {
                 &#9776;
             </button>
             <nav className="nav">
-                <Link to="/admin/dashboard"><FaChartArea /> Dashboard</Link> 
+                <NavLink to="/admin/dashboard" activeClassName="active-link"><FaChartArea /> Dashboard</NavLink> 
                 
                 <Link onClick={() => handleSubmenuClick('profile')}>
                     <FaUser /> Profile
@@ -39,19 +39,19 @@ const Dashboardadmin = () => {
                     </div>
                 )}
 
-                <Link to="/admin/counsellorview"><IoSchool /> Counsellor</Link>
-                <Link to="/admin/studentview"><GiSchoolBag /> Student</Link>
-                <Link to="/admin/meetview"> <FaTachometerAlt /> Meetings </Link>
-                <Link to="/admin/invoiceview"> <FaFileInvoiceDollar /> Invoice </Link>
+                <NavLink to="/admin/counsellorview" activeClassName="active-link"><IoSchool /> Counsellor</NavLink>
+                <NavLink to="/admin/studentview" activeClassName="active-link"><GiSchoolBag /> Student</NavLink>
+                <NavLink to="/admin/meetview" activeClassName="active-link"> <FaTachometerAlt /> Meetings </NavLink>
+                <NavLink to="/admin/invoiceview"> <FaFileInvoiceDollar /> Invoice </NavLink>
                 <Link onClick={() => handleSubmenuClick('review')}> <FaStar /> Reviews</Link>
                 {openSubmenu === 'review' && (
                     <div className="submenu">
-                        <Link to="/admin/counsellorreview"><IoSchool /> Counsellors</Link>
-                        <Link to="/admin/studentreview"><FaUserShield /> Student</Link>
-                        <Link to="/admin/systemreview"><FaChalkboardTeacher/> System</Link>
+                        <NavLink to="/admin/counsellorreview" activeClassName="active-link"><IoSchool /> Counsellors</NavLink>
+                        <NavLink to="/admin/studentreview" activeClassName="active-link"><FaUserShield /> Student</NavLink>
+                        <NavLink to="/admin/systemreview" activeClassName="active-link"><FaChalkboardTeacher/> System</NavLink>
                     </div>
                 )}
-                <Link to="/auth"><FaSignOutAlt /> Logout</Link>
+                <NavLink to="/auth" activeClassName="active-link"><FaSignOutAlt /> Logout</NavLink>
             </nav>
         </div>
     );

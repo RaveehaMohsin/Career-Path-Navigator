@@ -36,6 +36,9 @@ var getmeetings = require("./routes/Counsellor/getmeeting");
 var getallstudents = require('./routes/For Admin/getallstudent')
 var getreviews = require('./routes/Reviews/getreviews')
 var getcounsellors = require('./routes/For Admin/getallcounsellors')
+var getmeetingcount = require('./routes/Counsellor/getmeetingscount')
+var getinvoices = require('./routes/For Admin/getallinvoices')
+var getreviewcases = require('./routes/For Admin/getreviewcases')
 
 //counsellor routers
 var addschedule = require('./routes/Counsellor/scheduleadd');
@@ -99,7 +102,9 @@ app.use('/addreview' , addreview);
 app.use('/getstudents' , getallstudents);
 app.use('/getreviews' , getreviews);
 app.use('/getcounsellors' , getcounsellors);
-
+app.use('/get-meetings-count' , getmeetingcount);
+app.use('/get-invoices' , getinvoices);
+app.use('/reviews' , getreviewcases);
 
 //routes for counsellor
 app.use('/addschedule' , addschedule);

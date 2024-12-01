@@ -7,9 +7,8 @@ import Upperheader from "../../UpperHeader/upperheader"
 
 const StudentViewAdmin = () => {
   const history = useHistory();
-
-  const handlestudentViewMeet = () => {
-    history.push("/admin/studentsview/studentdetailmeet");
+  const handlestudentViewMeet = (userId) => {
+    history.push(`/admin/studentsview/studentdetailmeet/${userId}`);
   };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -94,7 +93,7 @@ const StudentViewAdmin = () => {
                     </button>
                     <button
                       className="view-button"
-                      onClick={handlestudentViewMeet}
+                      onClick={()=>handlestudentViewMeet(item.userId)}
                     >
                       <SiGooglemeet />
                     </button>

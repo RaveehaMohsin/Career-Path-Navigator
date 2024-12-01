@@ -33,13 +33,18 @@ const Card = ({
   meetingtime,
   studentId,
   counsellorId,
+  mycounsellorId,
   appointmentMode = false,
 }) => {
   const history = useHistory();
 
   const handleCounsellorViewMeet = () => {
-    history.push("/admin/meetview/counsellordetailmeet");
+    history.push(`/admin/counsellorview/counsellordetailmeet/${mycounsellorId}`);
   };
+
+  const handleCounsellorViewProfile = ()=>{
+    history.push(`/admin/counsellorview/counsellorpersonprofile/${mycounsellorId}`);
+  }
 
   const handleMeetingClick = async () => {
     if (status === "Not Available" || status === "Booked") {
@@ -148,12 +153,12 @@ const Card = ({
           </button>
         ) : (
           <>
-            <button className="counsellor-card-button primary">
+            <button className="counsellor-card-button primary" onClick={()=>handleCounsellorViewProfile()}>
               <FaUser /> Profile
             </button>
             <button
               className="counsellor-card-button secondary"
-              onClick={handleCounsellorViewMeet}
+              onClick={() => handleCounsellorViewMeet()}
             >
               <FaTachometerAlt /> Meetings
             </button>

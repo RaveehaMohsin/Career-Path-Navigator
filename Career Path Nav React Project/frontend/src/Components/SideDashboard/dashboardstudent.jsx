@@ -55,6 +55,7 @@ const Dashboard = () => {
                     <div className="submenu">
                         <NavLink to="/review/system" activeClassName="active-link"><FaUserShield /> To System</NavLink>
                         <NavLink to="/review/counsellor" activeClassName="active-link"><FaChalkboardTeacher /> To Counsellors</NavLink>
+                        <NavLink to="/review/fromcounsellor" activeClassName="active-link"><FaChalkboardTeacher /> From Counsellors</NavLink>
                     </div>
                 )}
                 <Link onClick={() => handleSubmenuClick('meeting')}>

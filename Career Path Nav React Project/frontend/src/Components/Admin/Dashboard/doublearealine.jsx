@@ -18,16 +18,16 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip,
 const DoubleAreaLineChart = ({ title, chartData, chartLabels, chartLegends }) => {
   // Generate the datasets dynamically based on the input
   const data = {
-    labels: chartLabels,
+    labels: chartLabels, // x-axis labels (months)
     datasets: chartData.map((dataset) => ({
       label: dataset.label,
       data: dataset.data,
       borderColor: dataset.borderColor,
-      backgroundColor: dataset.backgroundColor || "transparent",
+      backgroundColor: dataset.backgroundColor || "transparent", // Background color for area fill (if any)
       borderWidth: dataset.borderWidth || 2,
-      fill: dataset.fill || false,
-      tension: dataset.tension || 0.4,
-      pointRadius: dataset.pointRadius || 0,
+      fill: dataset.fill || false, // Determines whether to fill the area under the line
+      tension: dataset.tension || 0.4, // Smoothing of the line
+      pointRadius: dataset.pointRadius || 0, // Radius of the points
     })),
   };
 
@@ -35,7 +35,7 @@ const DoubleAreaLineChart = ({ title, chartData, chartLabels, chartLegends }) =>
     responsive: true,
     plugins: {
       legend: {
-        display: false, // Disable the default legend
+        display: false, // Disable the default legend since we are displaying a custom legend
       },
       tooltip: {
         mode: "index",

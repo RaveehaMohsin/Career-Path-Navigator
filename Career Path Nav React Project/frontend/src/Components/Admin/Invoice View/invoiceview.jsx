@@ -3,12 +3,12 @@ import "./invoiceview.css";
 import Upperheader from "../../UpperHeader/upperheader";
 
 const InvoiceView = () => {
-  const [data, setData] = useState([]);  // Initialize state for invoices
+  const [data, setData] = useState([]);  
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
   const username = userData.user.firstName + " " + userData.user.lastName;
-  const userId = userData.user.userId; // Assuming userId is the counsellor's ID
+  const userId = userData.user.userId; 
 
   const invoicesPerPage = 12;
   const totalPages = Math.ceil(data.length / invoicesPerPage);
@@ -45,10 +45,7 @@ const InvoiceView = () => {
       .catch((error) => console.error("Error fetching invoices:", error));
   }, [userId]); // Adding userId as a dependency to re-fetch when it changes
 
-  const currentInvoices = data.slice(
-    (currentPage - 1) * invoicesPerPage,
-    currentPage * invoicesPerPage
-  );
+
 
   const nextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -104,7 +101,7 @@ const InvoiceView = () => {
         </div>
 
         <div className="invoice-cards">
-          {currentInvoices.map((invoice) => (
+          {data.map((invoice) => (
             <div key={invoice.invoiceId} className="invoice-card">
               <div className="card-row">
                 <span className="label">Time Issued:</span>

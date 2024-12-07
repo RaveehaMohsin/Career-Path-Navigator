@@ -136,7 +136,7 @@ const DashboradStudentView = () => {
                   </div>
 
                   <p>Completed Degrees</p>
-                  <h3>93</h3>
+                  <h3>2</h3>
                   {/* Compare last two months completed degrees if count is greater or less */}
                   <p>+10% than month </p>
                 </div>
@@ -149,7 +149,7 @@ const DashboradStudentView = () => {
                   </div>
 
                   <p>Pending Degrees</p>
-                  <h3>86</h3>
+                  <h3>1</h3>
                   {/* Compare last two months pending degrees if count is greater or less */}
                   <p>-5% than month </p>
                 </div>
@@ -162,8 +162,8 @@ const DashboradStudentView = () => {
                     <GiReceiveMoney className="info-box-card-image" />
                   </div>
 
-                  <p>Total Invoices</p>
-                  <h3>$123,456</h3>
+                  <p>Total Meetings</p>
+                  <h3>6</h3>
                   {/* Compare last two months invoice amount if count is greater or less */}
                   <p> +15% than month </p>
                 </div>
@@ -179,20 +179,9 @@ const DashboradStudentView = () => {
           <div className="unique-column-container">
             <div className="unique-vertical-container unique-box-c">
               <div className="chart-content-container">
-                {/* The query for generation of data will look like
-                    SELECT 
-                    FORMAT(m.MeetingDate, 'yyyy-MM') AS Month,
-                    COUNT(m.meetingId) AS TotalMeetings,
-                    SUM(i.amount) AS TotalInvoiceAmount
-                    FROM Meeting m
-                    JOIN Invoice i ON m.invoiceId = i.invoiceId
-                    WHERE m.studentId = @StudentId -- Replace @StudentId with the specific student's ID
-                    GROUP BY FORMAT(m.MeetingDate, 'yyyy-MM')
-                    ORDER BY FORMAT(m.MeetingDate, 'yyyy-MM');
-
-                  */}
+              
                 <DoubleAreaLineChart
-                  title="Monthly Invoices & Meetings Held"
+                  title="Payment & Meetings Held"
                   chartLabels={doublelinechartLabels}
                   chartData={doublelinechartData}
                   chartLegends={doublelinechartLegends}

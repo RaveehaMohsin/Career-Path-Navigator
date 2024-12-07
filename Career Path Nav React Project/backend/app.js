@@ -9,9 +9,13 @@ const database = require('./database/mssql')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+//contact
+var contactus = require('./routes/nodemail')
+
 //auth routers
 var addauthuser = require('./routes/Authentication/adduser')
 var getauthuser = require('./routes/Authentication/getuser')
+
 
 //student routers
 var addperson = require('./routes/addperson')
@@ -39,6 +43,7 @@ var getcounsellors = require('./routes/For Admin/getallcounsellors')
 var getmeetingcount = require('./routes/Counsellor/getmeetingscount')
 var getinvoices = require('./routes/For Admin/getallinvoices')
 var getreviewcases = require('./routes/For Admin/getreviewcases')
+var dashboardadmin = require('./routes/For Admin/dashboardadmin')
 
 //counsellor routers
 var addschedule = require('./routes/Counsellor/scheduleadd');
@@ -77,6 +82,9 @@ app.use('/personImages', express.static(path.join(__dirname, 'public', 'personIm
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+//route for contact
+app.use('/contactus' , contactus);
+
 //routes for authentication
 app.use('/addauthuser' , addauthuser);
 app.use('/getauthuser' , getauthuser);
@@ -105,6 +113,7 @@ app.use('/getcounsellors' , getcounsellors);
 app.use('/get-meetings-count' , getmeetingcount);
 app.use('/get-invoices' , getinvoices);
 app.use('/reviews' , getreviewcases);
+app.use('/dashboard' , dashboardadmin);
 
 //routes for counsellor
 app.use('/addschedule' , addschedule);

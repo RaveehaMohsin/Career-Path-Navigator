@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ReviewForm.css";
 import { FaStar } from "react-icons/fa";
 import { AiOutlineComment } from "react-icons/ai";
@@ -11,7 +11,6 @@ export default function ReviewForm() {
   const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
   const currentUser = userData.user;
   const username = currentUser.firstName + " " + currentUser.lastName;
-
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [comments, setComments] = useState("");
@@ -19,7 +18,7 @@ export default function ReviewForm() {
   const [experience, setExperience] = useState("");
   const [selectedCounsellorId, setSelectedCounsellorId] = useState(""); 
   const [selectedStudentId, setSelectedStudentId] = useState("");  // For selecting student ID
-
+  const [MeetingsData , setMeetingsData] = useState();
   const isCounsellorPage = window.location.pathname === "/review/counsellor";
   const isGiveStudentReviewPage = window.location.pathname === "/counsellor/givestudentreview";  // Check for student review page
 
@@ -85,6 +84,55 @@ export default function ReviewForm() {
     }
   };
 
+  useEffect(() => {
+    const fetchMeetings = async () => {
+      try {
+        // Fetching meetings data
+        const response = await fetch("http://localhost:4000/get-meetings");
+        const data = await response.json();
+        setMeetingsData(data.meetings); 
+      } catch (error) {
+        console.error("Error fetching meetings:", error);
+      }
+    };
+
+    fetchMeetings();
+  }, []);
+
+  // Filter meetings for the current student
+const filteredMeetings = MeetingsData?.filter(
+  (meeting) => meeting.studentId === currentUser.userId
+);
+
+const filteredMeetings2 = MeetingsData?.filter(
+  (meeting) => meeting.counsellorId === currentUser.userId
+);
+
+// Extract unique counsellor IDs from the filtered meetings
+const counsellors = [
+  ...new Map(
+    filteredMeetings?.map((meeting) => [
+      meeting.counsellorId,
+      {
+        id: meeting.counsellorId,
+        name: `${meeting.counsellorFirstName} ${meeting.counsellorLastName}`,
+      },
+    ])
+  ).values(),
+];
+
+const students = [
+  ...new Map(
+    filteredMeetings2?.map((meeting) => [
+      meeting.studentId,
+      {
+        id: meeting.studentId,
+        name: `${meeting.studentFirstName} ${meeting.studentLastName}`,
+      },
+    ])
+  ).values(),
+];
+
   return (
     <div>
       <UpperHeader title={isCounsellorPage ? "Give reviews to Counsellor" : (isGiveStudentReviewPage ? "Give reviews to Student" : "Give reviews to System")} name={username} />
@@ -94,42 +142,45 @@ export default function ReviewForm() {
 
           {/* Conditionally render the select box for counsellor or student */}
           {isCounsellorPage && (
-            <div className="review-field">
-              <label className="review-label">Select Counsellor:</label>
-              <select
-                value={selectedCounsellorId}
-                onChange={(e) => setSelectedCounsellorId(e.target.value)}
-                className="review-select"
-                required
-              >
-                <option value="" disabled>Select a counsellor</option>
-                <option value="4">Counsellor 4</option>
-                <option value="5">Counsellor 5</option>
-                <option value="6">Counsellor 6</option>
-                <option value="7">Counsellor 7</option>
-                <option value="8">Counsellor 8</option>
-              </select>
-            </div>
-          )}
-
-          {isGiveStudentReviewPage && (
-            <div className="review-field">
-              <label className="review-label">Select Student:</label>
-              <select
-                value={selectedStudentId}
-                onChange={(e) => setSelectedStudentId(e.target.value)}
-                className="review-select"
-                required
-              >
-                <option value="" disabled>Select a student</option>
-                <option value="101">Student 101</option>
-                <option value="102">Student 102</option>
-                <option value="103">Student 103</option>
-                <option value="104">Student 104</option>
-                <option value="105">Student 105</option>
-              </select>
-            </div>
-          )}
+          <div className="review-field">
+            <label className="review-label">Select Counsellor:</label>
+            <select
+              value={selectedCounsellorId}
+              onChange={(e) => setSelectedCounsellorId(e.target.value)}
+              className="review-select"
+              required
+            >
+              <option value="" disabled>
+                Select a counsellor
+              </option>
+              {counsellors?.map((counsellor) => (
+                <option key={counsellor.id} value={counsellor.id}>
+                  Counsellor {counsellor.id} - {counsellor.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+       {isGiveStudentReviewPage && (
+          <div className="review-field">
+            <label className="review-label">Select Student:</label>
+            <select
+              value={selectedStudentId}
+              onChange={(e) => setSelectedStudentId(e.target.value)}
+              className="review-select"
+              required
+            >
+              <option value="" disabled>
+                Select a Student
+              </option>
+              {students?.map((student) => (
+                <option key={student.id} value={student.id}>
+                  Student {student.id} - {student.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
           {/* Rating */}
           <div className="review-field">

@@ -1,81 +1,266 @@
 /* General container for notifications */
 .notification-container {
     padding: 2rem;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    background-color: transparent; /* No background color */
     color: #333;
-    margin-left: 250px; /* Adjusted to align with your layout */
+    margin-left: 250px; /* Adjusted for side dashboard */
     margin-right: 20px;
-    width: calc(100% - 270px); /* Make the container responsive */
-}
-
-/* Notification box styling */
-.notification {
-    padding: 1.5rem;
-    border-radius: 12px;
-    color: #fff;
-    font-size: 1rem;
+    width: calc(100% - 270px); /* Make container responsive */
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: hidden;
-    background: #333;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.5s forwards;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex-direction: column;
+    gap: 20px; /* Space between individual meetings */
 }
 
-/* Hover effect on notifications */
-.notification:hover {
-    transform: scale(1.03);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+/* Make container take full width when side dashboard is not visible (for large screens) */
+@media (max-width: 1250px) {
+    .notification-container {
+        margin-left: 0;
+        width: 100%;
+    }
 }
+
+/* Meeting details container */
+.meeting-details-container {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; /* Ensure cards take full width */
+}
+
+/* On hover effect */
+.meeting-details-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Status-based styling */
+.meeting-details-container.completed {
+    border-left: 5px solid #28a745;
+    background: linear-gradient(135deg, #eaf7e2, #78d76c); /* Darker green gradient */
+}
+
+.meeting-details-container.pending {
+    border-left: 5px solid #ffc107;
+    background: linear-gradient(135deg, #fff7e6, #f7c100); /* Darker yellow gradient */
+}
+
+.meeting-details-container.ongoing {
+    border-left: 5px solid #007bff;
+    background: linear-gradient(135deg, #e6f7ff, #339af0); /* Darker blue gradient */
+}
+
+
+
+/* Meeting details text */
+.meeting-details p {
+    font-size: 14px;
+    margin: 8px 0;
+    color: #555;
+}
+
+.meeting-details strong {
+    color: #333;
+}
+
+/* Button styling */
+.meeting-button {
+    margin-top: 1rem;
+}
+
+/* Go to Meeting Button */
+.go-to-meeting-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.go-to-meeting-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.go-to-meeting-btn:active {
+    background-color: #004085;
+}
+
+/* Link Unavailable Button */
+.link-unavailable-btn {
+    background-color: #ccc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: not-allowed;
+}
+
+.link-unavailable-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+    .notification-container {
+        padding: 1rem;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .meeting-details-container {
+        padding: 1rem;
+        width: 100%;
+    }
+
+    /* Adjust button padding on smaller screens */
+    .go-to-meeting-btn,
+    .link-unavailable-btn {
+        padding: 8px 16px;
+    }
+
+    /* Adjust text font size on smaller screens */
+    .meeting-details p {
+        font-size: 12px;
+    }
+
+    .meeting-details strong {
+        font-size: 14px;
+    }
+}
+
+
+
 
 /* Styling for "No notifications" section */
 .no-notifications {
     text-align: center;
-    color: #555;
+    color: #555; /* Set text color to white for better contrast with dark background */
     font-size: 1.2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem; /* Increase space between elements */
+    padding: 2rem;
+    background: linear-gradient(135deg, #000000, #333333); /* Black gradient background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 250px; /* Space from left for side dashboard */
+    width: calc(100% - 270px); /* Make container responsive with 250px space from the left */
+    margin-top: 2rem; /* Add some space on top */
 }
 
+/* Styling for the image */
 .no-notifications img {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
+    object-fit: cover; /* Ensure the image doesn't stretch */
+    border-radius: 50%; /* Round the image */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for image */
 }
 
+/* Styling for the heading */
 .no-notifications h3 {
     margin: 0.5rem 0;
     font-weight: 600;
     color: #a4a2a2;
+    font-size: 1.4rem; /* Increased font size for better visibility */
 }
 
+/* Styling for the paragraph */
 .no-notifications p {
     color: #f5f4f4;
     font-size: 1rem;
+    max-width: 600px; /* Max width to prevent text from stretching too far */
+    margin: 0 auto; /* Center the text */
 }
 
-/* Button to generate the meeting link */
-.generate-meeting-button {
-    background: #4CAF50;
+/* Make the container responsive for screens less than 1250px */
+@media (max-width: 1250px) {
+    .no-notifications {
+        width: calc(100% - 250px); /* Adjust width to take full width minus space from left */
+        margin-left: 250px; /* Maintain left margin */
+    }
+}
+
+/* Responsive styling for smaller screens below 768px */
+@media (max-width: 1220px) {
+    .no-notifications {
+        width: 100%;
+        padding: 1.5rem; /* Adjust padding for smaller screens */
+        margin-left: 0;
+       
+    }
+
+    .no-notifications img {
+        width: 180px; /* Make the image smaller on mobile */
+        height: 180px;
+    }
+
+    .no-notifications h3 {
+        font-size: 1.2rem; /* Adjust font size on mobile */
+    }
+
+    .no-notifications p {
+        font-size: 0.9rem; /* Slightly reduce font size on mobile */
+        max-width: 100%; /* Allow text to take full width */
+    }
+}
+
+/* For very small screens below 480px */
+@media (max-width: 480px) {
+    .no-notifications {
+        width: 100%; /* Full width on very small screens */
+        margin-left: 0; /* No left margin */
+        padding: 1rem; /* Adjust padding for tiny screens */
+    }
+
+    .no-notifications img {
+        width: 150px; /* Smaller image on very small screens */
+        height: 150px;
+    }
+
+    .no-notifications h3 {
+        font-size: 1rem; /* Smaller heading on tiny screens */
+    }
+
+    .no-notifications p {
+        font-size: 0.85rem; /* Reduce font size for readability */
+    }
+}
+
+
+
+/* Meeting link generation button styling */
+.meeting-button {
+    margin-top: 1rem;
+    text-align: center; /* Center the button */
+}
+
+/* Button styling */
+.meeting-button button {
+    background-color: #28a745; /* Green color */
     color: white;
     border: none;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 8px;
+    padding: 12px 24px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-/* Hover effect for the button */
-.generate-meeting-button:hover {
-    background: #45a049;
+.meeting-button button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-2px); /* Slight lift effect */
 }
+
+.meeting-button button:active {
+    background-color: #1e7e34; /* Even darker green on click */
+    transform: translateY(0); /* Reset lift effect */
+}
+
 

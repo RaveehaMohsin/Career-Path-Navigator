@@ -123,7 +123,7 @@ const Calender = () => {
       {/* Calendar Grid */}
       <div className="calendar-grid">
         {Array.from({ length: daysInMonth }, (_, dayIndex) => {
-          const date = new Date(year, month, dayIndex + 1)
+          const date = new Date(year, month, dayIndex + 2)
             .toISOString()
             .substring(0, 10); // Format as YYYY-MM-DD
           const count = meetingCounts[date] || 0; // Default to 0 if no meetings

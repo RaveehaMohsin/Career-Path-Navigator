@@ -1,6 +1,6 @@
 import Upperheader from "../../UpperHeader/upperheader";
 import React, { useState, useEffect } from "react";
-import Reviews from "./review";  
+import Reviews from "./review";
 
 const SystemReviews = () => {
   const [reviewsData, setReviewsData] = useState([]);
@@ -10,10 +10,21 @@ const SystemReviews = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch("http://localhost:4000/reviews/counselors-to-students"); 
-        const data = await response.json();
-        setReviewsData(data);
+        const currentUrl = window.location.pathname; // Get the current URL
+        let endpoint = "http://localhost:4000/reviews/counselors-to-students";
 
+        const response = await fetch(endpoint);
+        const data = await response.json();
+        console.log(data)
+
+        if (currentUrl === "/review/fromcounsellor") {
+          const filteredData = data.filter(
+            (review) => review.toUserId === userData.user.userId
+          );
+          setReviewsData(filteredData);
+        } else {
+          setReviewsData(data);
+        }
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }

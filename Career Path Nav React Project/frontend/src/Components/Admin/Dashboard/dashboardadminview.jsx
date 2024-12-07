@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./dashboardadminview.css";
 import Upperheader from "../../UpperHeader/upperheader";
 import { RxPerson } from "react-icons/rx";
@@ -8,6 +8,40 @@ import BarChart from "./barchart";
 import { GiReceiveMoney } from "react-icons/gi";
 
 const DashboradAdminView = () => {
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
+  const username = userData.user.firstName + " " + userData.user.lastName;
+
+    // States to store fetched data
+    const [totalStudents, setTotalStudents] = useState(0);
+    const [totalCounsellors, setTotalCounsellors] = useState(0);
+    const [totalBalance, setTotalBalance] = useState(0);
+    const [students1, setStudents] = useState([]);
+    
+    useEffect(() => {
+      fetch('http://localhost:4000/dashboard/student-background')
+      .then(response => response.json())
+      .then(data => setStudents(data)) // Setting the fetched student data
+      .catch(error => console.error('Error fetching student data:', error));
+
+      // Fetch Total Students
+      fetch('http://localhost:4000/dashboard/total-students')
+        .then(response => response.json())
+        .then(data => setTotalStudents(data.totalStudents))
+        .catch(error => console.error('Error fetching total students:', error));
+      
+      // Fetch Total Counsellors
+      fetch('http://localhost:4000/dashboard/total-counsellors')
+        .then(response => response.json())
+        .then(data => setTotalCounsellors(data.totalCounsellors))
+        .catch(error => console.error('Error fetching total counsellors:', error));
+      
+      // Fetch Total Balance
+      fetch('http://localhost:4000/dashboard/total-balance')
+        .then(response => response.json())
+        .then(data => setTotalBalance(data.reduce((total, item) => total + item.totalAmount, 0)))
+        .catch(error => console.error('Error fetching total balance:', error));
+    }, []);
+  
   const linechartData = [40, 70, 50, 60, 75, 50];
   const doublelinechartLabels = [
     "Jan",
@@ -54,66 +88,19 @@ const DashboradAdminView = () => {
   const barChartstatus = {
     p1: "2. Completed",
     p2: "1. Enrolled",
-    p3: "0. Nothing",
+    p3: "0. Applied",
     p4: "-1. Wishlist",
     p5: "-2. Not Eligible",
   }; // Custom status values
   const barCharttitleData = "Degree Status Distribution"; // Custom title
 
-  const students = [
-    {
-      id: 1,
-      name: "Ali Ahmed",
-      institute: "University of Lahore",
-      degree: "BSc Computer Science",
-      obtainedMarks: 850,
-      totalMarks: 1000,
-      percentage: "85%",
-    },
-    {
-      id: 2,
-      name: "Sara Khan",
-      institute: "FAST-NUCES",
-      degree: "BBA",
-      obtainedMarks: 780,
-      totalMarks: 1000,
-      percentage: "78%",
-    },
-    {
-      id: 3,
-      name: "Usman Malik",
-      institute: "NUST",
-      degree: "Electrical Engineering",
-      obtainedMarks: 920,
-      totalMarks: 1000,
-      percentage: "92%",
-    },
-    {
-      id: 4,
-      name: "Ayesha Tariq",
-      institute: "LUMS",
-      degree: "MBA",
-      obtainedMarks: 870,
-      totalMarks: 1000,
-      percentage: "87%",
-    },
-    {
-      id: 5,
-      name: "Hamza Sheikh",
-      institute: "COMSATS",
-      degree: "Software Engineering",
-      obtainedMarks: 750,
-      totalMarks: 1000,
-      percentage: "75%",
-    },
-  ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const entriesPerPage = 5;
 
 
   const handleNext = () => {
-    if (currentPage < Math.ceil(students.length / entriesPerPage)) {
+    if (currentPage < Math.ceil(students1.length / entriesPerPage)) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -126,7 +113,7 @@ const DashboradAdminView = () => {
 
   return (
     <div>
-      <Upperheader title="Dashboard" />
+      <Upperheader title="View Meetings" name={username} />
 
       <div className="unique-main-wrapper">
         <div className="unique-row-wrapper">
@@ -140,7 +127,7 @@ const DashboradAdminView = () => {
                   </div>
 
                   <p>Total Students</p>
-                  <h3>943</h3>
+                  <h3>{totalStudents}</h3>
                   {/* Compare last two months student if count is greater or less */}
                   <p>+10% than month </p>
                 </div>
@@ -153,7 +140,7 @@ const DashboradAdminView = () => {
                   </div>
 
                   <p>Total Counsellors</p>
-                  <h3>943</h3>
+                  <h3>{totalCounsellors}</h3>
                   {/* Compare last two months Counsellors if count is greater or less */}
                   <p>-5% than month </p>
                 </div>
@@ -167,7 +154,7 @@ const DashboradAdminView = () => {
                   </div>
 
                   <p>Total Balance</p>
-                  <h3>$123,456</h3>
+                  <h3>$ {totalBalance}</h3>
                   {/* Compare last two months invoice amount if count is greater or less */}
                   <p> +15% than month </p>
                 </div>
@@ -204,29 +191,6 @@ const DashboradAdminView = () => {
             </div>
             <div className="unique-vertical-container unique-box-d">
               <div className="chart-content-container">
-                {/* This will create the bar chart on the latest degree of students....
-
-                    WITH LatestDegree AS (
-                        SELECT 
-                            studentId, 
-                            MAX(degreeId) AS latestDegreeId
-                        FROM Degree
-                        GROUP BY studentId
-                    )
-                    SELECT 
-                        d.studentId AS userId,
-                        'Degree' AS category,
-                        CASE 
-                          WHEN status IN ('completed') THEN 2
-                      WHEN status IN ('enroled') THEN 1 
-
-                            WHEN status IN ('whishlist') THEN -1 
-                      WHEN status IN ('not eligilbel') THEN -2
-
-                            ELSE 0
-                        END AS value
-                    FROM Degree d
-                    INNER JOIN LatestDegree ld ON d.degreeId = ld.latestDegreeId; */}
                 <BarChart
                   titleData={barCharttitleData}
                   labels={barChartlabels}
@@ -240,25 +204,13 @@ const DashboradAdminView = () => {
           <div className="unique-column-container">
             <div className="table-cobntet-last-container">
               <div className="dashboard-info-container">
-                {/* SELECT 
-                  u.userId, 
-                  CONCAT(u.firstName, ' ', u.lastName) AS StudentName,
-                  b.instituteName,
-                  b.degreeTitle,
-                  b.degreeLevel,
-                  b.TotalMarks,
-                  b.ObtainedMarks,
-                  FORMAT((b.ObtainedMarks / b.TotalMarks) * 100, 'N2') AS percentage
-                  FROM Background b
-                  INNER JOIN Users u ON b.studentId = u.userId;
-                  */}
                 <h3 className="dashboard-heading">
                   Student Background Information
                 </h3>
                 <table className="dashboard-info-table">
                   <thead>
                     <tr>
-                      <th className="dashboard-table-heading">Id</th>
+                      
                       <th className="dashboard-table-heading">Student Name</th>
                       <th className="dashboard-table-heading">
                         Institute Name
@@ -273,18 +225,18 @@ const DashboradAdminView = () => {
                   </thead>
 
                   <tbody>
-                    {students.map((student) => (
-                      <tr key={student.id}>
-                        <td>{student.id}</td>
-                        <td>{student.name}</td>
-                        <td>{student.institute}</td>
-                        <td>{student.degree}</td>
-                        <td>{student.obtainedMarks}</td>
-                        <td>{student.totalMarks}</td>
-                        <td>{student.percentage}</td>
-                      </tr>
-                    ))}
-                  </tbody>
+                {students1.slice((currentPage - 1) * entriesPerPage, currentPage * entriesPerPage).map(student => (
+                  <tr key={student.id}>
+                    
+                    <td>{student.StudentName}</td>
+                    <td>{student.InstituteName}</td>
+                    <td>{student.DegreeTitle}</td>
+                    <td>{student.ObtainedMarks}</td>
+                    <td>{student.TotalMarks}</td>
+                    <td>{student.Percentage}%</td>
+                  </tr>
+                ))}
+              </tbody>
                 </table>
 
                 {/* Pagination buttons */}

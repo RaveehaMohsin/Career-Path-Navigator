@@ -31,27 +31,31 @@ const StudentViewCounsellor = () => {
     fetchStudents();
   }, []);
 
-
   const fetchStudents = async () => {
     try {
-      // Make the fetch request to your backend endpoint
-      const response = await fetch("http://localhost:4000/getstudents/getstudentsforcounsellors"); // Replace with your API URL
+      const response = await fetch("http://localhost:4000/getstudents/getstudentsforcounsellors");
       if (response.ok) {
-        const data = await response.json(); 
-
-        const currentUserId = userData.user.userId; 
+        const data = await response.json();
+        const currentUserId = userData.user.userId;
   
-        // Filter the data based on the counsellorId matching currentUserId
-        const filteredData = data.filter((student) => student.counsellorId === currentUserId);
+        // Filter data to match the counsellorId and remove duplicates
+        const filteredData = data
+          .filter((student) => student.counsellorId === currentUserId)
+          .reduce((uniqueStudents, student) => {
+            if (!uniqueStudents.some((s) => s.userId === student.userId)) {
+              uniqueStudents.push(student);
+            }
+            return uniqueStudents;
+          }, []);
   
-        setTableData(filteredData); // Update state with the filtered data
+        setTableData(filteredData);
   
-        const studentImages = filteredData.map((student) => {
-          return student.Img
+        const studentImages = filteredData.map((student) =>
+          student.Img
             ? `http://localhost:4000${student.Img}`
-            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe-GsgDIkePXBSguri_zUGTWG0YEY1hMaKNw&s"; // Fallback image if Img is missing
-        });
-        setImages(studentImages); // Update images state with the filtered student images
+            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe-GsgDIkePXBSguri_zUGTWG0YEY1hMaKNw&s"
+        );
+        setImages(studentImages);
       } else {
         console.error("Failed to fetch students data");
       }
@@ -59,6 +63,7 @@ const StudentViewCounsellor = () => {
       console.error("Error fetching students:", error);
     }
   };
+  
   
 
   return (

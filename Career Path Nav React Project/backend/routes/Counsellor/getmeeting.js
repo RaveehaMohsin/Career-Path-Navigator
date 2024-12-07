@@ -24,9 +24,9 @@ router.get('/', async (req, res) => {
       c.lastName AS counsellorLastName
     FROM 
       Meeting m
-    LEFT JOIN 
+    Left JOIN 
       Users s ON m.studentId = s.userId
-    LEFT JOIN 
+     Left JOIN 
       Users c ON m.counsellorId = c.userId
   `;
   

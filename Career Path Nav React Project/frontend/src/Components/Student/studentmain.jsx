@@ -16,6 +16,7 @@ import Reviews from './Reviews/Reviews';
 import Appointment from './Meet with Counsellor/Appointment/Appointment';
 import DashboradStudentView from './Dashboard/dashboardstudentview';
 import Notifications from './Meet with Counsellor/Notifications/Notifications';
+import CounsellorReview from '../Admin/Reviews/studentreviews'
 
 
 export default function StudentMain() {
@@ -49,6 +50,7 @@ export default function StudentMain() {
             <Route exact path="/review/counsellor" component={Reviews} />
             <Route exact path="/meetwithcounsellor/appointment" component={Appointment} />
             <Route exact path="/meetwithcounsellor/notifications" component={Notifications} />
+            <Route exact path="/review/fromcounsellor" component={CounsellorReview} />
           </Switch>
         </div>
       </div>

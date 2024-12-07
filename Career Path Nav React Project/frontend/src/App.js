@@ -43,6 +43,7 @@ function App() {
         <Route exact path="/review/counsellor" component={StudentMain} />
         <Route exact path="/meetwithcounsellor/appointment" component={StudentMain} />
         <Route exact path="/meetwithcounsellor/notifications" component={StudentMain} />
+        <Route exact path="/review/fromcounsellor" component={StudentMain} />
 
         {/* Counsellor Route */}
         <Route exact path="/counsellor/dashboard" component={CounsellorMain} />

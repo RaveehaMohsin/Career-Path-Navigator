@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const sql = require('mssql');
-
+const connection = require('../../database/mysql');
 
 const generateJitsiLink = (roomName) => {
   const jitsiUrl = `https://meet.jit.si/${roomName}`;
@@ -10,39 +9,33 @@ const generateJitsiLink = (roomName) => {
 
 router.post('/', async (req, res) => {
   const { invoiceId, studentId, counsellorId, meetingDate, meetingTime } = req.body;
+  console.log(invoiceId)
 
   try {
-
     // Generate a unique room name (e.g., combining studentId and counsellorId)
     const roomName = `counseling-${studentId}-${counsellorId}-${Date.now()}`;
 
     // Generate the meeting link using Jitsi
     const meetingLink = generateJitsiLink(roomName);
 
-    // Connect to the database
-    const pool = await sql.connect();
-
     // SQL query to insert the meeting details into the database
     const query = `
       INSERT INTO Meeting (invoiceId, studentId, counsellorId, MeetingDate, MeetingTime, meetLink)
-      VALUES (@InvoiceId, @studentId, @counsellorId, @meetingDate, @meetingTime, @meetingLink)
+      VALUES (?, ?, ?, ?, ?, ?)
     `;
     
-    // Execute the SQL query
-    await pool
-      .request()
-      .input('InvoiceId', sql.VarChar(255), invoiceId)
-      .input('studentId', sql.Int, studentId)
-      .input('counsellorId', sql.Int, counsellorId)
-      .input('meetingDate', sql.Date, meetingDate)
-      .input('meetingTime', sql.VarChar(255), meetingTime)
-      .input('meetingLink', sql.VarChar(255), meetingLink)
-      .query(query);
+    // Use the connection pool to execute the query
+    connection.query(query, [invoiceId, studentId, counsellorId, meetingDate, meetingTime, meetingLink], (error, results) => {
+      if (error) {
+        console.error('Error inserting meeting details:', error);
+        return res.json({ success: false, message: 'Failed to create meeting link.' });
+      }
 
-    // Respond with success and the generated meeting link
-    res.json({
-      success: true,
-      meetingLink,
+      // Respond with success and the generated meeting link
+      res.json({
+        success: true,
+        meetingLink,
+      });
     });
   } catch (error) {
     console.error('Error creating meeting link:', error);

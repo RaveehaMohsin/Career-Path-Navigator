@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const sql = require("mssql");
+const connection = require("../../database/mysql"); // Assuming connection is already made
 
 router.post("/", async (req, res) => {
   const {
@@ -15,73 +15,89 @@ router.post("/", async (req, res) => {
   } = req.body;
 
   try {
-    const pool = await sql.connect();
-
     // Check if the student already exists in the table
     const checkQuery = `
-      USE CareerPathNavigator;
-      SELECT COUNT(*) AS count FROM Student WHERE studentId = @studentId
+      SELECT COUNT(*) AS count FROM Student WHERE studentId = ?
     `;
-    const checkResult = await pool
-      .request()
-      .input("studentId", sql.Int, studentId)
-      .query(checkQuery);
 
-    if (checkResult.recordset[0].count > 0) {
-      // Update the existing record
-      const updateQuery = `
-        USE CareerPathNavigator;
-        UPDATE Student
-        SET 
-          resumeObjective = @resumeObjective,
-          technicalSkills = @technicalSkills,
-          linkedInProfile = @linkedInProfile,
-          githubProfile = @githubProfile,
-          reference = @reference,
-          achievmentscertifications = @achievements,
-          projects = @projects
-        WHERE studentId = @studentId
-      `;
+    // Execute the check query using MySQL connection
+    connection.query(checkQuery, [studentId], (err, result) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
 
-      await pool
-        .request()
-        .input("studentId", sql.Int, studentId)
-        .input("resumeObjective", sql.Text, resumeObjective)
-        .input("technicalSkills", sql.VarChar(sql.MAX), technicalSkills)
-        .input("linkedInProfile", sql.VarChar(100), linkedInProfile)
-        .input("githubProfile", sql.VarChar(100), githubProfile)
-        .input("reference", sql.VarChar(sql.MAX), reference)
-        .input("achievements", sql.Text, achievements)
-        .input("projects", sql.Text, projects)
-        .query(updateQuery);
+      if (result[0].count > 0) {
+        // Update the existing record
+        const updateQuery = `
+          UPDATE Student
+          SET 
+            resumeObjective = ?, 
+            technicalSkills = ?, 
+            linkedInProfile = ?, 
+            githubProfile = ?, 
+            reference = ?, 
+            achievmentscertifications = ?, 
+            projects = ?
+          WHERE studentId = ?
+        `;
 
-      return res.status(200).json({ message: "Resume details successfully updated." });
-    } else {
-      // Insert a new record
-      const insertQuery = `
-        USE CareerPathNavigator;
-        INSERT INTO Student (studentId, resumeObjective, technicalSkills, linkedInProfile, githubProfile, 
-                             reference, achievmentscertifications, projects)
-        VALUES (@studentId, @resumeObjective, @technicalSkills, @linkedInProfile, @githubProfile, 
-                @reference, @achievements, @projects)
-      `;
+        // Execute the update query
+        connection.query(
+          updateQuery,
+          [
+            resumeObjective,
+            technicalSkills,
+            linkedInProfile,
+            githubProfile,
+            reference,
+            achievements,
+            projects,
+            studentId,
+          ],
+          (err, result) => {
+            if (err) {
+              console.error("Database error:", err);
+              return res.status(500).json({ error: "An error occurred while updating the resume details." });
+            }
 
-      await pool
-        .request()
-        .input("studentId", sql.Int, studentId)
-        .input("resumeObjective", sql.Text, resumeObjective)
-        .input("technicalSkills", sql.VarChar(sql.MAX), technicalSkills)
-        .input("linkedInProfile", sql.VarChar(100), linkedInProfile)
-        .input("githubProfile", sql.VarChar(100), githubProfile)
-        .input("reference", sql.VarChar(sql.MAX), reference)
-        .input("achievements", sql.Text, achievements)
-        .input("projects", sql.Text, projects)
-        .query(insertQuery);
+            return res.status(200).json({ message: "Resume details successfully updated." });
+          }
+        );
+      } else {
+        // Insert a new record
+        const insertQuery = `
+          INSERT INTO Student (studentId, resumeObjective, technicalSkills, linkedInProfile, githubProfile, 
+                               reference, achievmentscertifications, projects)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `;
 
-      return res.status(201).json({ message: "Resume details successfully added." });
-    }
+        // Execute the insert query
+        connection.query(
+          insertQuery,
+          [
+            studentId,
+            resumeObjective,
+            technicalSkills,
+            linkedInProfile,
+            githubProfile,
+            reference,
+            achievements,
+            projects,
+          ],
+          (err, result) => {
+            if (err) {
+              console.error("Database error:", err);
+              return res.status(500).json({ error: "An error occurred while adding the resume details." });
+            }
+
+            return res.status(201).json({ message: "Resume details successfully added." });
+          }
+        );
+      }
+    });
   } catch (error) {
-    console.error("Error handling resume data:", error);
+    console.error("Unexpected error:", error);
     res.status(500).json({ error: "An error occurred while processing the resume details." });
   }
 });

@@ -1,38 +1,37 @@
 const express = require("express");
 const router = express.Router();
-const sql = require("mssql");
+const connection = require("../../database/mysql");
 
 router.get("/:counsellorId", async (req, res) => {
   const { counsellorId } = req.params;
 
   try {
-    const pool = await sql.connect();
-
     const query = `
-      USE CareerPathNavigator;
       SELECT counsellorId, expertise, qualifications, hourlyRate, noOfDaysAvailable AS daysAvailable, availableDays AS selectedDays, timeSlots
       FROM Counsellor
-      WHERE counsellorId = @counsellorId
+      WHERE counsellorId = ?
     `;
 
-    const result = await pool
-      .request()
-      .input("counsellorId", sql.Int, counsellorId)
-      .query(query);
+    connection.query(query, [counsellorId], (err, result) => {
+      if (err) {
+        console.error("Error fetching counselor data:", err);
+        return res.status(500).json({ error: "An error occurred while fetching the counselor data." });
+      }
 
-    if (result.recordset.length === 0) {
-      return res.status(404).json({ error: "Counselor not found." });
-    }
+      if (result.length === 0) {
+        return res.status(404).json({ error: "Counselor not found." });
+      }
 
-    const counselorData = result.recordset[0];
-    counselorData.selectedDays = counselorData.selectedDays
-      ? counselorData.selectedDays.split(",")
-      : [];
-    counselorData.timeSlots = counselorData.timeSlots
-      ? { start: counselorData.timeSlots.split("-")[0], end: counselorData.timeSlots.split("-")[1] }
-      : { start: "", end: "" };
+      const counselorData = result[0];
+      counselorData.selectedDays = counselorData.selectedDays
+        ? counselorData.selectedDays.split(",")
+        : [];
+      counselorData.timeSlots = counselorData.timeSlots
+        ? { start: counselorData.timeSlots.split("-")[0], end: counselorData.timeSlots.split("-")[1] }
+        : { start: "", end: "" };
 
-    res.status(200).json(counselorData);
+      res.status(200).json(counselorData);
+    });
   } catch (error) {
     console.error("Error fetching counselor data:", error);
     res.status(500).json({ error: "An error occurred while fetching the counselor data." });

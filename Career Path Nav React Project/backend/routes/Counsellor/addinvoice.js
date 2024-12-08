@@ -1,48 +1,44 @@
 const express = require('express');
 const router = express.Router();
 const stripe = require('stripe')('sk_test_51PrEzpFdjrY56P1cqjq3g45v43hCnxBJyfSDhCHVnnenfSol1Jn2vy4SKLzdVMzqOcOZuIDudHy76l22rxsVVDTo004kHibLxh');
-const sql = require('mssql');
+const mysql = require('mysql');
+const connection = require('../../database/mysql');
 
-
-const checkInvoiceExists = async (sessionId) => {
-  try {
-    const pool = await sql.connect();
-    const result = await pool.request()
-      .input('sessionId', sql.VARCHAR(255), sessionId)
-      .query('SELECT * FROM Invoice WHERE invoiceId = @sessionId');
-    
-    return result.recordset.length > 0;  
-  } catch (error) {
-    console.error('Error checking if invoice exists:', error);
-    throw error;
-  }
+// Function to check if the invoice exists
+const checkInvoiceExists = (sessionId) => {
+  return new Promise((resolve, reject) => {
+    const query = 'SELECT * FROM Invoice WHERE invoiceId = ?';
+    connection.query(query, [sessionId], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results.length > 0); // Return true if record exists
+      }
+    });
+  });
 };
 
-// Function to insert a new invoice into the database
-const insertInvoice = async (sessionId, amount) => {
-  try {
-    const pool = await sql.connect();
-    
+// Function to insert a new invoice
+const insertInvoice = (sessionId, amount) => {
+  return new Promise((resolve, reject) => {
     const query = `
-      INSERT INTO Invoice (invoiceId , amount, timeIssues)
-      OUTPUT INSERTED.invoiceID, INSERTED.amount, INSERTED.timeIssues
-      VALUES (@sessionId , @amount, GETDATE())`;
-
-    const result = await pool.request()
-      .input('amount', sql.Decimal(10, 2), amount)
-      .input('sessionId', sql.VARCHAR(255), sessionId)
-      .query(query);
-
-    console.log("Invoice inserted successfully:", result.recordset[0]);
-    
-    // Return the inserted data if needed
-    return result.recordset[0];
-
-  } catch (error) {
-    console.error('Error inserting invoice into database:', error);
-    throw error;
-  }
+      INSERT INTO Invoice (invoiceId, amount, timeIssues)
+      VALUES (?, ?, NOW())
+    `;
+    connection.query(query, [sessionId, amount], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve({
+          invoiceId: sessionId, // Set invoiceId as sessionId
+          amount: amount, 
+          timeIssues: new Date() // Current timestamp
+        });
+      }
+    });
+  });
 };
+
 
 // Route to verify payment and handle invoice creation
 router.get('/verify-payment/:sessionId', async (req, res) => {
@@ -63,7 +59,7 @@ router.get('/verify-payment/:sessionId', async (req, res) => {
           return res.json({
             success: true,
             message: 'Invoice already processed',
-            invoiceData: sessionId  // You can return additional invoice details if needed
+            invoiceData: sessionId  // Return sessionId as invoice data
           });
         }
 

@@ -1,40 +1,44 @@
 const express = require("express");
 const router = express.Router();
-const sql = require("mssql");
+const connection = require("../../database/mysql"); // Assuming MySQL connection setup
 
 router.get('/', async (req, res) => {
     try {
-        const pool = await sql.connect();
         const query = `
             SELECT 
-                i.[invoiceId], 
-                i.[amount], 
-                i.[timeIssues],
-                m.[meetingId], 
-                m.[studentId], 
-                m.[counsellorId], 
-                m.[MeetingTime], 
-                m.[MeetingDate], 
-                m.[meetLink]
+                i.invoiceId, 
+                i.amount, 
+                i.timeIssues,
+                m.meetingId, 
+                m.studentId, 
+                m.counsellorId, 
+                m.MeetingTime, 
+                m.MeetingDate, 
+                m.meetLink
             FROM 
-                [CareerPathNavigator].[dbo].[Invoice] i
+                Invoice i
             INNER JOIN 
-                [CareerPathNavigator].[dbo].[Meeting] m
+                Meeting m
             ON 
-                i.[invoiceId] = m.[invoiceId]
+                i.invoiceId = m.invoiceId;
         `;
         
-        const result = await pool.request().query(query);
+        connection.query(query, (err, result) => {
+            if (err) {
+                console.error("Database error:", err);
+                return res.status(500).json({ error: "An error occurred while fetching data." });
+            }
 
-        // Check if any data was found
-        if (result.recordset.length === 0) {
-            return res.status(404).json({ message: "No data found." });
-        }
+            // Check if any data was found
+            if (result.length === 0) {
+                return res.status(404).json({ message: "No data found." });
+            }
 
-        // Respond with the joined data
-        res.status(200).json(result.recordset);
+            // Respond with the joined data
+            res.status(200).json(result);
+        });
     } catch (error) {
-        console.error("Database error:", error);
+        console.error("Error:", error);
         res.status(500).json({ error: "An error occurred while fetching data." });
     }
 });

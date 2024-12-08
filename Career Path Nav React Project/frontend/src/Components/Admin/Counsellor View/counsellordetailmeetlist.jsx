@@ -23,44 +23,47 @@ const CounsellorDetailMeetList = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch meetings");
         }
-
+  
         const result = await response.json();
-
-
+  
         const filteredData = result.meetings
-  .filter((meeting) => meeting.counsellorId === parseInt(mycounsellorId, 10)) // Ensure type conversion
-  .map((meeting) => {
-    const meetingDateTime = new Date(meeting.MeetingDate);
-    const meetingTime = new Date(meeting.MeetingTime).toISOString().substring(11, 16); // Extract HH:mm
-
-    const now = new Date();
-
-    meetingDateTime.setHours(meetingTime.split(":")[0], meetingTime.split(":")[1], 0);
-
-    const status = meetingDateTime < now ? "Done" : "Pending";
-
-    return {
-      Student: `${meeting.studentFirstName} ${meeting.studentLastName}`,
-      "Meet Date": new Date(meeting.MeetingDate).toLocaleDateString(),
-      "Meet Link": meeting.meetLink,
-      "Meet Time": meetingTime, // Use formatted time
-      Status: status,
-      Amount: `$${meeting.amount || 0}`,
-    };
-  });
-
-
-
-
-
+          .filter((meeting) => meeting.counsellorId === parseInt(mycounsellorId, 10)) // Ensure type conversion
+          .map((meeting) => {
+            // Convert MeetingDate to Date object
+            const meetingDateTime = new Date(meeting.MeetingDate);
+  
+            // Extract meeting time as HH:mm
+            const meetingTime = meeting.MeetingTime.substring(0, 5); // Extract HH:mm from HH:mm:ss
+  
+            // Split the time into hours and minutes
+            const [hours, minutes] = meetingTime.split(":");
+  
+            // Set the hours and minutes to the meetingDateTime
+            meetingDateTime.setHours(hours, minutes, 0); // Set hours and minutes to the meeting date
+  
+            // Determine the status based on the current time
+            const now = new Date();
+            const status = meetingDateTime < now ? "Done" : "Pending";
+  
+            return {
+              Student: `${meeting.studentFirstName} ${meeting.studentLastName}`,
+              "Meet Date": new Date(meeting.MeetingDate).toLocaleDateString(), // Format meeting date as local date
+              "Meet Link": meeting.meetLink,
+              "Meet Time": meetingTime, // Use formatted meeting time
+              Status: status,
+              Amount: `$${meeting.amount || 0}`, // Display amount (default to 0 if undefined)
+            };
+          });
+  
         setData(filteredData);
       } catch (error) {
         console.error("Error fetching meetings:", error);
       }
     };
-
+  
     fetchData();
-  }, [mycounsellorId]);
+  }, [mycounsellorId]); // Depend on mycounsellorId for re-fetching data when it changes
+  
 
   return (
     <div>

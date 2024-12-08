@@ -1,56 +1,57 @@
 const express = require("express");
 const router = express.Router();
-const sql = require("mssql");
+const connection = require("../../database/mysql"); // Assuming connection is already made
 
 router.post("/", async (req, res) => {
   const { studentid, interesttype, interestcreation } = req.body;
-  
+
+  // Validate required fields
   if (!studentid || !interesttype || !interestcreation) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
   try {
-    const pool = await sql.connect();
-
-    // Check if the interest category already exists for the given student ID
+    // SQL query to check if the interest category already exists for the given student ID
     const checkQuery = `
-     USE CareerPathNavigator;
       SELECT COUNT(*) AS count
       FROM Interest
-      WHERE studentId = @studentId AND category = @category
-    `;
-    
-    const checkResult = await pool
-      .request()
-      .input("studentId", sql.Int, studentid)
-      .input("category", sql.VarChar(50), interesttype)
-      .query(checkQuery);
-
-    if (checkResult.recordset[0].count > 0) {
-      return res.status(400).json({ error: "Interest category already added" });
-    }
-
-    // Insert the new interest
-    const query = `
-      USE CareerPathNavigator;
-      INSERT INTO Interest (studentId, category, created_at)
-      VALUES (@studentId, @category, @created_at)
+      WHERE studentId = ? AND category = ?
     `;
 
-    const result = await pool
-      .request()
-      .input("studentId", sql.Int, studentid)
-      .input("category", sql.VarChar(50), interesttype)
-      .input("created_at", sql.Date, interestcreation)
-      .query(query);
+    // Execute the check query using MySQL connection
+    connection.query(checkQuery, [studentid, interesttype], (err, result) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
 
-    if (result.rowsAffected[0] > 0) {
-      res.status(201).json({ message: "Interest added successfully" });
-    } else {
-      res.status(500).json({ error: "Failed to add interest" });
-    }
+      if (result[0].count > 0) {
+        // If the interest category already exists, return an error
+        return res.status(400).json({ error: "Interest category already added" });
+      }
+
+      // SQL query to insert the new interest into the Interest table
+      const insertQuery = `
+        INSERT INTO Interest (studentId, category, created_at)
+        VALUES (?, ?, ?)
+      `;
+
+      // Execute the insert query using the MySQL connection
+      connection.query(insertQuery, [studentid, interesttype, interestcreation], (err, result) => {
+        if (err) {
+          console.error("Database error:", err);
+          return res.status(500).json({ error: "Failed to add interest" });
+        }
+
+        if (result.affectedRows > 0) {
+          res.status(201).json({ message: "Interest added successfully" });
+        } else {
+          res.status(500).json({ error: "Failed to add interest" });
+        }
+      });
+    });
   } catch (error) {
-    console.error("Database error:", error);
+    console.error("Unexpected error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

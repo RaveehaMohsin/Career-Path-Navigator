@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const sql = require("mssql");
+const connection = require("../../database/mysql");
 
 router.post("/", async (req, res) => {
   const {
@@ -14,66 +14,72 @@ router.post("/", async (req, res) => {
   } = req.body;
 
   try {
-    const pool = await sql.connect();
-
     // Check if the counsellor's schedule already exists in the table
     const checkQuery = `
-      USE CareerPathNavigator;
-      SELECT COUNT(*) AS count FROM Counsellor WHERE counsellorId = @counsellorId
+      SELECT COUNT(*) AS count FROM Counsellor WHERE counsellorId = ?
     `;
-    const checkResult = await pool
-      .request()
-      .input("counsellorId", sql.Int, counsellorId)
-      .query(checkQuery);
+    
+    connection.query(checkQuery, [counsellorId], (err, result) => {
+      if (err) {
+        console.error("Error checking counsellor data:", err);
+        return res.status(500).json({ error: "An error occurred while checking the counsellor." });
+      }
 
-    if (checkResult.recordset[0].count > 0) {
-      // Update the existing schedule
-      const updateQuery = `
-        USE CareerPathNavigator;
-        UPDATE Counsellor
-        SET 
-          expertise = @expertise,
-          qualifications = @qualifications,
-          hourlyRate = @hourlyRate,
-          noOfDaysAvailable = @daysAvailable,
-          availableDays = @selectedDays,
-          timeSlots = @timeSlots
-        WHERE counsellorId = @counsellorId
-      `;
+      if (result[0].count > 0) {
+        // Update the existing schedule
+        const updateQuery = `
+          UPDATE Counsellor
+          SET 
+            expertise = ?, 
+            qualifications = ?, 
+            hourlyRate = ?, 
+            noOfDaysAvailable = ?, 
+            availableDays = ?, 
+            timeSlots = ?
+          WHERE counsellorId = ?
+        `;
 
-      await pool
-        .request()
-        .input("counsellorId", sql.Int, counsellorId)
-        .input("expertise", sql.VarChar(255), expertise)
-        .input("qualifications", sql.Text, qualifications)
-        .input("hourlyRate", sql.Decimal(10, 2), hourlyRate)
-        .input("daysAvailable", sql.Int, daysAvailable)
-        .input("selectedDays", sql.VarChar(sql.MAX), selectedDays.join(","))
-        .input("timeSlots", sql.VarChar(50), `${timeSlots.start}-${timeSlots.end}`)
-        .query(updateQuery);
+        connection.query(updateQuery, [
+          expertise,
+          qualifications,
+          hourlyRate,
+          daysAvailable,
+          selectedDays.join(","),
+          `${timeSlots.start}-${timeSlots.end}`,
+          counsellorId,
+        ], (err, result) => {
+          if (err) {
+            console.error("Error updating counsellor schedule:", err);
+            return res.status(500).json({ error: "An error occurred while updating the schedule." });
+          }
 
-      return res.status(200).json({ message: "Schedule updated successfully." });
-    } else {
-      // Insert a new schedule
-      const insertQuery = `
-        USE CareerPathNavigator;
-        INSERT INTO Counsellor (counsellorId, expertise, qualifications, hourlyRate, noOfDaysAvailable, availableDays, timeSlots)
-        VALUES (@counsellorId, @expertise, @qualifications, @hourlyRate, @daysAvailable, @selectedDays, @timeSlots)
-      `;
+          return res.status(200).json({ message: "Schedule updated successfully." });
+        });
+      } else {
+        // Insert a new schedule
+        const insertQuery = `
+          INSERT INTO Counsellor (counsellorId, expertise, qualifications, hourlyRate, noOfDaysAvailable, availableDays, timeSlots)
+          VALUES (?, ?, ?, ?, ?, ?, ?)
+        `;
 
-      await pool
-        .request()
-        .input("counsellorId", sql.Int, counsellorId)
-        .input("expertise", sql.VarChar(255), expertise)
-        .input("qualifications", sql.Text, qualifications)
-        .input("hourlyRate", sql.Decimal(10, 2), hourlyRate)
-        .input("daysAvailable", sql.Int, daysAvailable)
-        .input("selectedDays", sql.VarChar(sql.MAX), selectedDays.join(","))
-        .input("timeSlots", sql.VarChar(50), `${timeSlots.start}-${timeSlots.end}`)
-        .query(insertQuery);
+        connection.query(insertQuery, [
+          counsellorId,
+          expertise,
+          qualifications,
+          hourlyRate,
+          daysAvailable,
+          selectedDays.join(","),
+          `${timeSlots.start}-${timeSlots.end}`,
+        ], (err, result) => {
+          if (err) {
+            console.error("Error inserting new counsellor schedule:", err);
+            return res.status(500).json({ error: "An error occurred while adding the schedule." });
+          }
 
-      return res.status(201).json({ message: "Schedule added successfully." });
-    }
+          return res.status(201).json({ message: "Schedule added successfully." });
+        });
+      }
+    });
   } catch (error) {
     console.error("Error handling schedule data:", error);
     res.status(500).json({ error: "An error occurred while processing the schedule." });

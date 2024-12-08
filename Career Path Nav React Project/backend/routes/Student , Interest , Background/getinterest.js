@@ -1,30 +1,33 @@
 const express = require("express");
 const router = express.Router();
-const sql = require("mssql");
+const connection = require("../../database/mysql"); // Assuming connection is already made
 
+// Fetch user interests by userId
 router.get('/:userId', async (req, res) => {
     const { userId } = req.params;
 
     try {
-        const pool = await sql.connect(); 
         const query = `
             SELECT category, created_at
             FROM Interest
-            WHERE studentId = @userId
+            WHERE studentId = ?
         `;
         
-        const result = await pool
-            .request()
-            .input("userId", sql.Int, userId) 
-            .query(query);
+        // Execute the query using MySQL connection
+        connection.query(query, [userId], (err, result) => {
+            if (err) {
+                console.error("Database error:", err);
+                return res.status(500).json({ error: "An error occurred while fetching the user's interests." });
+            }
 
-        if (result.recordset.length === 0) {
-            return res.status(404).json({ message: "No interests found for the user." });
-        }
+            if (result.length === 0) {
+                return res.status(404).json({ message: "No interests found for the user." });
+            }
 
-        res.status(200).json(result.recordset);
+            res.status(200).json(result);
+        });
     } catch (error) {
-        console.error("Database error:", error);
+        console.error("Unexpected error:", error);
         res.status(500).json({ error: "An error occurred while fetching the user's interests." });
     }
 });

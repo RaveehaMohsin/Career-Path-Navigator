@@ -24,12 +24,13 @@ const StudentDetailMeetList = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch meetings");
         }
-
+  
         const result = await response.json();
-
+        console.log(result)
+  
         // Check if the URL contains 'counsellor'
         const isCounsellor = location.pathname.includes('counsellor');
-
+  
         // Filter and map data for the given student ID
         const filteredData = result.meetings
           .filter((meeting) => meeting.studentId === parseInt(userId, 10))
@@ -41,39 +42,40 @@ const StudentDetailMeetList = () => {
             return true; // No filtering by counsellorId for other cases
           })
           .map((meeting) => {
-            const meetingDateTime = new Date(meeting.MeetingDate);
-            const meetingTime = new Date(meeting.MeetingTime)
+            // Format meeting date
+            const meetingDate = new Date(meeting.MeetingDate);
+            const formattedDate = new Date(meetingDate.getTime() - meetingDate.getTimezoneOffset() * 60000)
               .toISOString()
-              .substring(11, 16); // Extract HH:mm format
-
+              .split('T')[0]; // Format as 'YYYY-MM-DD'
+  
+            // Use the time provided in the backend directly (no need to create a Date object)
+            const meetingTime = meeting.MeetingTime; // Time is already in the format HH:mm:ss
+  
             const now = new Date();
-
-            // Combine meeting date and time for comparison
-            meetingDateTime.setHours(
-              meetingTime.split(":")[0],
-              meetingTime.split(":")[1],
-              0
-            );
-
+            const meetingDateTime = new Date(meeting.MeetingDate);
+            const [hours, minutes] = meetingTime.split(":"); // Split time into hours and minutes
+            meetingDateTime.setHours(hours, minutes, 0); // Set meeting time
+  
             const status = meetingDateTime < now ? "Done" : "Pending";
-
+  
             return {
               Counsellor: `${meeting.counsellorFirstName} ${meeting.counsellorLastName}`, // Counsellor name
-              "Meet Date": new Date(meeting.MeetingDate).toLocaleDateString(), // Format meet date
+              "Meet Date": formattedDate, // Use the formatted date
               "Meet Link": meeting.meetLink,
-              "Meet Time": meetingTime, // Use formatted time
+              "Meet Time": meetingTime.substring(0, 5), // Format as HH:mm
               Status: status,
             };
           });
-
+  
         setData(filteredData);
       } catch (error) {
         console.error("Error fetching meetings:", error);
       }
     };
-
+  
     fetchData();
   }, [userId, location]); // Depend on userId from URL and location
+  
 
   return (
     <div>

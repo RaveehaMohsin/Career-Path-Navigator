@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const sql = require("mssql");
+const connection = require("../../database/mysql"); // Assuming connection is already made
 
 router.post("/", async (req, res) => {
   const { studentid, institutename, degreelevel, degreetitle, totalmarks, obtainedmarks } = req.body;
@@ -11,59 +11,50 @@ router.post("/", async (req, res) => {
   }
 
   try {
-    // Connect to the database
-    const pool = await sql.connect();
-
-    // Query to check if the student has already entered the same degree details
+    // SQL query to check if the student has already entered the same degree details
     const checkQuery = `
-     USE CareerPathNavigator;
       SELECT COUNT(*) AS count
       FROM Background
-      WHERE studentId = @studentId
-      AND instituteName = @instituteName
-      AND degreeTitle = @degreeTitle
-      AND degreeLevel = @degreeLevel
+      WHERE studentId = ? 
+        AND instituteName = ? 
+        AND degreeTitle = ? 
+        AND degreeLevel = ?
     `;
 
-    const checkResult = await pool
-      .request()
-      .input("studentId", sql.Int, studentid)
-      .input("instituteName", sql.VarChar(100), institutename)
-      .input("degreeTitle", sql.VarChar(100), degreetitle)
-      .input("degreeLevel", sql.VarChar(100), degreelevel)
-      .query(checkQuery);
+    // Execute the check query using the MySQL connection
+    connection.query(checkQuery, [studentid, institutename, degreetitle, degreelevel], (err, result) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
 
-    if (checkResult.recordset[0].count > 0) {
-      // If the degree entry already exists, return an error
-      return res.status(400).json({ error: "This degree entry already exists for the student." });
-    }
+      if (result[0].count > 0) {
+        // If the degree entry already exists, return an error
+        return res.status(400).json({ error: "This degree entry already exists for the student." });
+      }
 
-    // SQL query to insert data into the Background table
-    const query = `
-      USE CareerPathNavigator;
-      INSERT INTO Background (studentId, instituteName, degreeTitle, degreeLevel, TotalMarks, ObtainedMarks)
-      VALUES (@studentId, @instituteName, @degreeTitle, @degreeLevel, @totalMarks, @obtainedMarks)
-    `;
+      // SQL query to insert data into the Background table
+      const insertQuery = `
+        INSERT INTO Background (studentId, instituteName, degreeTitle, degreeLevel, TotalMarks, ObtainedMarks)
+        VALUES (?, ?, ?, ?, ?, ?)
+      `;
 
-    // Execute the query with parameterized inputs to prevent SQL injection
-    const result = await pool
-      .request()
-      .input("studentId", sql.Int, studentid)
-      .input("instituteName", sql.VarChar(100), institutename)
-      .input("degreeTitle", sql.VarChar(100), degreetitle)
-      .input("degreeLevel", sql.VarChar(100), degreelevel)
-      .input("totalMarks", sql.Float, totalmarks)
-      .input("obtainedMarks", sql.Float, obtainedmarks)
-      .query(query);
+      // Execute the insert query using the MySQL connection
+      connection.query(insertQuery, [studentid, institutename, degreetitle, degreelevel, totalmarks, obtainedmarks], (err, result) => {
+        if (err) {
+          console.error("Database error:", err);
+          return res.status(500).json({ error: "Failed to insert record into Background table" });
+        }
 
-    // Check if the insertion was successful
-    if (result.rowsAffected[0] > 0) {
-      res.status(201).json({ message: "Record added successfully to Background table" });
-    } else {
-      res.status(500).json({ error: "Failed to insert record into Background table" });
-    }
+        if (result.affectedRows > 0) {
+          res.status(201).json({ message: "Record added successfully to Background table" });
+        } else {
+          res.status(500).json({ error: "Failed to insert record into Background table" });
+        }
+      });
+    });
   } catch (error) {
-    console.error("Database error:", error);
+    console.error("Unexpected error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

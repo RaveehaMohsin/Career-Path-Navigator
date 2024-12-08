@@ -27,64 +27,65 @@ export default function Notifications() {
     return () => clearInterval(timer); // Clean up timer on unmount
   }, []);
 
-  const calculateStatus = (meetingTime, meetingDate) => {
-    const meetingStart = formatTime(meetingTime);  // Format meeting start time to 'HH:mm'
-    meetingDate = formatDate(meetingDate)
+// Function to calculate the status of the meeting
+const calculateStatus = (meetingTime, meetingDate) => {
+  const meetingStart = meetingTime;  // Format meeting start time to 'HH:mm'
+  meetingDate = formatDate(meetingDate);  // Format meeting date to 'YYYY-MM-DD'
 
-    // Combine the meeting date and time into a single Date object
-    const formattedMeetingDateTime = new Date(meetingDate + 'T' + meetingStart); // ISO format: YYYY-MM-DDTHH:mm
+  // Combine the meeting date and time into a single Date object in local time
+  const formattedMeetingDateTime = new Date(meetingDate + 'T' + meetingStart); // ISO format: YYYY-MM-DDTHH:mm
 
-    // Get the current date and time
-    const currentDateTime = new Date();
+  // Get the current date and time in local timezone
+  const currentDateTime = new Date();
 
-    // Ensure both are valid Date objects
-    if (isNaN(formattedMeetingDateTime) || isNaN(currentDateTime)) {
-        console.error("Invalid time or date format for meeting or current time.");
-        return {
-            status: "Error",
-            timeLeft: "Invalid time or date format",
-            buttonEnabled: false,
-        };
-    }
+  // Ensure both are valid Date objects
+  if (isNaN(formattedMeetingDateTime) || isNaN(currentDateTime)) {
+      console.error("Invalid time or date format for meeting or current time.");
+      return {
+          status: "Error",
+          timeLeft: "Invalid time or date format",
+          buttonEnabled: false,
+      };
+  }
 
-    // Calculate the time difference and status
-    if (currentDateTime < formattedMeetingDateTime) {
-        // Meeting is in the future (Pending)
-        const timeLeft = formattedMeetingDateTime - currentDateTime;
-        
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24)); // 1 day = 86400000 ms
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Remaining hours
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60)); // Remaining minutes
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000); // Remaining seconds
+  // Calculate the time difference and status
+  if (currentDateTime < formattedMeetingDateTime) {
+      // Meeting is in the future (Pending)
+      const timeLeft = formattedMeetingDateTime - currentDateTime;
+      
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24)); // 1 day = 86400000 ms
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); // Remaining hours
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60)); // Remaining minutes
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000); // Remaining seconds
 
-        console.log(`Time Left: ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`);
+      console.log(`Time Left: ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`);
 
-        return {
-            status: "Pending",
-            timeLeft: `${days}d ${hours}h ${minutes}m ${seconds}s`,
-            buttonEnabled: false,
-        };
-    } else {
-        // Check if the meeting is ongoing or completed
-        const meetingEndDateTime = new Date(formattedMeetingDateTime);
-        meetingEndDateTime.setHours(meetingEndDateTime.getHours() + 1); // Assume meeting duration is 1 hour
+      return {
+          status: "Pending",
+          timeLeft: `${days}d ${hours}h ${minutes}m ${seconds}s`,
+          buttonEnabled: false,
+      };
+  } else {
+      // Check if the meeting is ongoing or completed
+      const meetingEndDateTime = new Date(formattedMeetingDateTime);
+      meetingEndDateTime.setHours(meetingEndDateTime.getHours() + 1); // Assume meeting duration is 1 hour
 
-        if (currentDateTime >= formattedMeetingDateTime && currentDateTime <= meetingEndDateTime) {
-            // Meeting is ongoing
-            return {
-                status: "Ongoing",
-                timeLeft: "Meeting is in progress",
-                buttonEnabled: true,
-            };
-        } else {
-            // Meeting is completed
-            return {
-                status: "Completed",
-                timeLeft: "Meeting already ended",
-                buttonEnabled: false,
-            };
-        }
-    }
+      if (currentDateTime >= formattedMeetingDateTime && currentDateTime <= meetingEndDateTime) {
+          // Meeting is ongoing
+          return {
+              status: "Ongoing",
+              timeLeft: "Meeting is in progress",
+              buttonEnabled: true,
+          };
+      } else {
+          // Meeting is completed
+          return {
+              status: "Completed",
+              timeLeft: "Meeting already ended",
+              buttonEnabled: false,
+          };
+      }
+  }
 };
 
 
@@ -105,21 +106,18 @@ export default function Notifications() {
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);
-    return date.toISOString().split('T')[0]; // Extract the date part
-  };
+    // Convert to local date using toLocaleDateString
+    const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000); // Adjust to local timezone
+    return localDate.toISOString().split('T')[0]; // Extract the date part in 'YYYY-MM-DD'
+};
 
-  const formatTime = (isoString) => {
-    const date = new Date(isoString);
-    const hours = date.getUTCHours().toString().padStart(2, '0'); // Get hours in UTC
-    const minutes = date.getUTCMinutes().toString().padStart(2, '0'); // Get minutes in UTC
-    return `${hours}:${minutes}`;
-  };
 
-  const formatTimeforcurrent = (date) => {
-    const hours = date.getHours().toString().padStart(2, '0');  // Get local hours and pad with 0 if necessary
-    const minutes = date.getMinutes().toString().padStart(2, '0');  // Get local minutes and pad with 0 if necessary
+// Function to get current time formatted as 'HH:mm' in local timezone
+const formatTimeforcurrent = (date) => {
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
-  };
+};
 
   // Fetch meetings based on user
   const getmeetingdetails = async () => {
@@ -182,13 +180,15 @@ export default function Notifications() {
     }
 
     try {
+      console.log(invoiceDetails);
       const response = await fetch('http://localhost:4000/create-meeting', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        
         body: JSON.stringify({
-          invoiceId: invoiceDetails.invoiceID,
+          invoiceId: invoiceDetails.invoiceId,
           studentId: meetingDetails.studentId,
           counsellorId: meetingDetails.counsellorId,
           meetingDate: meetingDetails.meetingDate,
@@ -260,8 +260,8 @@ export default function Notifications() {
       <div key={index} className={`meeting-details-container ${meetingClass}`}>
         <div className="meeting-details">
           <p><strong>Counsellor:</strong> {meeting.counsellorFirstName + ' ' + meeting.counsellorLastName}</p>
-          <p><strong>Meeting Date:</strong> {formatDate(meeting.MeetingDate)}</p>
-          <p><strong>Meeting Time:</strong> {formatTime(meeting.MeetingTime)}</p>
+          <p><strong>Meeting Date:</strong>{formatDate(meeting.MeetingDate)}</p>
+          <p><strong>Meeting Time:</strong>{meeting.MeetingTime}</p>
           <p><strong>Status:</strong> {status}</p>
           <p><strong>Time Left:</strong> {timeLeft}</p>
         </div>

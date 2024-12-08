@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const sql = require("mssql");
+const connection = require("../../database/mysql"); // Assuming MySQL connection setup
 
 router.get('/', async (req, res) => {
     try {
-        const pool = await sql.connect();
         const query = `
             SELECT u.userId, 
                    u.firstName, 
@@ -27,24 +26,27 @@ router.get('/', async (req, res) => {
                    C.timeSlots, 
                    C.qualifications, 
                    C.hourlyRate
-            FROM [CareerPathNavigator].[dbo].[Users] u
-            JOIN [CareerPathNavigator].[dbo].[Person] p
-                ON u.userId = p.userId
-            JOIN [CareerPathNavigator].[dbo].[Counsellor] C
-                ON u.userId = C.counsellorId;  
+            FROM Users u
+            JOIN Person p ON u.userId = p.userId
+            JOIN Counsellor C ON u.userId = C.counsellorId;
         `;
         
-        const result = await pool.request().query(query);
+        connection.query(query, (err, result) => {
+            if (err) {
+                console.error("Database error:", err);
+                return res.status(500).json({ error: "An error occurred while fetching the information." });
+            }
 
-        // Check if any data was found
-        if (result.recordset.length === 0) {
-            return res.status(404).json({ message: "No records found." });
-        }
+            // Check if any data was found
+            if (result.length === 0) {
+                return res.status(404).json({ message: "No records found." });
+            }
 
-        // Respond with the combined data from Users, Person, and Counsellor
-        res.status(200).json(result.recordset);
+            // Respond with the combined data from Users, Person, and Counsellor
+            res.status(200).json(result);
+        });
     } catch (error) {
-        console.error("Database error:", error);
+        console.error("Error:", error);
         res.status(500).json({ error: "An error occurred while fetching the information." });
     }
 });

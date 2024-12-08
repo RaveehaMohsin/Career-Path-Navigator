@@ -6,7 +6,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 describe("API Tests for Adding Data", () => {
-  const uniqueIdStudent = 5; 
+  const uniqueIdStudent = 1; 
   const uniqueId = Date.now(); 
 
   // Test cases for the 'addJob' route
@@ -66,7 +66,7 @@ describe("API Tests for Adding Data", () => {
           jobTitle: `Software Developer ${uniqueId}`,
         })
         .end((err, res) => {
-          expect(res).to.have.status(500);
+          expect(res).to.have.status(400);
           expect(res.body).to.have.property("error");
           done();
         });
@@ -194,7 +194,7 @@ describe("API Tests for Adding Data", () => {
           courseTitle: `Data Science 101 ${uniqueId}`,
         })
         .end((err, res) => {
-          expect(res).to.have.status(500);
+          expect(res).to.have.status(400);
           expect(res.body).to.have.property("error");
           done();
         });

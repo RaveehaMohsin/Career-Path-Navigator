@@ -1,31 +1,33 @@
 const express = require("express");
 const router = express.Router();
-const sql = require("mssql");
+const connection = require("../../database/mysql"); // Assuming connection is already made
 
 // Fetch background details
 router.get('/:userId', async (req, res) => {
     const { userId } = req.params;
 
     try {
-        const pool = await sql.connect();
         const query = `
             SELECT *
             FROM Background
-            WHERE studentId = @userId
+            WHERE studentId = ?
         `;
         
-        const result = await pool
-            .request()
-            .input("userId", sql.Int, userId)
-            .query(query);
+        // Execute the query using MySQL connection
+        connection.query(query, [userId], (err, result) => {
+            if (err) {
+                console.error("Database error:", err);
+                return res.status(500).json({ error: "An error occurred while fetching the user's background." });
+            }
 
-        if (result.recordset.length === 0) {
-            return res.status(404).json({ message: "No Background found for the user." });
-        }
+            if (result.length === 0) {
+                return res.status(404).json({ message: "No Background found for the user." });
+            }
 
-        res.status(200).json(result.recordset);
+            res.status(200).json(result);
+        });
     } catch (error) {
-        console.error("Database error:", error);
+        console.error("Unexpected error:", error);
         res.status(500).json({ error: "An error occurred while fetching the user's background." });
     }
 });
@@ -35,91 +37,96 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        const pool = await sql.connect();
         const query = `
             DELETE FROM Background
-            WHERE backgroundId = @id
+            WHERE backgroundId = ?
         `;
 
-        const result = await pool
-            .request()
-            .input("id", sql.Int, id)
-            .query(query);
+        // Execute the query to delete the record
+        connection.query(query, [id], (err, result) => {
+            if (err) {
+                console.error("Database error:", err);
+                return res.status(500).json({ error: "An error occurred while deleting the record." });
+            }
 
-        if (result.rowsAffected[0] === 0) {
-            return res.status(404).json({ message: "No record found to delete with the given ID." });
-        }
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ message: "No record found to delete with the given ID." });
+            }
 
-        res.status(200).json({ message: "Record successfully deleted." });
+            res.status(200).json({ message: "Record successfully deleted." });
+        });
     } catch (error) {
-        console.error("Database error:", error);
+        console.error("Unexpected error:", error);
         res.status(500).json({ error: "An error occurred while deleting the record." });
     }
 });
 
+// Update background details by ID
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { studentid, institutename, degreetitle, degreelevel, totalmarks, obtainedmarks } = req.body;
 
     try {
-        const pool = await sql.connect();
-
         // First, check for duplicate entry (excluding the current record being updated)
         const checkQuery = `
             SELECT COUNT(*) AS count
             FROM Background
-            WHERE studentId = @studentId
-            AND instituteName = @instituteName
-            AND degreeTitle = @degreeTitle
-            AND degreeLevel = @degreeLevel
-            AND backgroundId != @id
+            WHERE studentId = ?
+            AND instituteName = ?
+            AND degreeTitle = ?
+            AND degreeLevel = ?
+            AND backgroundId != ?
         `;
         
-        const checkResult = await pool
-            .request()
-            .input("studentId", sql.Int, studentid)
-            .input("instituteName", sql.VarChar(100), institutename)
-            .input("degreeTitle", sql.VarChar(100), degreetitle)
-            .input("degreeLevel", sql.VarChar(100), degreelevel)
-            .input("id", sql.Int, id)
-            .query(checkQuery);
+        // Execute the check query for duplicates
+        connection.query(checkQuery, [studentid, institutename, degreetitle, degreelevel, id], (err, checkResult) => {
+            if (err) {
+                console.error("Database error:", err);
+                return res.status(500).json({ error: "An error occurred while checking for duplicates." });
+            }
 
-        // If a duplicate record is found, return an error
-        if (checkResult.recordset[0].count > 0) {
-            return res.status(400).json({ error: "This degree entry already exists for the student." });
-        }
+            // If a duplicate record is found, return an error
+            if (checkResult[0].count > 0) {
+                return res.status(400).json({ error: "This degree entry already exists for the student." });
+            }
 
-        // Update the background record if no duplicate is found
-        const query = `
-            UPDATE Background
-            SET 
-                studentId = @studentId,
-                instituteName = @instituteName,
-                degreeTitle = @degreeTitle,
-                degreeLevel = @degreeLevel,
-                TotalMarks = @totalmarks,
-                ObtainedMarks = @obtainedmarks
-            WHERE backgroundId = @id
-        `;
+            // Update the background record if no duplicate is found
+            const updateQuery = `
+                UPDATE Background
+                SET 
+                    studentId = ?, 
+                    instituteName = ?, 
+                    degreeTitle = ?, 
+                    degreeLevel = ?, 
+                    TotalMarks = ?, 
+                    ObtainedMarks = ?
+                WHERE backgroundId = ?
+            `;
 
-        const result = await pool
-            .request()
-            .input("id", sql.Int, id)
-            .input("studentId", sql.Int, studentid)
-            .input("instituteName", sql.VarChar(100), institutename)
-            .input("degreeTitle", sql.VarChar(100), degreetitle)
-            .input("degreeLevel", sql.VarChar(100), degreelevel)
-            .input("totalMarks", sql.Float, totalmarks)
-            .input("obtainedMarks", sql.Float, obtainedmarks)
-            .query(query);
+            // Execute the update query
+            connection.query(updateQuery, [
+                studentid, 
+                institutename, 
+                degreetitle, 
+                degreelevel, 
+                totalmarks, 
+                obtainedmarks, 
+                id
+            ], (err, result) => {
+                if (err) {
+                    console.error("Database error:", err);
+                    return res.status(500).json({ error: "An error occurred while updating the record." });
+                }
 
-        if (result.rowsAffected[0] === 0) {
-            return res.status(404).json({ message: "No record found to update with the given ID." });
-        }
+                if (result.affectedRows === 0) {
+                    return res.status(404).json({ message: "No record found to update with the given ID." });
+                }
 
-        res.status(200).json({ message: "Record successfully updated." });
+                res.status(200).json({ message: "Record successfully updated." });
+            });
+        });
     } catch (error) {
-        console.error("Database error:", error);
+        console.error("Unexpected error:", error);
         res.status(500).json({ error: "An error occurred while updating the record." });
     }
 });

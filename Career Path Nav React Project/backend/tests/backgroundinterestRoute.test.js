@@ -6,7 +6,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 describe("POST / (Add Degree Record)", () => {
-  const uniqueIdStudent = 7; 
+  const uniqueIdStudent = 1; 
   const uniqueId = Date.now(); 
   const testDegreeData = {
     studentid: uniqueIdStudent,

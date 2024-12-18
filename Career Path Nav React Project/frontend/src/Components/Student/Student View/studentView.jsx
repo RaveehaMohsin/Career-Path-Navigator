@@ -44,14 +44,14 @@ const StudentView = () => {
 
   const fetchPersonProfile = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/getperson/${userId}`);
+      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getperson/${userId}`);
       const data = await response.json();
 
       if (data) {
         setpersonData(data);
         // If there's an image, set it
         if (data.Img) {
-          setSelectedImage("http://localhost:4000" + data.Img);
+          setSelectedImage("https://marshy-brainy-weight.glitch.me" + data.Img);
         }
       } else {
         console.log("No person data found.");
@@ -63,7 +63,7 @@ const StudentView = () => {
 
   const fetchuserProfile = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/getuser/${userId}`);
+      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getuser/${userId}`);
       const data = await response.json();
 
       if (data) {
@@ -80,7 +80,7 @@ const StudentView = () => {
   const fetchInterests = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/getinterest/${userId}`
+        `https://marshy-brainy-weight.glitch.me/getinterest/${userId}`
       );
       const data = await response.json();
 
@@ -98,7 +98,7 @@ const StudentView = () => {
   const fetchBackground = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/getbackground/${userId}`
+        `https://marshy-brainy-weight.glitch.me/getbackground/${userId}`
       );
       const data = await response.json();
 
@@ -116,7 +116,7 @@ const StudentView = () => {
   const fetchJobs = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/getProgresses/getjobs/${userId}`
+        `https://marshy-brainy-weight.glitch.me/getProgresses/getjobs/${userId}`
       );
       const data = await response.json();
 
@@ -134,7 +134,7 @@ const StudentView = () => {
   const fetchDegrees = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/getProgresses/getdegrees/${userId}`
+        `https://marshy-brainy-weight.glitch.me/getProgresses/getdegrees/${userId}`
       );
       const data = await response.json();
 
@@ -152,7 +152,7 @@ const StudentView = () => {
   const fetchCourses = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/getProgresses/getcourses/${userId}`
+        `https://marshy-brainy-weight.glitch.me/getProgresses/getcourses/${userId}`
       );
       const data = await response.json();
 

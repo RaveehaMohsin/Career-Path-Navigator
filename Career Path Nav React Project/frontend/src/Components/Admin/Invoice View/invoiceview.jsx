@@ -24,7 +24,7 @@ const InvoiceView = () => {
     // Check if the URL contains "counsellor"
     const isCounsellorView = window.location.pathname.includes("counsellor");
 
-    fetch("http://localhost:4000/get-invoices")
+    fetch("https://marshy-brainy-weight.glitch.me/get-invoices")
       .then((response) => response.json()) // Assuming the API returns JSON
       .then((invoices) => {
         // Hardcoding the status to "Paid" for all invoices as per your request

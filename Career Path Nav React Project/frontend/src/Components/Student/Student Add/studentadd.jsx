@@ -31,7 +31,7 @@ export default function Studentadd() {
     const userId = currentuser.userId;
 
     // Fetch user details from the server
-    fetch(`http://localhost:4000/getperson/${userId}`)
+    fetch(`https://marshy-brainy-weight.glitch.me/getperson/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         if (data) {
@@ -44,7 +44,7 @@ export default function Studentadd() {
           setcnic(data.CNIC || "");
           // If the profile image exists, set the selected image
           if (data.Img) {
-            setSelectedImage('http://localhost:4000'+ data.Img);  // Assuming the server returns the image URL
+            setSelectedImage('https://marshy-brainy-weight.glitch.me'+ data.Img);  // Assuming the server returns the image URL
           }
         } else {
           // If no data is found, fields will remain empty
@@ -110,7 +110,7 @@ export default function Studentadd() {
     }
   
     // Submit the form data to the server
-    fetch("http://localhost:4000/addperson", {
+    fetch("https://marshy-brainy-weight.glitch.me/addperson", {
       method: "POST",
       body: formData,
     })

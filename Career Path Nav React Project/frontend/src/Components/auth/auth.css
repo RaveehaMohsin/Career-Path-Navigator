@@ -73,6 +73,15 @@
     color: var(--primary-color1);
   }
 
+  .icon {
+    position: absolute;
+    left: 15px; /* Position icon inside the field */
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center the icon */
+    font-size: 20px;
+    color: var(--primary-color1);
+  }
+
   .signIn-Icon {
     position: absolute;             /* Position the icon above the form */
     font-size: 8rem;               /* Icon size */

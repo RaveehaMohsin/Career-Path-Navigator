@@ -41,14 +41,32 @@ const KeyboardScroll = () => {
       window.scrollBy(0, event.deltaY * 3); // Increase multiplier for faster two-finger scrolling
     };
 
-    // Add event listeners for keyboard and wheel scrolling
+    // Function to handle touch scrolling for mobile devices
+    let lastTouchY = 0;
+    const handleTouchStart = (event) => {
+      lastTouchY = event.touches[0].clientY;
+    };
+
+    const handleTouchMove = (event) => {
+      event.preventDefault();
+      const touchY = event.touches[0].clientY;
+      const deltaY = lastTouchY - touchY;
+      lastTouchY = touchY;
+      window.scrollBy(0, deltaY * 5); // Significant multiplier for faster scrolling
+    };
+
+    // Add event listeners for keyboard, wheel, and touch scrolling
     window.addEventListener('keydown', handleKeyScroll);
     window.addEventListener('wheel', handleWheelScroll, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
 
     // Cleanup event listeners on component unmount
     return () => {
       window.removeEventListener('keydown', handleKeyScroll);
       window.removeEventListener('wheel', handleWheelScroll);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
     };
   }, []);
 

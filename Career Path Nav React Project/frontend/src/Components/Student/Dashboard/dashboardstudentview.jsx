@@ -10,6 +10,8 @@ import { SiGooglemeet } from "react-icons/si";
 import { IoSchoolOutline } from "react-icons/io5";
 
 const DashboradStudentView = () => {
+  const userData = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers"));
+  const username = userData.user.firstName + " " + userData.user.lastName;
   const linechartData = [40, 70, 50, 60, 75, 50];
   const doublelinechartLabels = [
     "Jan",
@@ -122,7 +124,7 @@ const DashboradStudentView = () => {
 
   return (
     <div>
-      <Upperheader title="Dashboard" />
+      <Upperheader title="Dashboard" name={username}/>
 
       <div className="unique-main-wrapper">
         <div className="unique-row-wrapper">

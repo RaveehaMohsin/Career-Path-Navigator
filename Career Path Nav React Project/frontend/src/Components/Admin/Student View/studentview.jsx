@@ -34,13 +34,13 @@ const StudentViewAdmin = () => {
   const fetchStudents = async () => {
     try {
       // Make the fetch request to your backend endpoint
-      const response = await fetch("https://marshy-brainy-weight.glitch.me/getstudents"); // Replace with your API URL
+      const response = await fetch("http://localhost:4000/getstudents"); // Replace with your API URL
       if (response.ok) {
         const data = await response.json(); // Parse the JSON response
         setTableData(data); // Update state with the fetched data
         const studentImages = data.map((student) => {
           return student.Img
-            ? `https://marshy-brainy-weight.glitch.me${student.Img}`
+            ? `http://localhost:4000${student.Img}`
             : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe-GsgDIkePXBSguri_zUGTWG0YEY1hMaKNw&s"; // Fallback to C1 if Img is missing
         });
         setImages(studentImages);

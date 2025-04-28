@@ -18,28 +18,30 @@ const DashboradAdminView = () => {
     const [students1, setStudents] = useState([]);
     
     useEffect(() => {
-      fetch('https://marshy-brainy-weight.glitch.me/dashboard/student-background')
+      fetch('http://localhost:4000/dashboard/student-background')
       .then(response => response.json())
       .then(data => setStudents(data)) // Setting the fetched student data
       .catch(error => console.error('Error fetching student data:', error));
 
       // Fetch Total Students
-      fetch('https://marshy-brainy-weight.glitch.me/dashboard/total-students')
+      fetch('http://localhost:4000/dashboard/total-students')
         .then(response => response.json())
         .then(data => setTotalStudents(data.totalStudents))
         .catch(error => console.error('Error fetching total students:', error));
       
       // Fetch Total Counsellors
-      fetch('https://marshy-brainy-weight.glitch.me/dashboard/total-counsellors')
+      fetch('http://localhost:4000/dashboard/total-counsellors')
         .then(response => response.json())
         .then(data => setTotalCounsellors(data.totalCounsellors))
         .catch(error => console.error('Error fetching total counsellors:', error));
       
       // Fetch Total Balance
-      fetch('https://marshy-brainy-weight.glitch.me/dashboard/total-balance')
-        .then(response => response.json())
-        .then(data => setTotalBalance(data.reduce((total, item) => total + item.totalAmount, 0)))
-        .catch(error => console.error('Error fetching total balance:', error));
+      fetch('http://localhost:4000/dashboard/total-balance')
+      .then(response => response.json())
+      .then(data => setTotalBalance(
+        data.reduce((total, item) => total + (parseFloat(item.totalAmount) || 0), 0)
+      ))
+      .catch(error => console.error('Error fetching total balance:', error));
     }, []);
   
   const linechartData = [40, 70, 50, 60, 75, 50];

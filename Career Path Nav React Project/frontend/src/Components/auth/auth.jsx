@@ -86,7 +86,7 @@ const Auth = () => {
 
     if (validateForm()) {
         try {
-            const response = await fetch("https://marshy-brainy-weight.glitch.me/addauthuser", {
+            const response = await fetch("http://localhost:4000/addauthuser", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -158,7 +158,7 @@ const handleSignIn = async (e) => {
   e.preventDefault();
   if (validateSignIn()) {
     try {
-      const response = await fetch("https://marshy-brainy-weight.glitch.me/getauthuser", {
+      const response = await fetch("http://localhost:4000/getauthuser", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

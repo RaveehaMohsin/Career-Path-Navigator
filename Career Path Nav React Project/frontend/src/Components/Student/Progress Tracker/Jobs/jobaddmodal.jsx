@@ -44,7 +44,7 @@ const AddJob = ({ isOpen, onCancel }) => {
     };
 
     try {
-      const response = await fetch("https://marshy-brainy-weight.glitch.me/addJob", {
+      const response = await fetch("http://localhost:4000/addJob", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

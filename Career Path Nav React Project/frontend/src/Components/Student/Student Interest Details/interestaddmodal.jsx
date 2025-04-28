@@ -26,7 +26,7 @@ const AddInterest = ({ isOpen, onCancel }) => {
       interestcreation: currentDateTime,
     };
   
-    const url = `https://marshy-brainy-weight.glitch.me/addinterest`;
+    const url = `http://localhost:4000/addinterest`;
     const method = "POST";
   
     try {

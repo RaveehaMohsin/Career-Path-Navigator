@@ -24,7 +24,7 @@ const InvoiceView = () => {
     // Check if the URL contains "counsellor"
     const isCounsellorView = window.location.pathname.includes("counsellor");
 
-    fetch("https://marshy-brainy-weight.glitch.me/get-invoices")
+    fetch("http://localhost:4000/get-invoices")
       .then((response) => response.json()) // Assuming the API returns JSON
       .then((invoices) => {
         // Hardcoding the status to "Paid" for all invoices as per your request
@@ -117,7 +117,10 @@ const InvoiceView = () => {
               </div>
               <div className="card-row">
                 <span className="label">Amount:</span>
-                <span className="amount">${invoice.amount.toFixed(2)}</span>
+                {/* <span className="amount">${invoice.amount.toFixed(2)}</span> */}
+                <span className="amount">
+                    {isNaN(Number(invoice.amount)) ? "N/A" : `$${Number(invoice.amount).toFixed(2)}`}
+                </span>
               </div>
             </div>
           ))}

@@ -17,7 +17,7 @@ function JobCard({ job }) {
 
     try {
       // Make the API request to update the status
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/updateProgressStatus/update-status-job/${jobId}`, {
+      const response = await fetch(`http://localhost:4000/updateProgressStatus/update-status-job/${jobId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

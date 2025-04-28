@@ -121,7 +121,7 @@ const formatTimeforcurrent = (date) => {
 
   // Fetch meetings based on user
   const getmeetingdetails = async () => {
-    const response = await fetch(`https://marshy-brainy-weight.glitch.me/get-meetings`);
+    const response = await fetch(`http://localhost:4000/get-meetings`);
     const result = await response.json();
 
     // Filter the meetings to find one that matches the current user's ID
@@ -148,7 +148,7 @@ const formatTimeforcurrent = (date) => {
 
     const verifyPayment = async () => {
       try {
-        const response = await fetch(`https://marshy-brainy-weight.glitch.me/addinvoice/verify-payment/${sessionId}`);
+        const response = await fetch(`http://localhost:4000/addinvoice/verify-payment/${sessionId}`);
         const result = await response.json();
         console.log(result);
 
@@ -181,7 +181,7 @@ const formatTimeforcurrent = (date) => {
 
     try {
       console.log(invoiceDetails);
-      const response = await fetch('https://marshy-brainy-weight.glitch.me/create-meeting', {
+      const response = await fetch('http://localhost:4000/create-meeting', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

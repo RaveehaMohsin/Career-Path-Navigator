@@ -120,7 +120,7 @@ const formatTimeforcurrent = (date) => {
  
     // Fetch meetings based on user
     const getmeetingdetails = async () => {
-        const response = await fetch(`https://marshy-brainy-weight.glitch.me/get-meetings`);
+        const response = await fetch(`http://localhost:4000/get-meetings`);
         const result = await response.json();
     
         // Filter the meetings to find one that matches the current user's ID

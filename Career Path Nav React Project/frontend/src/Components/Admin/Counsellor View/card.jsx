@@ -58,7 +58,7 @@ const Card = ({
       meetingTime: meetingtime, 
     };
 
-    const response = await fetch('https://marshy-brainy-weight.glitch.me/create-payment-session', {
+    const response = await fetch('http://localhost:4000/create-payment-session', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

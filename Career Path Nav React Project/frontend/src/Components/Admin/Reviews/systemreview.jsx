@@ -10,7 +10,7 @@ const SystemReviews = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch("https://marshy-brainy-weight.glitch.me/reviews/admin"); 
+        const response = await fetch("http://localhost:4000/reviews/admin"); 
         const data = await response.json();
         setReviewsData(data);
 

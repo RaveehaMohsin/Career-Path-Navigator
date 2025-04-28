@@ -57,8 +57,8 @@ const AddBackground = ({ isOpen, onCancel , selectedRecord, isEditing }) => {
     
       // Determine the URL and method based on whether it's editing or adding a new background
       const url = isEditing
-        ? `https://marshy-brainy-weight.glitch.me/getbackground/${selectedRecord.backgroundId}`
-        : `https://marshy-brainy-weight.glitch.me/addbackground`;
+        ? `http://localhost:4000/getbackground/${selectedRecord.backgroundId}`
+        : `http://localhost:4000/addbackground`;
     
       const method = isEditing ? "PUT" : "POST";
     

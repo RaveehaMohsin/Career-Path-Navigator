@@ -10,7 +10,7 @@ const CounsellorView = () => {
   useEffect(() => {
     const fetchCounsellors = async () => {
       try {
-        const response = await fetch("https://marshy-brainy-weight.glitch.me/getcounsellors");
+        const response = await fetch("http://localhost:4000/getcounsellors");
         const data = await response.json();
 
         if (response.ok) {
@@ -18,7 +18,7 @@ const CounsellorView = () => {
           const updatedCounsellors = data.map((counsellor) => ({
             ...counsellor,
             Img: counsellor.Img
-              ? `https://marshy-brainy-weight.glitch.me${counsellor.Img}`
+              ? `http://localhost:4000${counsellor.Img}`
               : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe-GsgDIkePXBSguri_zUGTWG0YEY1hMaKNw&s", // Fallback image
           }));
           setCounsellors(updatedCounsellors);  // Update state with modified counsellor data

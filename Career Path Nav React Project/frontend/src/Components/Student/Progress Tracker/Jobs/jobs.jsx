@@ -29,7 +29,7 @@ export default function Jobs() {
   // Fetch jobs from the backend when the component mounts
   const fetchJobs = async () => {
     try {
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getProgresses/getjobs/${studentId}`);
+      const response = await fetch(`http://localhost:4000/getProgresses/getjobs/${studentId}`);
       const data = await response.json();
 
       if (response.ok) {

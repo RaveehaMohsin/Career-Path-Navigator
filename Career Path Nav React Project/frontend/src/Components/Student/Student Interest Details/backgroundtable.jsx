@@ -10,7 +10,7 @@ export default function BackgroundTable({ setisbtnclick1, setSelectedRecord, set
     try {
       setIsLoading(true);
       const userId = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers")).user.userId;
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getbackground/${userId}`);
+      const response = await fetch(`http://localhost:4000/getbackground/${userId}`);
       const data = await response.json();
       console.log(data);
 
@@ -48,7 +48,7 @@ export default function BackgroundTable({ setisbtnclick1, setSelectedRecord, set
   const handleDelete = async (id) => {
     try {
       console.log(`Delete clicked for id: ${id}`);
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getbackground/${id}`, {
+      const response = await fetch(`http://localhost:4000/getbackground/${id}`, {
         method: 'DELETE',
       });
 

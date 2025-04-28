@@ -18,7 +18,7 @@ export default function InterestTable({ setisbtnclick }) {
     try {
       setIsLoading(true);
       const userId = JSON.parse(localStorage.getItem("CareerPathNavigatorUsers")).user.userId;
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getinterest/${userId}`);
+      const response = await fetch(`http://localhost:4000/getinterest/${userId}`);
       const data = await response.json();
 
       if (response.ok) {

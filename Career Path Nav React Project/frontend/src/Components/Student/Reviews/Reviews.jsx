@@ -47,7 +47,7 @@ export default function ReviewForm() {
     };
 
     try {
-      const response = await fetch("https://marshy-brainy-weight.glitch.me/addreview", {
+      const response = await fetch("http://localhost:4000/addreview", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +88,7 @@ export default function ReviewForm() {
     const fetchMeetings = async () => {
       try {
         // Fetching meetings data
-        const response = await fetch("https://marshy-brainy-weight.glitch.me/get-meetings");
+        const response = await fetch("http://localhost:4000/get-meetings");
         const data = await response.json();
         setMeetingsData(data.meetings); 
       } catch (error) {

@@ -20,7 +20,7 @@ export default function ScheduleManagement() {
   useEffect(() => {
     const fetchCounselorData = async () => {
       try {
-        const response = await fetch(`https://marshy-brainy-weight.glitch.me/getschedule/${currentuser.userId}`);
+        const response = await fetch(`http://localhost:4000/getschedule/${currentuser.userId}`);
         
         if (!response.ok) {
           throw new Error("Failed to fetch counselor data.");
@@ -104,7 +104,7 @@ const handleSubmit = async (e) => {
   }
 
   try {
-    const response = await fetch("https://marshy-brainy-weight.glitch.me/addschedule", {
+    const response = await fetch("http://localhost:4000/addschedule", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

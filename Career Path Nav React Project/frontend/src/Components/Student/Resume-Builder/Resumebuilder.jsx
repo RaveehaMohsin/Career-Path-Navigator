@@ -32,7 +32,7 @@ export default function Resumebuilder() {
   const fetchResumeData = async () => {
     try {
       const response = await fetch(
-        `https://marshy-brainy-weight.glitch.me/getstudentresume/${userId}`
+        `http://localhost:4000/getstudentresume/${userId}`
       );
       const data = await response.json();
 
@@ -60,7 +60,7 @@ export default function Resumebuilder() {
 
   const fetchPersonData = async () => {
     try {
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getperson/${userId}`);
+      const response = await fetch(`http://localhost:4000/getperson/${userId}`);
       const data = await response.json();
       if (data && response.ok) {
         setPersonInfo(data);
@@ -73,7 +73,7 @@ export default function Resumebuilder() {
   const fetchEducationData = async () => {
     try {
       const response = await fetch(
-        `https://marshy-brainy-weight.glitch.me/getbackground/${userId}`
+        `http://localhost:4000/getbackground/${userId}`
       );
       const data = await response.json();
       if (data && response.ok) {
@@ -95,7 +95,7 @@ export default function Resumebuilder() {
         )
         .join("; ");
 
-      const response = await fetch("https://marshy-brainy-weight.glitch.me/addstudentresume", {
+      const response = await fetch("http://localhost:4000/addstudentresume", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

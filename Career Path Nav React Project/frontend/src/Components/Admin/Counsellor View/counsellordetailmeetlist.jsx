@@ -19,7 +19,7 @@ const CounsellorDetailMeetList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://marshy-brainy-weight.glitch.me/get-meetings`);
+        const response = await fetch(`http://localhost:4000/get-meetings`);
         if (!response.ok) {
           throw new Error("Failed to fetch meetings");
         }

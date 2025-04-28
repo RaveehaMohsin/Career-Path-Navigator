@@ -45,14 +45,14 @@ const AdminProfileView = () => {
 
   const fetchPersonProfile = async () => {
     try {
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getperson/${userId}`);
+      const response = await fetch(`http://localhost:4000/getperson/${userId}`);
       const data = await response.json();
 
       if (data) {
         setpersonData(data);
         // If there's an image, set it
         if (data.Img) {
-          setSelectedImage("https://marshy-brainy-weight.glitch.me" + data.Img);
+          setSelectedImage("http://localhost:4000" + data.Img);
         }
       } else {
         console.log("No person data found.");
@@ -64,7 +64,7 @@ const AdminProfileView = () => {
 
   const fetchuserProfile = async () => {
     try {
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getuser/${userId}`);
+      const response = await fetch(`http://localhost:4000/getuser/${userId}`);
       const data = await response.json();
 
       if (data) {
@@ -81,7 +81,7 @@ const AdminProfileView = () => {
 
   const fetchReviews = async () => {
     try {
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getreviews`);
+      const response = await fetch(`http://localhost:4000/getreviews`);
       const data = await response.json();
   
       if (response.ok) {

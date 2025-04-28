@@ -17,6 +17,7 @@ import Appointment from './Meet with Counsellor/Appointment/Appointment';
 import DashboradStudentView from './Dashboard/dashboardstudentview';
 import Notifications from './Meet with Counsellor/Notifications/Notifications';
 import CounsellorReview from '../Admin/Reviews/studentreviews'
+import Jobsnear from './Jobs Near User/jobsnear';
 
 
 export default function StudentMain() {
@@ -51,6 +52,7 @@ export default function StudentMain() {
             <Route exact path="/meetwithcounsellor/appointment" component={Appointment} />
             <Route exact path="/meetwithcounsellor/notifications" component={Notifications} />
             <Route exact path="/review/fromcounsellor" component={CounsellorReview} />
+            <Route exact path="/student/jobslocation" component={Jobsnear} />
           </Switch>
         </div>
       </div>

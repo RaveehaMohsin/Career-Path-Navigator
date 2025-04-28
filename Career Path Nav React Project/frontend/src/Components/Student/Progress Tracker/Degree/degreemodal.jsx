@@ -45,7 +45,7 @@ const AddDegree = ({ isOpen, onCancel }) => {
     };
 
     try {
-      const response = await fetch("https://marshy-brainy-weight.glitch.me/addDegree", {
+      const response = await fetch("http://localhost:4000/addDegree", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

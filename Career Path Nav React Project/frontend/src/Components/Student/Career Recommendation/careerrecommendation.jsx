@@ -223,7 +223,7 @@ export default function CareerRecommendation() {
   const fetchInterests = async () => {
     try {
       const response = await fetch(
-        `https://marshy-brainy-weight.glitch.me/getinterest/${userId}`
+        `http://localhost:4000/getinterest/${userId}`
       );
       const data = await response.json();
 
@@ -369,7 +369,7 @@ export default function CareerRecommendation() {
     };
 
     try {
-      const response = await fetch("https://marshy-brainy-weight.glitch.me/addDegree", {
+      const response = await fetch("http://localhost:4000/addDegree", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -424,7 +424,7 @@ export default function CareerRecommendation() {
     };
 
     try {
-      const response = await fetch("https://marshy-brainy-weight.glitch.me/addJob", {
+      const response = await fetch("http://localhost:4000/addJob", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -476,7 +476,7 @@ export default function CareerRecommendation() {
     };
 
     try {
-      const response = await fetch("https://marshy-brainy-weight.glitch.me/addCourse", {
+      const response = await fetch("http://localhost:4000/addCourse", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

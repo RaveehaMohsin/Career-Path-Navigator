@@ -11,7 +11,7 @@ const SystemReviews = () => {
     const fetchReviews = async () => {
       try {
         const currentUrl = window.location.pathname; // Get the current URL
-        let endpoint = "https://marshy-brainy-weight.glitch.me/reviews/counselors-to-students";
+        let endpoint = "http://localhost:4000/reviews/counselors-to-students";
 
         const response = await fetch(endpoint);
         const data = await response.json();

@@ -29,7 +29,7 @@ export default function Courses() {
   // Fetch courses from the backend when the component mounts
   const fetchCourses = async () => {
     try {
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getProgresses/getcourses/${studentId}`);
+      const response = await fetch(`http://localhost:4000/getProgresses/getcourses/${studentId}`);
       const data = await response.json();
 
       if (response.ok) {

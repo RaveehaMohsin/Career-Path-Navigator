@@ -16,7 +16,7 @@ function CourseCard({ course }) {
 
     try {
 
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/updateProgressStatus/update-status-course/${courseId}`, {
+      const response = await fetch(`http://localhost:4000/updateProgressStatus/update-status-course/${courseId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

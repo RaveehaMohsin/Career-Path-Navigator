@@ -59,7 +59,7 @@ const Calender = () => {
     const fetchMeetingCounts = async () => {
       try {
         // Construct the fetch URL based on whether counsellorId is present
-        let url = `https://marshy-brainy-weight.glitch.me/get-meetings-count?year=${year}&month=${month + 1}`;
+        let url = `http://localhost:4000/get-meetings-count?year=${year}&month=${month + 1}`;
 
         if (window.location.pathname.includes("/counsellor/meetview") && counsellorId) {
           // Add counsellorId to the request URL

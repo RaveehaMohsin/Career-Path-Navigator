@@ -33,7 +33,7 @@ const StudentViewCounsellor = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await fetch("https://marshy-brainy-weight.glitch.me/getstudents/getstudentsforcounsellors");
+      const response = await fetch("http://localhost:4000/getstudents/getstudentsforcounsellors");
       if (response.ok) {
         const data = await response.json();
         const currentUserId = userData.user.userId;
@@ -52,8 +52,8 @@ const StudentViewCounsellor = () => {
   
         const studentImages = filteredData.map((student) =>
           student.Img
-            ? `https://marshy-brainy-weight.glitch.me${student.Img}`
-            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe-GsgDIkePXBSguri_zUGTWG0YEY1hMaKNw&s"
+            ? `http://localhost:4000${student.Img}`
+            : "http://localhost:4000/images?q=tbn:ANd9GcTe-GsgDIkePXBSguri_zUGTWG0YEY1hMaKNw&s"
         );
         setImages(studentImages);
       } else {

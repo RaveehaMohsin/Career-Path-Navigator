@@ -22,7 +22,7 @@ const LandingPage = () => {
   e.preventDefault();
 
   try {
-    const response = await fetch('https://marshy-brainy-weight.glitch.me/contactus', { 
+    const response = await fetch('http://localhost:4000/contactus', { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

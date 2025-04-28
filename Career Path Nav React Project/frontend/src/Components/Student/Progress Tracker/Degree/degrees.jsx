@@ -29,7 +29,7 @@ export default function Degrees() {
   // Fetch degrees from the backend when the component mounts
   const fetchDegrees = async () => {
     try {
-      const response = await fetch(`https://marshy-brainy-weight.glitch.me/getProgresses/getdegrees/${studentId}`);
+      const response = await fetch(`http://localhost:4000/getProgresses/getdegrees/${studentId}`);
       const data = await response.json();
       console.log(data)
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './dashboard.css';
 import { Link , NavLink } from 'react-router-dom';
-import { FaUser, FaTachometerAlt, FaFileAlt, FaHandshake, FaComments, FaSignOutAlt, FaCalendarCheck, FaEye , FaFileArchive , FaGraduationCap , FaBook , FaBriefcase , FaStar, FaUserShield, FaChalkboardTeacher, FaCalendarAlt, FaBell, FaChartArea  } from 'react-icons/fa'; 
+import { FaUser, FaTachometerAlt, FaFileAlt, FaHandshake, FaComments, FaSignOutAlt, FaCalendarCheck, FaEye , FaFileArchive , FaGraduationCap , FaBook , FaBriefcase , FaStar, FaUserShield, FaChalkboardTeacher, FaCalendarAlt, FaBell, FaChartArea , FaCogs } from 'react-icons/fa'; 
 
 const Dashboard = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -46,6 +46,22 @@ const Dashboard = () => {
                         <NavLink to="/progresstracker/jobs" activeClassName="active-link"  ><FaBook /> Job Listings & Internships</NavLink>
                     </div>
                 )}
+        
+
+                <NavLink to="/student/jobslocation" activeClassName="active-link"  onClick={() => handleSubmenuClick('jobslocation')}>
+                    <FaCogs /> Jobs Near You
+                </NavLink>
+
+
+                <Link onClick={() => handleSubmenuClick('meeting')}>
+                    <FaCalendarCheck /> Meet with Counsellor
+                </Link>
+                {openSubmenu === 'meeting' && (
+                    <div className="submenu">
+                        <NavLink to="/meetwithcounsellor/appointment" activeClassName="active-link"><FaCalendarAlt /> Appointment</NavLink>
+                        <NavLink to="/meetwithcounsellor/notifications" activeClassName="active-link"><FaBell /> Notifications</NavLink>
+                    </div>
+                )}
                 <NavLink to="/student/resume-builder" activeClassName="active-link" onClick={() => handleSubmenuClick('resume-builder')}><FaFileAlt /> Resume Builder</NavLink>
                 <NavLink to="/student/chatbot" activeClassName="active-link" onClick={() => handleSubmenuClick('chatbot')}><FaComments /> Chatbot</NavLink>
                 <Link onClick={() => handleSubmenuClick('review')}>
@@ -56,15 +72,6 @@ const Dashboard = () => {
                         <NavLink to="/review/system" activeClassName="active-link"><FaUserShield /> To System</NavLink>
                         <NavLink to="/review/counsellor" activeClassName="active-link"><FaChalkboardTeacher /> To Counsellors</NavLink>
                         <NavLink to="/review/fromcounsellor" activeClassName="active-link"><FaChalkboardTeacher /> From Counsellors</NavLink>
-                    </div>
-                )}
-                <Link onClick={() => handleSubmenuClick('meeting')}>
-                    <FaCalendarCheck /> Meet with Counsellor
-                </Link>
-                {openSubmenu === 'meeting' && (
-                    <div className="submenu">
-                        <NavLink to="/meetwithcounsellor/appointment" activeClassName="active-link"><FaCalendarAlt /> Appointment</NavLink>
-                        <NavLink to="/meetwithcounsellor/notifications" activeClassName="active-link"><FaBell /> Notifications</NavLink>
                     </div>
                 )}
                 <Link to="/auth"><FaSignOutAlt /> Logout</Link>

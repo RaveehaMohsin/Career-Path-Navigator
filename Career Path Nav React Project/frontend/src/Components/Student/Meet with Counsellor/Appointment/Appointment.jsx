@@ -40,7 +40,7 @@ export default function Appointment() {
 
     try {
       const response = await fetch(
-        `https://marshy-brainy-weight.glitch.me/users-counsellors?selectedDate=${selectedDate}&selectedTime=${startTime}`
+        `http://localhost:4000/users-counsellors?selectedDate=${selectedDate}&selectedTime=${startTime}`
       );
       const counsellors = await response.json();
 
@@ -48,7 +48,7 @@ export default function Appointment() {
       const updatedCounsellors = counsellors.map((counsellor) => ({
         ...counsellor,
         Img: counsellor.Img
-          ? `https://marshy-brainy-weight.glitch.me${counsellor.Img}`
+          ? `http://localhost:4000${counsellor.Img}`
           : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe-GsgDIkePXBSguri_zUGTWG0YEY1hMaKNw&s", // Fallback image
       }));
 
